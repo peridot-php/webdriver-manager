@@ -1,6 +1,6 @@
 {
     "name": "peridot-php/webdriver-manager",
-    "description": "SDK and command line tool for managing Selenium WebDriver",
+    "description": "Library and command line tool for managing Selenium WebDriver",
     "license": "MIT",
     "authors": [
         {
