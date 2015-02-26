@@ -18,14 +18,22 @@ class Manager
      */
     public function __construct(BinaryRequestInterface $request = null)
     {
-        if ($request === null) {
-            $request = new StandardBinaryRequest();
-        }
-
+        $this->request = $request;
         $this->binaries = [
-            new SeleniumStandalone($request),
-            new ChromeDriver($request)
+            new SeleniumStandalone($this->getBinaryRequest()),
+            new ChromeDriver($this->getBinaryRequest())
         ];
+    }
+
+    /**
+     * @return BinaryRequestInterface|StandardBinaryRequest
+     */
+    public function getBinaryRequest()
+    {
+        if ($this->request === null) {
+            return new StandardBinaryRequest();
+        }
+        return $this->request;
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+use Peridot\WebDriverManager\Binary\StandardBinaryRequest;
 use Peridot\WebDriverManager\Manager;
 
 describe('Manager', function () {
@@ -15,7 +16,16 @@ describe('Manager', function () {
     });
 
     describe('->getBinaryRequest()', function () {
-        
+        it('should return a StandardBinaryRequest by default', function () {
+            $manager = new Manager();
+            expect($manager->getBinaryRequest())->to->be->an->instanceof('Peridot\WebDriverManager\Binary\StandardBinaryRequest');
+        });
+
+        it('should return the BinaryRequestInterface if given', function () {
+            $request = new StandardBinaryRequest();
+            $manager = new Manager($request);
+            expect($manager->getBinaryRequest())->to->equal($request);
+        });
     });
 
     describe('->getInstallPath()', function () {
