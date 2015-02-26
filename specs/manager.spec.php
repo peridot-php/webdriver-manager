@@ -14,6 +14,10 @@ describe('Manager', function () {
         }
     });
 
+    describe('->getBinaryRequest()', function () {
+        
+    });
+
     describe('->getInstallPath()', function () {
         it('should return a default path', function () {
             $path = realpath(__DIR__ . '/../binaries');

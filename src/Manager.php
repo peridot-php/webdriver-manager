@@ -1,8 +1,10 @@
 <?php
 namespace Peridot\WebDriverManager;
 
+use Peridot\WebDriverManager\Binary\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
+use Peridot\WebDriverManager\Binary\StandardBinaryRequest;
 
 class Manager
 {
@@ -11,11 +13,18 @@ class Manager
      */
     protected $binaries;
 
-    public function __construct()
+    /**
+     * @param BinaryRequestInterface $request
+     */
+    public function __construct(BinaryRequestInterface $request = null)
     {
+        if ($request === null) {
+            $request = new StandardBinaryRequest();
+        }
+
         $this->binaries = [
-            new SeleniumStandalone(),
-            new ChromeDriver()
+            new SeleniumStandalone($request),
+            new ChromeDriver($request)
         ];
     }
 

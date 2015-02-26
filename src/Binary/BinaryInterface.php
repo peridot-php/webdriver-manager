@@ -46,4 +46,11 @@ interface BinaryInterface
      * @return bool
      */
     public function fetchAndSave($directory);
+
+    /**
+     * Return the fetched content of a binary.
+     *
+     * @return string
+     */
+    public function getContents();
 } 

@@ -9,19 +9,26 @@ abstract class AbstractBinary implements BinaryInterface
     protected $contents;
 
     /**
+     * @var BinaryRequestInterface
+     */
+    protected $request;
+
+    /**
+     * @param BinaryRequestInterface $request
+     */
+    public function __construct(BinaryRequestInterface $request)
+    {
+        $this->request = $request;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @return bool
      */
     public function fetch()
     {
-        $context_options = [
-            'http' => [
-                'method' => 'GET'
-            ]
-        ];
-        $context = stream_context_create($context_options);
-        $this->contents = file_get_contents($this->getUrl(), null, $context);
+        $this->contents = $this->request->request($this->getUrl());
         return $this->contents !== false;
     }
 
@@ -51,5 +58,15 @@ abstract class AbstractBinary implements BinaryInterface
     public function fetchAndSave($directory)
     {
         return $this->fetch() && $this->save($directory);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getContents()
+    {
+        return $this->contents;
     }
 }
