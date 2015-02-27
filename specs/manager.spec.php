@@ -1,13 +1,26 @@
 <?php
+use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
 use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
 use Peridot\WebDriverManager\Manager;
+use Prophecy\Argument;
 
 describe('Manager', function () {
     beforeEach(function () {
-        $this->manager = new Manager();
-        $path = $this->manager->getInstallPath();
+        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
+        $this->decompressor = new TestDecompressor();
 
+        $this->manager = new Manager(
+            $this->request->reveal(),
+            $this->decompressor
+        );
+
+        $this->request->request(Argument::any())->willReturn('string');
+        $this->decompressor->setTargetPath($this->manager->getInstallPath() . '/chromedriver');
+    });
+
+    beforeEach(function () {
+        $path = $this->manager->getInstallPath();
         $selenium = glob("$path/selenium-server-standalone-*");
         $chrome = glob("$path/chromedriver*");
         $files = array_merge($selenium, $chrome);
@@ -56,9 +69,27 @@ describe('Manager', function () {
                 $path = $this->manager->getInstallPath();
                 $selenium = glob("$path/selenium-server-standalone-*");
                 $chrome = glob("$path/chromedriver");
-                expect($selenium)->to->have->length(1);
-                expect($chrome)->to->have->length(1);
+                expect($selenium)->to->have->length(1, 'no selenium file found');
+                expect($chrome)->to->have->length(1, 'no chrome file found');
             });
         });
     });
 });
+
+class TestDecompressor implements BinaryDecompressorInterface
+{
+    public $decompressedPath;
+
+    public $targetPath;
+
+    public function setTargetPath($path)
+    {
+        $this->targetPath = $path;
+    }
+
+    public function extract($compressedFilePath, $directory)
+    {
+        $this->decompressedPath = $compressedFilePath;
+        file_put_contents($this->targetPath, 'binarydata');
+    }
+}
