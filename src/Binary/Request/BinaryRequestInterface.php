@@ -1,5 +1,5 @@
 <?php
-namespace Peridot\WebDriverManager\Binary;
+namespace Peridot\WebDriverManager\Binary\Request;
 
 
 interface BinaryRequestInterface

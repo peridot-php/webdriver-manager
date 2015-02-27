@@ -1,5 +1,5 @@
 <?php
-namespace Peridot\WebDriverManager\Binary;
+namespace Peridot\WebDriverManager\Binary\Request;
 
 /**
  * StandardBinaryRequest uses file_get_contents with a stream context.

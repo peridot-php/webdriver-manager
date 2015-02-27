@@ -3,8 +3,8 @@ use Peridot\WebDriverManager\Binary\CompressedBinary;
 
 describe('CompressedBinary', function () {
     beforeEach(function () {
-        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryRequestInterface');
-        $this->decompressor = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryDecompressorInterface');
+        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
+        $this->decompressor = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface');
         $this->binary = new TestCompressedBinary($this->request->reveal(), $this->decompressor->reveal());
         $this->request->request($this->binary->getUrl())->willReturn('string');
 

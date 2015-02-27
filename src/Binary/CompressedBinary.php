@@ -1,6 +1,9 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
+use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
+
 abstract class CompressedBinary extends AbstractBinary
 {
     protected $decompressor;

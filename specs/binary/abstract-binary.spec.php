@@ -3,7 +3,7 @@ use Peridot\WebDriverManager\Binary\AbstractBinary;
 
 describe('AbstractBinary', function () {
     beforeEach(function () {
-        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryRequestInterface');
+        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
         $this->binary = new TestBinary($this->request->reveal());
         $this->request->request($this->binary->getUrl())->willReturn('string');
 

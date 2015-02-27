@@ -1,12 +1,12 @@
 <?php
 namespace Peridot\WebDriverManager;
 
-use Peridot\WebDriverManager\Binary\BinaryDecompressorInterface;
-use Peridot\WebDriverManager\Binary\BinaryRequestInterface;
+use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
+use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
-use Peridot\WebDriverManager\Binary\StandardBinaryRequest;
-use Peridot\WebDriverManager\Binary\ZipDecompressor;
+use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
+use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
 
 class Manager
 {
@@ -27,13 +27,14 @@ class Manager
 
     /**
      * @param BinaryRequestInterface $request
+     * @param BinaryDecompressorInterface $decompressor
      */
     public function __construct(
         BinaryRequestInterface $request = null,
-        BinaryDecompressorInterface $decompressorInterface = null
+        BinaryDecompressorInterface $decompressor = null
     ) {
         $this->request = $request;
-        $this->decompressor = $decompressorInterface;
+        $this->decompressor = $decompressor;
         $this->binaries = [
             new SeleniumStandalone($this->getBinaryRequest()),
             new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor())

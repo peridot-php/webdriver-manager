@@ -1,6 +1,8 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
+
 abstract class AbstractBinary implements BinaryInterface
 {
     /**

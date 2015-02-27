@@ -1,5 +1,5 @@
 <?php
-namespace Peridot\WebDriverManager\Binary;
+namespace Peridot\WebDriverManager\Binary\Decompression;
 
 use splitbrain\PHPArchive\Zip;
 

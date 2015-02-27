@@ -1,5 +1,6 @@
 <?php
-use Peridot\WebDriverManager\Binary\StandardBinaryRequest;
+use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
+use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
 use Peridot\WebDriverManager\Manager;
 
 describe('Manager', function () {
@@ -18,13 +19,26 @@ describe('Manager', function () {
     describe('->getBinaryRequest()', function () {
         it('should return a StandardBinaryRequest by default', function () {
             $manager = new Manager();
-            expect($manager->getBinaryRequest())->to->be->an->instanceof('Peridot\WebDriverManager\Binary\StandardBinaryRequest');
+            expect($manager->getBinaryRequest())->to->be->an->instanceof('Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest');
         });
 
         it('should return the BinaryRequestInterface if given', function () {
             $request = new StandardBinaryRequest();
             $manager = new Manager($request);
             expect($manager->getBinaryRequest())->to->equal($request);
+        });
+    });
+
+    describe('->getBinaryDecompressor()', function () {
+        it('should return a ZipDecompressor by default', function () {
+            $manager = new Manager();
+            expect($manager->getBinaryDecompressor())->to->be->an->instanceof('Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor');
+        });
+
+        it('should return the BinaryDecompressorInterface if given', function () {
+            $decompressor = new ZipDecompressor();
+            $manager = new Manager(null, $decompressor);
+            expect($manager->getBinaryDecompressor())->to->equal($decompressor);
         });
     });
 
