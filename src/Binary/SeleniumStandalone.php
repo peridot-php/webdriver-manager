@@ -1,10 +1,20 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
+use Peridot\WebDriverManager\OS\System;
 use Peridot\WebDriverManager\Versions;
 
 class SeleniumStandalone extends AbstractBinary
 {
+    /**
+     * @param BinaryRequestInterface $request
+     */
+    public function __construct(BinaryRequestInterface $request)
+    {
+        parent::__construct($request, new System());
+    }
+
     /**
      * {@inheritdoc}
      *

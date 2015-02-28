@@ -12,7 +12,13 @@ class ChromeDriver extends CompressedBinary
      */
     public function getFileName()
     {
-        return "chromedriver_mac32.zip";
+        $file = "chromedriver_";
+
+        if ($this->system->isMac()) {
+            $file .= 'mac32';
+        }
+
+        return "$file.zip";
     }
 
     /**

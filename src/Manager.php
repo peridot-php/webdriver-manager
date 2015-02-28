@@ -7,6 +7,8 @@ use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
 use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
 use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
+use Peridot\WebDriverManager\OS\System;
+use Peridot\WebDriverManager\OS\SystemInterface;
 
 class Manager
 {
@@ -26,18 +28,25 @@ class Manager
     protected $decompressor;
 
     /**
+     * @var SystemInterface
+     */
+    protected $system;
+
+    /**
      * @param BinaryRequestInterface $request
      * @param BinaryDecompressorInterface $decompressor
      */
     public function __construct(
         BinaryRequestInterface $request = null,
-        BinaryDecompressorInterface $decompressor = null
+        BinaryDecompressorInterface $decompressor = null,
+        SystemInterface $system = null
     ) {
         $this->request = $request;
         $this->decompressor = $decompressor;
+        $this->system = $system;
         $this->binaries = [
             new SeleniumStandalone($this->getBinaryRequest()),
-            new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor())
+            new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor(), $this->getSystem())
         ];
     }
 
@@ -66,6 +75,21 @@ class Manager
             return new ZipDecompressor();
         }
         return $this->decompressor;
+    }
+
+    /**
+     * Get the System object responsible for determining operating system
+     * information.
+     *
+     * @return System|SystemInterface
+     */
+    public function getSystem()
+    {
+        if ($this->system === null) {
+            return new System();
+        }
+
+        return $this->system;
     }
 
     /**

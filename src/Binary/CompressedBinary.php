@@ -3,6 +3,7 @@ namespace Peridot\WebDriverManager\Binary;
 
 use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
+use Peridot\WebDriverManager\OS\SystemInterface;
 
 abstract class CompressedBinary extends AbstractBinary
 {
@@ -12,9 +13,9 @@ abstract class CompressedBinary extends AbstractBinary
      * @param BinaryRequestInterface $request
      * @param BinaryDecompressorInterface $decompressor
      */
-    public function __construct(BinaryRequestInterface $request, BinaryDecompressorInterface $decompressor)
+    public function __construct(BinaryRequestInterface $request, BinaryDecompressorInterface $decompressor, SystemInterface $system)
     {
-        parent::__construct($request);
+        parent::__construct($request, $system);
         $this->decompressor = $decompressor;
     }
 

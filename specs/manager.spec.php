@@ -3,16 +3,19 @@ use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
 use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
 use Peridot\WebDriverManager\Manager;
+use Peridot\WebDriverManager\OS\System;
 use Prophecy\Argument;
 
 describe('Manager', function () {
     beforeEach(function () {
         $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
         $this->decompressor = new TestDecompressor();
+        $this->system = $this->getProphet()->prophesize('Peridot\WebDriverManager\OS\SystemInterface');
 
         $this->manager = new Manager(
             $this->request->reveal(),
-            $this->decompressor
+            $this->decompressor,
+            $this->system->reveal()
         );
 
         $this->request->request(Argument::any())->willReturn('string');
@@ -55,6 +58,19 @@ describe('Manager', function () {
         });
     });
 
+    describe('->getSystem()', function () {
+        it('should return a System by default', function () {
+            $manager = new Manager();
+            expect($manager->getSystem())->to->be->an->instanceof('Peridot\WebDriverManager\OS\System');
+        });
+
+        it('should return the SystemInterface if given', function () {
+            $system = new System();
+            $manager = new Manager(null, null, $system);
+            expect($manager->getSystem())->to->equal($system);
+        });
+    });
+
     describe('->getInstallPath()', function () {
         it('should return a default path', function () {
             $path = realpath(__DIR__ . '/../binaries');
@@ -63,7 +79,15 @@ describe('Manager', function () {
     });
 
     describe('->update()', function () {
+        afterEach(function () {
+            $this->getProphet()->checkPredictions();
+        });
+
         context('when on a mac operating system', function () {
+            beforeEach(function () {
+                $this->system->isMac()->willReturn(true);
+            });
+
             it('should download the latest selenium standalone and chrome driver', function () {
                 $this->manager->update();
                 $path = $this->manager->getInstallPath();
