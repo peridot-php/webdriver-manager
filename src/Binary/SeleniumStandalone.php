@@ -1,6 +1,8 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+use Peridot\WebDriverManager\Versions;
+
 class SeleniumStandalone extends AbstractBinary
 {
     /**
@@ -10,7 +12,8 @@ class SeleniumStandalone extends AbstractBinary
      */
     public function getFileName()
     {
-        return 'selenium-server-standalone-2.44.0.jar';
+        $version = Versions::SELENIUM;
+        return "selenium-server-standalone-$version.jar";
     }
 
     /**
@@ -20,6 +23,8 @@ class SeleniumStandalone extends AbstractBinary
      */
     public function getUrl()
     {
-        return "http://selenium-release.storage.googleapis.com/2.44/{$this->getFileName()}";
+        $version = Versions::SELENIUM;
+        $short = substr($version, 0, strrpos($version, '.'));
+        return "http://selenium-release.storage.googleapis.com/$short/{$this->getFileName()}";
     }
 }

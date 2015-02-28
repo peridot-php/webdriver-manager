@@ -1,6 +1,8 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+use Peridot\WebDriverManager\Versions;
+
 class ChromeDriver extends CompressedBinary
 {
     /**
@@ -20,6 +22,7 @@ class ChromeDriver extends CompressedBinary
      */
     public function getUrl()
     {
-        return "http://chromedriver.storage.googleapis.com/2.14/{$this->getFileName()}";
+        $version = Versions::CHROMEDRIVER;
+        return "http://chromedriver.storage.googleapis.com/$version/{$this->getFileName()}";
     }
 }
