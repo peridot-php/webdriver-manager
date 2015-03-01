@@ -1,11 +1,13 @@
 <?php
 use Peridot\WebDriverManager\Binary\CompressedBinary;
+use Peridot\WebDriverManager\OS\System;
+use Prophecy\Argument;
 
 describe('CompressedBinary', function () {
     beforeEach(function () {
         $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
         $this->decompressor = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface');
-        $this->binary = new TestCompressedBinary($this->request->reveal(), $this->decompressor->reveal());
+        $this->binary = new TestCompressedBinary($this->request->reveal(), $this->decompressor->reveal(), new System());
         $this->request->request($this->binary->getUrl())->willReturn('string');
 
         $fixture = __DIR__ . '/' . $this->binary->getFileName();
@@ -23,19 +25,19 @@ describe('CompressedBinary', function () {
             $this->binary->fetch();
         });
 
-        it('write the zip contents to a temp file', function () {
+        it('write the zip contents to an output file', function () {
             $this->binary->save(__DIR__);
-            $this->decompressor->extract(\Prophecy\Argument::type('string'), __DIR__)->shouldBeCalled();
+            $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->shouldBeCalled();
         });
 
         it('should return true if decompression succeeds', function () {
-            $this->decompressor->extract(\Prophecy\Argument::type('string'), __DIR__)->willReturn(true);
+            $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(true);
             $result = $this->binary->save(__DIR__);
             expect($result)->to->be->true;
         });
 
         it('should return false if decompression fails', function () {
-            $this->decompressor->extract(\Prophecy\Argument::type('string'), __DIR__)->willReturn(false);
+            $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(false);
             $result = $this->binary->save(__DIR__);
             expect($result)->to->be->false;
         });
@@ -43,7 +45,7 @@ describe('CompressedBinary', function () {
 
     describe('->fetchAndSave()', function () {
         it('should fetch and save contents', function () {
-            $this->decompressor->extract(\Prophecy\Argument::type('string'), __DIR__)->willReturn(true);
+            $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(true);
             $result = $this->binary->fetchAndSave(__DIR__);
             expect($result)->to->be->true;
         });
@@ -70,5 +72,15 @@ class TestCompressedBinary extends CompressedBinary
     public function getUrl()
     {
         return 'http://url.com';
+    }
+
+    /**
+     * Return the output filename for the compressed binary.
+     *
+     * @return string
+     */
+    public function getOutputFileName()
+    {
+        return 'test-compressed-output.zip';
     }
 }

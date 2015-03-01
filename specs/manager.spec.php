@@ -25,7 +25,7 @@ describe('Manager', function () {
     beforeEach(function () {
         $path = $this->manager->getInstallPath();
         $selenium = glob("$path/selenium-server-standalone-*");
-        $chrome = glob("$path/chromedriver*");
+        $chrome = glob("$path/chromedriver");
         $files = array_merge($selenium, $chrome);
         foreach ($files as $file) {
             unlink($file);

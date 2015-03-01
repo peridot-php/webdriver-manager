@@ -28,8 +28,15 @@ abstract class CompressedBinary extends AbstractBinary
      */
     public function save($directory)
     {
-        $compressedPath = tempnam(sys_get_temp_dir(), "WDM_");
+        $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
         file_put_contents($compressedPath, $this->contents);
         return $this->decompressor->extract($compressedPath, $directory);
     }
+
+    /**
+     * Return the output filename for the compressed binary.
+     *
+     * @return string
+     */
+    abstract public function getOutputFileName();
 }

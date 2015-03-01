@@ -31,4 +31,15 @@ class ChromeDriver extends CompressedBinary
         $version = Versions::CHROMEDRIVER;
         return "http://chromedriver.storage.googleapis.com/$version/{$this->getFileName()}";
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getOutputFileName()
+    {
+        $version = Versions::CHROMEDRIVER;
+        return "chromedriver_$version.zip";
+    }
 }
