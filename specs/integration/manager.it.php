@@ -4,6 +4,14 @@ use Peridot\WebDriverManager\Manager;
 describe('Manager', function () {
     beforeEach(function () {
         $this->manager = new Manager();
+
+        $selenium = glob($this->manager->getInstallPath() . '/selenium*');
+        $chrome = glob($this->manager->getInstallPath() . '/chrome*');
+        $fixtures = array_merge($selenium, $chrome);
+
+        foreach ($fixtures as $fixture) {
+            unlink($fixture);
+        }
     });
 
     describe('->update()', function () {

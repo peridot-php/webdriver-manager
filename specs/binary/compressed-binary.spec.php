@@ -61,6 +61,14 @@ describe('CompressedBinary', function () {
             $result = $this->binary->fetchAndSave(__DIR__);
             expect($result)->to->be->true;
         });
+
+        it('should return true if already installed and up to date', function () {
+            $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(true);
+            $this->binary->fetchAndSave(__DIR__);
+            $decompressor = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface');
+            $binary = new TestCompressedBinary($this->request->reveal(), $decompressor->reveal(), new System());
+            expect($binary->fetchAndSave(__DIR__))->to->be->true;
+        });
     });
 });
 
