@@ -42,4 +42,18 @@ class ChromeDriver extends CompressedBinary
         $version = Versions::CHROMEDRIVER;
         return "chromedriver_$version.zip";
     }
+
+    /**
+     * Remove old versions of the binary.
+     *
+     * @param $directory
+     * @return void
+     */
+    protected function removeOldVersions($directory)
+    {
+        $paths = glob("$directory/chromedriver*");
+        foreach ($paths as $path) {
+            unlink($path);
+        }
+    }
 }

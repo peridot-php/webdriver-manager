@@ -37,4 +37,18 @@ class SeleniumStandalone extends AbstractBinary
         $short = substr($version, 0, strrpos($version, '.'));
         return "http://selenium-release.storage.googleapis.com/$short/{$this->getFileName()}";
     }
+
+    /**
+     * Remove old versions of the binary.
+     *
+     * @param $directory
+     * @return void
+     */
+    protected function removeOldVersions($directory)
+    {
+        $paths = glob("$directory/selenium-server-standalone-*");
+        foreach ($paths as $path) {
+            unlink($path);
+        }
+    }
 }

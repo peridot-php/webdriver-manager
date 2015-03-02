@@ -53,8 +53,8 @@ abstract class AbstractBinary implements BinaryInterface
             return false;
         }
 
+        $this->removeOldVersions($directory);
         $output = "$directory/{$this->getFileName()}";
-
         return file_put_contents($output, $this->contents) !== false;
     }
 
@@ -77,5 +77,16 @@ abstract class AbstractBinary implements BinaryInterface
     public function getContents()
     {
         return $this->contents;
+    }
+
+    /**
+     * Remove old versions of the binary.
+     *
+     * @param $directory
+     * @return void
+     */
+    protected function removeOldVersions($directory)
+    {
+
     }
 }
