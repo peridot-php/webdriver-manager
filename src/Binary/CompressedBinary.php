@@ -28,8 +28,13 @@ abstract class CompressedBinary extends AbstractBinary
      */
     public function save($directory)
     {
-        $this->removeOldVersions($directory);
         $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
+
+        if (file_exists($compressedPath)) {
+            return true;
+        }
+
+        $this->removeOldVersions($directory);
         file_put_contents($compressedPath, $this->contents);
         return $this->decompressor->extract($compressedPath, $directory);
     }

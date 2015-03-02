@@ -10,8 +10,8 @@ describe('CompressedBinary', function () {
         $this->binary = new TestCompressedBinary($this->request->reveal(), $this->decompressor->reveal(), new System());
         $this->request->request($this->binary->getUrl())->willReturn('string');
 
-        $fixture = __DIR__ . '/' . $this->binary->getFileName();
-        if (file_exists($fixture)) {
+        $fixtures = glob(__DIR__ . "/test-*");
+        foreach ($fixtures as $fixture) {
             unlink($fixture);
         }
     });
@@ -40,6 +40,18 @@ describe('CompressedBinary', function () {
             $this->decompressor->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(false);
             $result = $this->binary->save(__DIR__);
             expect($result)->to->be->false;
+        });
+
+        context('when the current version is already installed', function () {
+            beforeEach(function () {
+                file_put_contents(__DIR__ . '/' . $this->binary->getOutputFileName(), 'zipzipzip');
+            });
+
+            it('should return true without unzipping', function () {
+                $this->decompressor->extract()->shouldNotBeCalled();
+                $result = $this->binary->save(__DIR__);
+                expect($result)->to->be->true;
+            });
         });
     });
 
