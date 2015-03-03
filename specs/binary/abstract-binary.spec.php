@@ -70,21 +70,16 @@ describe('AbstractBinary', function () {
 
 class TestBinary extends AbstractBinary
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
+    public function getName()
+    {
+        return 'test-binary';
+    }
+
     public function getFileName()
     {
         return 'test-binary.txt';
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
     public function getUrl()
     {
         return 'http://url.com';

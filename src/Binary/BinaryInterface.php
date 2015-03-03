@@ -10,6 +10,13 @@ namespace Peridot\WebDriverManager\Binary;
 interface BinaryInterface
 {
     /**
+     * Return a unique name for the binary.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * Get the name of the binary.
      *
      * @return string

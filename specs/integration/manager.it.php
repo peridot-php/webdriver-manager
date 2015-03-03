@@ -16,6 +16,15 @@ describe('Manager', function () {
     });
 
     describe('->update()', function () {
+        it('should update a single binary', function () {
+            $this->manager->update('selenium');
+            $path = $this->manager->getInstallPath();
+            $selenium = glob("$path/selenium-server-standalone-*");
+            $chrome = glob("$path/chromedriver*");
+            expect($selenium)->to->have->length(1, 'no selenium file found');
+            expect($chrome)->to->have->length(0, 'chrome files found');
+        });
+
         context('when on a mac operating system', function () {
             beforeEach(function () {
                 $this->system->isMac()->willReturn(true);

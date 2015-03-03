@@ -10,6 +10,16 @@ class ChromeDriver extends CompressedBinary
      *
      * @return string
      */
+    public function getName()
+    {
+        return 'chromedriver';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getFileName()
     {
         $file = "chromedriver_";

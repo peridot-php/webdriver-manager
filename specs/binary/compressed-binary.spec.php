@@ -74,31 +74,21 @@ describe('CompressedBinary', function () {
 
 class TestCompressedBinary extends CompressedBinary
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
+    public function getName()
+    {
+        return 'test-compressed-binary';
+    }
+
     public function getFileName()
     {
         return 'test-compressed-binary.zip';
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
     public function getUrl()
     {
         return 'http://url.com';
     }
 
-    /**
-     * Return the output filename for the compressed binary.
-     *
-     * @return string
-     */
     public function getOutputFileName()
     {
         return 'test-compressed-output.zip';

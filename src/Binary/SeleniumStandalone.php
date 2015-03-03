@@ -20,6 +20,16 @@ class SeleniumStandalone extends AbstractBinary
      *
      * @return string
      */
+    public function getName()
+    {
+        return 'selenium';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getFileName()
     {
         $version = Versions::SELENIUM;

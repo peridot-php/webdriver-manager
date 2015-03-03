@@ -16,6 +16,28 @@ it('should download the latest selenium standalone and chrome driver', function 
     expect($chromes)->to->have->length->of->at->least(1, 'no chrome file found');
 });
 
+it('should be able to update a binary by name', function () {
+    $this->system->is64Bit()->shouldNotBecalled(); //ignore chromedriver for this test
+    $this->manager->update('selenium');
+    $path = $this->manager->getInstallPath();
+    $selenium = Versions::SELENIUM;
+    $chrome = Versions::CHROMEDRIVER;
+    $seleniums = glob("$path/selenium-server-standalone-$selenium*");
+    $chromes = glob("$path/chromedriver_$chrome*");
+    expect($seleniums)->to->have->length->of->at->least(1);
+    expect($chromes)->to->have->length(0);
+});
+
+it('should throw an exception if binary name is not found', function () {
+    //os calls should be ignored
+    $this->system->isMac()->shouldNotBecalled();
+    $this->system->isLinux()->shouldNotBecalled();
+    $this->system->isWindows()->shouldNotBecalled();
+    $this->system->is64Bit()->shouldNotBecalled();
+
+    expect([$this->manager, 'update'])->with('nope')->to->throw('RuntimeException');
+});
+
 it('should replace old versions with new versions', function () {
     $chrome = Versions::CHROMEDRIVER;
     $selenium = Versions::SELENIUM;

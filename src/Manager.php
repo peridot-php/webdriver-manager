@@ -1,6 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager;
 
+use Lurker\Exception\RuntimeException;
 use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
@@ -95,13 +96,37 @@ class Manager
     /**
      * Fetch and save binaries.
      *
-     * @return void
+     * @return bool
      */
-    public function update()
+    public function update($binaryName = '')
     {
+        if ($binaryName) {
+            $this->updateSingle($binaryName);
+            return;
+        }
+
         foreach ($this->binaries as $binary) {
             $binary->fetchAndSave($this->getInstallPath());
         }
+    }
+
+    /**
+     * Update a single binary.
+     *
+     * @param $binaryName
+     * @return void
+     */
+    public function updateSingle($binaryName)
+    {
+        $binary = array_reduce($this->binaries, function ($r, $i) use ($binaryName) {
+            return $i->getName() === $binaryName ? $i : $r;
+        });
+
+        if (! $binary) {
+            throw new RuntimeException("Binary named $binaryName does not exist");
+        }
+
+        $binary->fetchAndSave($this->getInstallPath());
     }
 
     /**
@@ -113,4 +138,4 @@ class Manager
     {
         return realpath(__DIR__ . '/../binaries');
     }
-} 
+}
