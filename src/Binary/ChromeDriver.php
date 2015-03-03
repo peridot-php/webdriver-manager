@@ -18,6 +18,14 @@ class ChromeDriver extends CompressedBinary
             $file .= 'mac32';
         }
 
+        if ($this->system->isWindows()) {
+            $file .= "win32";
+        }
+
+        if ($this->system->isLinux()) {
+            $file .= $this->getLinuxFileName();
+        }
+
         return "$file.zip";
     }
 
@@ -55,5 +63,19 @@ class ChromeDriver extends CompressedBinary
         foreach ($paths as $path) {
             unlink($path);
         }
+    }
+
+    /**
+     * Get the linux filename.
+     *
+     * @return string
+     */
+    private function getLinuxFileName()
+    {
+        $file = "linux32";
+        if ($this->system->is64Bit()) {
+            $file = 'linux64';
+        }
+        return $file;
     }
 }

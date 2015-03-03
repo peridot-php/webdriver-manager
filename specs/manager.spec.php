@@ -4,7 +4,6 @@ use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
 use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
 use Peridot\WebDriverManager\Manager;
 use Peridot\WebDriverManager\OS\System;
-use Peridot\WebDriverManager\Versions;
 use Prophecy\Argument;
 
 describe('Manager', function () {
@@ -87,36 +86,32 @@ describe('Manager', function () {
         context('when on a mac operating system', function () {
             beforeEach(function () {
                 $this->system->isMac()->willReturn(true);
-                $path = $this->manager->getInstallPath();
-                file_put_contents("$path/selenium-server-standalone-2.44.0.jar", 'jarjar');
-                file_put_contents("$path/chromedriver_2.13.zip", 'zipzip');
+                $this->system->isWindows()->willReturn(false);
+                $this->system->isLinux()->willReturn(false);
             });
 
-            it('should download the latest selenium standalone and chrome driver', function () {
-                $this->manager->update();
-                $path = $this->manager->getInstallPath();
-                $seleniums = glob("$path/selenium-server-standalone-*");
-                $chromes = glob("$path/chromedriver");
-                expect($seleniums)->to->have->length->of->at->least(1, 'no selenium file found');
-                expect($chromes)->to->have->length->of->at->least(1, 'no chrome file found');
+            require 'shared/manager-update.php';
+        });
+
+        context('when on a windows operating system', function () {
+            beforeEach(function () {
+                $this->system->isMac()->willReturn(false);
+                $this->system->isWindows()->willReturn(true);
+                $this->system->isLinux()->willReturn(false);
             });
 
-            it('should replace old versions with new versions', function () {
-                $chrome = Versions::CHROMEDRIVER;
-                $selenium = Versions::SELENIUM;
-                $this->manager->update();
-                $path = $this->manager->getInstallPath();
+            require 'shared/manager-update.php';
+        });
 
-                $newSeleniums = glob("$path/selenium-server-standalone-$selenium*");
-                $newChromes = glob("$path/chromedriver_$chrome.zip");
-                $oldSeleniums = glob("$path/selenium-server-standalone-2.44.0*");
-                $oldChromes = glob("$path/chromedriver_2.13.zip");
-
-                expect($newSeleniums)->to->have->length(1, 'no seleniums found');
-                expect($newChromes)->to->have->length(1, 'no chromes found');
-                expect($oldSeleniums)->to->have->length(0, 'old seleniums found');
-                expect($oldChromes)->to->have->length(0, 'old chromes found');
+        context('when on a linux operating system', function () {
+            beforeEach(function () {
+                $this->system->isMac()->willReturn(false);
+                $this->system->isWindows()->willReturn(false);
+                $this->system->isLinux()->willReturn(true);
+                $this->system->is64Bit()->shouldBeCalled();
             });
+
+            require 'shared/manager-update.php';
         });
     });
 });
