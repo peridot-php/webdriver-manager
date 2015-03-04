@@ -49,9 +49,7 @@ abstract class AbstractBinary implements BinaryInterface
      */
     public function save($directory)
     {
-        $output = $this->getDestination($directory);
-
-        if (file_exists($output)) {
+        if ($this->exists($directory)) {
             return true;
         }
 
@@ -59,6 +57,7 @@ abstract class AbstractBinary implements BinaryInterface
             return false;
         }
 
+        $output = $this->getDestination($directory);
         $this->removeOldVersions($directory);
         return file_put_contents($output, $this->contents) !== false;
     }
@@ -71,9 +70,7 @@ abstract class AbstractBinary implements BinaryInterface
      */
     public function fetchAndSave($directory)
     {
-        $output = $this->getDestination($directory);
-
-        if (file_exists($output)) {
+        if ($this->exists($directory)) {
             return true;
         }
 
@@ -88,6 +85,17 @@ abstract class AbstractBinary implements BinaryInterface
     public function getContents()
     {
         return $this->contents;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param $directory
+     * @return bool
+     */
+    public function exists($directory)
+    {
+        return file_exists($this->getDestination($directory));
     }
 
     /**

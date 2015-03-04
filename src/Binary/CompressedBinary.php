@@ -28,15 +28,25 @@ abstract class CompressedBinary extends AbstractBinary
      */
     public function save($directory)
     {
-        $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
-
-        if (file_exists($compressedPath)) {
+        if ($this->exists($directory)) {
             return true;
         }
 
+        $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
         $this->removeOldVersions($directory);
         file_put_contents($compressedPath, $this->contents);
         return $this->decompressor->extract($compressedPath, $directory);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param $directory
+     * @return bool
+     */
+    public function exists($directory)
+    {
+        return file_exists("$directory/{$this->getOutputFileName()}");
     }
 
     /**

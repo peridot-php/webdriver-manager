@@ -60,4 +60,12 @@ interface BinaryInterface
      * @return string
      */
     public function getContents();
+
+    /**
+     * Check if the binary exists in the specified directory.
+     *
+     * @param $directory
+     * @return bool
+     */
+    public function exists($directory);
 } 
