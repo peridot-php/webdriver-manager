@@ -45,9 +45,13 @@ class Manager
         $this->request = $request;
         $this->decompressor = $decompressor;
         $this->system = $system;
+
+        $selenium = new SeleniumStandalone($this->getBinaryRequest());
+        $chrome = new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor(), $this->getSystem());
+
         $this->binaries = [
-            new SeleniumStandalone($this->getBinaryRequest()),
-            new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor(), $this->getSystem())
+            $selenium->getName() => $selenium,
+            $chrome->getName() => $chrome
         ];
     }
 
@@ -118,14 +122,11 @@ class Manager
      */
     public function updateSingle($binaryName)
     {
-        $binary = array_reduce($this->binaries, function ($r, $i) use ($binaryName) {
-            return $i->getName() === $binaryName ? $i : $r;
-        });
-
-        if (! $binary) {
+        if (! array_key_exists($binaryName, $this->binaries)) {
             throw new RuntimeException("Binary named $binaryName does not exist");
         }
 
+        $binary = $this->binaries[$binaryName];
         $binary->fetchAndSave($this->getInstallPath());
     }
 
