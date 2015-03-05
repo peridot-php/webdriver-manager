@@ -1,17 +1,12 @@
 <?php
 namespace Peridot\WebDriverManager;
 
-use Lurker\Exception\RuntimeException;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
-use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
-use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
-use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
-use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
-use Peridot\WebDriverManager\OS\System;
-use Peridot\WebDriverManager\OS\SystemInterface;
+use RuntimeException;
+
 
 class Manager
 {
