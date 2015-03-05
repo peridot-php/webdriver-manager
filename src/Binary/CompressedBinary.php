@@ -1,24 +1,8 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
-use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
-use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
-use Peridot\WebDriverManager\OS\SystemInterface;
-
 abstract class CompressedBinary extends AbstractBinary
 {
-    protected $decompressor;
-
-    /**
-     * @param BinaryRequestInterface $request
-     * @param BinaryDecompressorInterface $decompressor
-     */
-    public function __construct(BinaryRequestInterface $request, BinaryDecompressorInterface $decompressor, SystemInterface $system)
-    {
-        parent::__construct($request, $system);
-        $this->decompressor = $decompressor;
-    }
-
     /**
      * Overrides default save behavior to first decompress
      * an archive format before saving it to a directory.
@@ -35,7 +19,7 @@ abstract class CompressedBinary extends AbstractBinary
         $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
         $this->removeOldVersions($directory);
         file_put_contents($compressedPath, $this->contents);
-        return $this->decompressor->extract($compressedPath, $directory);
+        return $this->resolver->extract($compressedPath, $directory);
     }
 
     /**

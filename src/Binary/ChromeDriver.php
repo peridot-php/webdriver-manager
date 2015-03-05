@@ -23,16 +23,17 @@ class ChromeDriver extends CompressedBinary
     public function getFileName()
     {
         $file = "chromedriver_";
+        $system = $this->resolver->getSystem();
 
-        if ($this->system->isMac()) {
+        if ($system->isMac()) {
             $file .= 'mac32';
         }
 
-        if ($this->system->isWindows()) {
+        if ($system->isWindows()) {
             $file .= "win32";
         }
 
-        if ($this->system->isLinux()) {
+        if ($system->isLinux()) {
             $file .= $this->getLinuxFileName();
         }
 
@@ -83,7 +84,8 @@ class ChromeDriver extends CompressedBinary
     private function getLinuxFileName()
     {
         $file = "linux32";
-        if ($this->system->is64Bit()) {
+        $system = $this->resolver->getSystem();
+        if ($system->is64Bit()) {
             $file = 'linux64';
         }
         return $file;

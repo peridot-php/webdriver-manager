@@ -2,6 +2,8 @@
 namespace Peridot\WebDriverManager;
 
 use Lurker\Exception\RuntimeException;
+use Peridot\WebDriverManager\Binary\BinaryResolver;
+use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
@@ -19,35 +21,15 @@ class Manager
     protected $binaries;
 
     /**
-     * @var BinaryRequestInterface
+     * @var BinaryResolverInterface
      */
-    protected $request;
+    protected $resolver;
 
-    /**
-     * @var BinaryDecompressorInterface
-     */
-    protected $decompressor;
+    public function __construct(BinaryResolverInterface $resolver = null) {
+        $this->resolver = $resolver;
 
-    /**
-     * @var SystemInterface
-     */
-    protected $system;
-
-    /**
-     * @param BinaryRequestInterface $request
-     * @param BinaryDecompressorInterface $decompressor
-     */
-    public function __construct(
-        BinaryRequestInterface $request = null,
-        BinaryDecompressorInterface $decompressor = null,
-        SystemInterface $system = null
-    ) {
-        $this->request = $request;
-        $this->decompressor = $decompressor;
-        $this->system = $system;
-
-        $selenium = new SeleniumStandalone($this->getBinaryRequest());
-        $chrome = new ChromeDriver($this->getBinaryRequest(), $this->getBinaryDecompressor(), $this->getSystem());
+        $selenium = new SeleniumStandalone($this->getBinaryResolver());
+        $chrome = new ChromeDriver($this->getBinaryResolver());
 
         $this->binaries = [
             $selenium->getName() => $selenium,
@@ -56,45 +38,17 @@ class Manager
     }
 
     /**
-     * Get the BinaryRequestInterface responsible for fetching remote binaries.
+     * Return the BinaryResolver used to resolve binary files.
      *
-     * @return BinaryRequestInterface|StandardBinaryRequest
+     * @return BinaryResolver|BinaryResolverInterface
      */
-    public function getBinaryRequest()
+    public function getBinaryResolver()
     {
-        if ($this->request === null) {
-            return new StandardBinaryRequest();
-        }
-        return $this->request;
-    }
-
-    /**
-     * Get the BinaryDecompressorInterface responsible for decompressing
-     * compressed binaries.
-     *
-     * @return BinaryDecompressorInterface|ZipDecompressor
-     */
-    public function getBinaryDecompressor()
-    {
-        if ($this->decompressor === null) {
-            return new ZipDecompressor();
-        }
-        return $this->decompressor;
-    }
-
-    /**
-     * Get the System object responsible for determining operating system
-     * information.
-     *
-     * @return System|SystemInterface
-     */
-    public function getSystem()
-    {
-        if ($this->system === null) {
-            return new System();
+        if ($this->resolver === null) {
+            return new BinaryResolver();
         }
 
-        return $this->system;
+        return $this->resolver;
     }
 
     /**

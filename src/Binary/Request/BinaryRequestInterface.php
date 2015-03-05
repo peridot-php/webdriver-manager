@@ -8,7 +8,7 @@ interface BinaryRequestInterface
      * Request the binary at the specified url, and return
      * the contents.
      *
-     * @param $url
+     * @param string $url
      * @return string
      */
     public function request($url);

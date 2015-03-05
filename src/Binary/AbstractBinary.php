@@ -2,7 +2,6 @@
 namespace Peridot\WebDriverManager\Binary;
 
 use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
-use Peridot\WebDriverManager\OS\SystemInterface;
 
 abstract class AbstractBinary implements BinaryInterface
 {
@@ -12,22 +11,16 @@ abstract class AbstractBinary implements BinaryInterface
     protected $contents;
 
     /**
-     * @var BinaryRequestInterface
+     * @var BinaryResolverInterface
      */
-    protected $request;
-
-    /**
-     * @var SystemInterface
-     */
-    protected $system;
+    protected $resolver;
 
     /**
      * @param BinaryRequestInterface $request
      */
-    public function __construct(BinaryRequestInterface $request, SystemInterface $system)
+    public function __construct(BinaryResolverInterface $resolver)
     {
-        $this->request = $request;
-        $this->system = $system;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -37,7 +30,7 @@ abstract class AbstractBinary implements BinaryInterface
      */
     public function fetch()
     {
-        $this->contents = $this->request->request($this->getUrl());
+        $this->contents = $this->resolver->request($this->getUrl());
         return $this->contents !== false;
     }
 

@@ -4,9 +4,9 @@ use Peridot\WebDriverManager\OS\System;
 
 describe('AbstractBinary', function () {
     beforeEach(function () {
-        $this->request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
-        $this->binary = new TestBinary($this->request->reveal(), new System());
-        $this->request->request($this->binary->getUrl())->willReturn('string');
+        $this->resolver = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryResolverInterface');
+        $this->binary = new TestBinary($this->resolver->reveal());
+        $this->resolver->request($this->binary->getUrl())->willReturn('string');
 
         $fixture = __DIR__ . '/' . $this->binary->getFileName();
         if (file_exists($fixture)) {
@@ -36,17 +36,17 @@ describe('AbstractBinary', function () {
         });
 
         it('should return false if there is no content', function () {
-            $binary = new TestBinary($this->request->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal(), new System());
             $result = $binary->save(__DIR__);
             expect($result)->to->be->false;
         });
 
         it('should return true if the current version is already installed', function () {
-            $binary = new TestBinary($this->request->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal(), new System());
             $binary->fetch();
             $binary->save(__DIR__);
 
-            $binary = new TestBinary($this->request->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal(), new System());
             expect($binary->save(__DIR__))->to->be->true;
         });
     });
