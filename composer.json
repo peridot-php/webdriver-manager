@@ -8,7 +8,6 @@
             "email": "scaturrob@gmail.com"
         }
     ],
-    "require": {},
     "autoload": {
         "psr-4": {
             "Peridot\\WebDriverManager\\": "src/",
