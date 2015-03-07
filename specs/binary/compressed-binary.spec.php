@@ -1,6 +1,5 @@
 <?php
 use Peridot\WebDriverManager\Binary\CompressedBinary;
-use Peridot\WebDriverManager\OS\System;
 use Prophecy\Argument;
 
 describe('CompressedBinary', function () {
@@ -91,5 +90,16 @@ class TestCompressedBinary extends CompressedBinary
     public function getOutputFileName()
     {
         return 'test-compressed-output.zip';
+    }
+
+    /**
+     * Return a pattern to identify old versions of a binary.
+     *
+     * @param string $directory
+     * @return string
+     */
+    protected function getOldFilePattern($directory)
+    {
+        // TODO: Implement getOldFilePattern() method.
     }
 }

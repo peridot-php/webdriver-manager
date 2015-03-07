@@ -59,7 +59,7 @@ class Manager
         }
 
         foreach ($this->binaries as $binary) {
-            $binary->fetchAndSave($this->resolver->getInstallPath());
+            $binary->fetchAndSave($this->getInstallPath());
         }
     }
 
@@ -71,11 +71,21 @@ class Manager
      */
     public function updateSingle($binaryName)
     {
-        if (!array_key_exists($binaryName, $this->binaries)) {
+        if (! array_key_exists($binaryName, $this->binaries)) {
             throw new RuntimeException("Binary named $binaryName does not exist");
         }
 
         $binary = $this->binaries[$binaryName];
-        $binary->fetchAndSave($this->resolver->getInstallPath());
+        $binary->fetchAndSave($this->getInstallPath());
+    }
+
+    /**
+     * Get the installation path of binaries.
+     *
+     * @return string
+     */
+    public function getInstallPath()
+    {
+        return realpath(__DIR__ . '/../binaries');
     }
 }

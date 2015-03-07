@@ -77,6 +77,17 @@ class ChromeDriver extends CompressedBinary
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @param string $directory
+     * @return string
+     */
+    protected function getOldFilePattern($directory)
+    {
+        return $directory . '/' . str_replace(Versions::CHROMEDRIVER, '*', $this->getOutputFileName());
+    }
+
+    /**
      * Get the linux filename.
      *
      * @return string

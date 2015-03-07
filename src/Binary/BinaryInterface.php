@@ -68,4 +68,12 @@ interface BinaryInterface
      * @return bool
      */
     public function exists($directory);
+
+    /**
+     * Check if old versions of the binary exist.
+     *
+     * @param $directory
+     * @return bool
+     */
+    public function isOutOfDate($directory);
 } 

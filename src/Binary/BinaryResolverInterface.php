@@ -57,11 +57,4 @@ interface BinaryResolverInterface
      * @return string
      */
     public function request($url);
-
-    /**
-     * Get the path that binaries are installed to.
-     *
-     * @return string
-     */
-    public function getInstallPath();
 }

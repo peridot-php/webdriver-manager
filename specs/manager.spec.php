@@ -14,17 +14,24 @@ describe('Manager', function () {
         $this->request->request(Argument::any())->willReturn('string');
 
         $this->manager = new Manager($this->resolver);
-        $this->decompressor->setTargetPath($this->resolver->getInstallPath() . '/chromedriver');
+        $this->decompressor->setTargetPath($this->manager->getInstallPath() . '/chromedriver');
     });
 
     beforeEach(function () {
-        $path = $this->resolver->getInstallPath();
+        $path = $this->manager->getInstallPath();
         $selenium = glob("$path/selenium-server-standalone-*");
         $chrome = glob("$path/chromedriver*");
         $files = array_merge($selenium, $chrome);
         foreach ($files as $file) {
             unlink($file);
         }
+    });
+
+    describe('->getInstallPath()', function () {
+        it('should return a default path', function () {
+            $path = realpath(__DIR__ . '/../binaries');
+            expect($this->manager->getInstallPath())->to->equal($path);
+        });
     });
 
     describe('->getBinaryResolver()', function () {

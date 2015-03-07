@@ -84,4 +84,15 @@ class TestBinary extends AbstractBinary
     {
         return 'http://url.com';
     }
+
+    /**
+     * Return a pattern to identify old versions of a binary.
+     *
+     * @param string $directory
+     * @return string
+     */
+    protected function getOldFilePattern($directory)
+    {
+        // TODO: Implement getOldFilePattern() method.
+    }
 }

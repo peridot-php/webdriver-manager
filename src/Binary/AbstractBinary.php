@@ -92,6 +92,24 @@ abstract class AbstractBinary implements BinaryInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @param $directory
+     * @return bool
+     */
+    public function isOutOfDate($directory)
+    {
+        if ($this->exists($directory)) {
+            return false;
+        }
+
+        $pattern = $this->getOldFilePattern($directory);
+        $matches = glob($pattern);
+
+        return count($matches) > 0;
+    }
+
+    /**
      * Get the destination file for the binary.
      *
      * @param $directory
@@ -112,4 +130,12 @@ abstract class AbstractBinary implements BinaryInterface
     {
 
     }
+
+    /**
+     * Return a pattern to identify old versions of a binary.
+     *
+     * @param string $directory
+     * @return string
+     */
+    abstract protected function getOldFilePattern($directory);
 }

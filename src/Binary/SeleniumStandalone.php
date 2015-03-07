@@ -61,4 +61,15 @@ class SeleniumStandalone extends AbstractBinary
             unlink($path);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param string $directory
+     * @return string
+     */
+    protected function getOldFilePattern($directory)
+    {
+        return $directory . '/' . str_replace(Versions::SELENIUM, '*', $this->getFileName());
+    }
 }

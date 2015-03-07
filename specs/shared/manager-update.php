@@ -2,14 +2,14 @@
 use Peridot\WebDriverManager\Versions;
 
 beforeEach(function () {
-    $path = $this->resolver->getInstallPath();
+    $path = $this->manager->getInstallPath();
     file_put_contents("$path/selenium-server-standalone-2.44.0.jar", 'jarjar');
     file_put_contents("$path/chromedriver_2.13.zip", 'zipzip');
 });
 
 it('should download the latest selenium standalone and chrome driver', function () {
     $this->manager->update();
-    $path = $this->resolver->getInstallPath();
+    $path = $this->manager->getInstallPath();
     $seleniums = glob("$path/selenium-server-standalone-*");
     $chromes = glob("$path/chromedriver");
     expect($seleniums)->to->have->length->of->at->least(1, 'no selenium file found');
@@ -19,7 +19,7 @@ it('should download the latest selenium standalone and chrome driver', function 
 it('should be able to update a binary by name', function () {
     $this->system->is64Bit()->shouldNotBecalled(); //ignore chromedriver for this test
     $this->manager->update('selenium');
-    $path = $this->resolver->getInstallPath();
+    $path = $this->manager->getInstallPath();
     $selenium = Versions::SELENIUM;
     $chrome = Versions::CHROMEDRIVER;
     $seleniums = glob("$path/selenium-server-standalone-$selenium*");
@@ -42,7 +42,7 @@ it('should replace old versions with new versions', function () {
     $chrome = Versions::CHROMEDRIVER;
     $selenium = Versions::SELENIUM;
     $this->manager->update();
-    $path = $this->resolver->getInstallPath();
+    $path = $this->manager->getInstallPath();
 
     $newSeleniums = glob("$path/selenium-server-standalone-$selenium*");
     $newChromes = glob("$path/chromedriver_$chrome.zip");
