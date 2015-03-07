@@ -1,8 +1,6 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
-use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
-
 abstract class AbstractBinary implements BinaryInterface
 {
     /**
@@ -16,7 +14,7 @@ abstract class AbstractBinary implements BinaryInterface
     protected $resolver;
 
     /**
-     * @param BinaryRequestInterface $request
+     * @param BinaryResolverInterface $resolver
      */
     public function __construct(BinaryResolverInterface $resolver)
     {

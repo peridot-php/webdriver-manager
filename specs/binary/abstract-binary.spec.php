@@ -36,17 +36,17 @@ describe('AbstractBinary', function () {
         });
 
         it('should return false if there is no content', function () {
-            $binary = new TestBinary($this->resolver->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal());
             $result = $binary->save(__DIR__);
             expect($result)->to->be->false;
         });
 
         it('should return true if the current version is already installed', function () {
-            $binary = new TestBinary($this->resolver->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal());
             $binary->fetch();
             $binary->save(__DIR__);
 
-            $binary = new TestBinary($this->resolver->reveal(), new System());
+            $binary = new TestBinary($this->resolver->reveal());
             expect($binary->save(__DIR__))->to->be->true;
         });
     });
@@ -61,7 +61,7 @@ describe('AbstractBinary', function () {
             $this->binary->fetchAndSave(__DIR__);
 
             $request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
-            $binary = new TestBinary($request->reveal(), new System());
+            $binary = new TestBinary($request->reveal());
             $request->request()->shouldNotBeCalled();
             expect($binary->fetchAndSave(__DIR__))->to->be->true;
         });

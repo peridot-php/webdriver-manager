@@ -11,8 +11,24 @@ use Peridot\WebDriverManager\OS\SystemInterface;
 class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterface, BinaryResolverInterface
 {
     /**
+     * @var BinaryRequestInterface
+     */
+    protected $request;
+
+    /**
+     * @var BinaryDecompressorInterface
+     */
+    protected $decompressor;
+
+    /**
+     * @var SystemInterface
+     */
+    protected $system;
+
+    /**
      * @param BinaryRequestInterface $request
      * @param BinaryDecompressorInterface $decompressor
+     * @param SystemInterface $system
      */
     public function __construct(
         BinaryRequestInterface $request = null,
