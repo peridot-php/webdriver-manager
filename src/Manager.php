@@ -20,6 +20,9 @@ class Manager
      */
     protected $resolver;
 
+    /**
+     * @param BinaryResolverInterface $resolver
+     */
     public function __construct(BinaryResolverInterface $resolver = null) {
         $this->resolver = $resolver;
 
@@ -44,6 +47,16 @@ class Manager
         }
 
         return $this->resolver;
+    }
+
+    /**
+     * Return all managed binaries.
+     *
+     * @return array
+     */
+    public function getBinaries()
+    {
+        return $this->binaries;
     }
 
     /**

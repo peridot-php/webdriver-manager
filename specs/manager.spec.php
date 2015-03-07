@@ -47,6 +47,16 @@ describe('Manager', function () {
         });
     });
 
+    describe('->getBinaries()', function () {
+        it('should return a collection of managed binaries', function () {
+            $binaries = $this->manager->getBinaries();
+            expect($binaries)->to->have->length(2);
+            foreach ($binaries as $binary) {
+                expect($binary)->to->be->an->instanceof('Peridot\WebDriverManager\Binary\BinaryInterface');
+            }
+        });
+    });
+
     describe('->update()', function () {
         afterEach(function () {
             $this->getProphet()->checkPredictions();
