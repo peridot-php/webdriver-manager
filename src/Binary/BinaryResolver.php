@@ -86,4 +86,14 @@ class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterf
     {
         return $this->getBinaryRequest()->request($url);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getInstallPath()
+    {
+        return realpath(__DIR__ . '/../../binaries');
+    }
 }

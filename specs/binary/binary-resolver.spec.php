@@ -21,6 +21,13 @@ describe('BinaryResolver', function () {
         $this->request->request(Argument::any())->willReturn('string');
     });
 
+    describe('->getInstallPath()', function () {
+        it('should return a default path', function () {
+            $path = realpath(__DIR__ . '/../../binaries');
+            expect($this->resolver->getInstallPath())->to->equal($path);
+        });
+    });
+
     describe('->getBinaryRequest()', function () {
         it('should return a StandardBinaryRequest by default', function () {
             $resolver = new BinaryResolver();
