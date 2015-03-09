@@ -4,7 +4,10 @@ namespace Peridot\WebDriverManager;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
+use Peridot\WebDriverManager\Binary\DriverInterface;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
+use Peridot\WebDriverManager\Process\JavaProcess;
+use Peridot\WebDriverManager\Process\JavaProcessInterface;
 use RuntimeException;
 
 
@@ -21,10 +24,16 @@ class Manager
     protected $resolver;
 
     /**
+     * @var JavaProcessInterface
+     */
+    protected $java;
+
+    /**
      * @param BinaryResolverInterface $resolver
      */
-    public function __construct(BinaryResolverInterface $resolver = null) {
+    public function __construct(BinaryResolverInterface $resolver = null, JavaProcessInterface $java = null) {
         $this->resolver = $resolver;
+        $this->java = $java;
 
         $selenium = new SeleniumStandalone($this->getBinaryResolver());
         $chrome = new ChromeDriver($this->getBinaryResolver());
@@ -49,6 +58,15 @@ class Manager
         return $this->resolver;
     }
 
+    public function getJavaProcess()
+    {
+        if ($this->java === null) {
+            return new JavaProcess();
+        }
+
+        return $this->java;
+    }
+
     /**
      * Return all managed binaries.
      *
@@ -57,6 +75,20 @@ class Manager
     public function getBinaries()
     {
         return $this->binaries;
+    }
+
+    /**
+     * Return all binaries that are considered drivers.
+     *
+     * @return array
+     */
+    public function getDrivers()
+    {
+        $drivers = array_filter($this->binaries, function ($binary) {
+            return $binary instanceof DriverInterface;
+        });
+
+        return array_values($drivers);
     }
 
     /**
@@ -90,6 +122,24 @@ class Manager
 
         $binary = $this->binaries[$binaryName];
         $binary->fetchAndSave($this->getInstallPath());
+    }
+
+    /**
+     * Start the selenium server.
+     *
+     * @return void
+     */
+    public function start()
+    {
+        $selenium = $this->binaries['selenium'];
+
+        if (! $selenium->exists($this->getInstallPath())) {
+            throw new RuntimeException("Selenium Standalone binary not installed");
+        }
+
+        if (! $this->java->isAvailable()) {
+            throw new RuntimeException('java is not available');
+        }
     }
 
     /**

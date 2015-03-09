@@ -1,7 +1,9 @@
 <?php
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Manager;
+use Peridot\WebDriverManager\Process\JavaProcess;
 use Peridot\WebDriverManager\Test\TestDecompressor;
+use Peridot\WebDriverManager\Versions;
 use Prophecy\Argument;
 
 describe('Manager', function () {
@@ -12,8 +14,9 @@ describe('Manager', function () {
 
         $this->resolver = new BinaryResolver($this->request->reveal(), $this->decompressor, $this->system->reveal());
         $this->request->request(Argument::any())->willReturn('string');
+        $this->java = $this->getProphet()->prophesize('Peridot\WebDriverManager\Process\JavaProcessInterface');
 
-        $this->manager = new Manager($this->resolver);
+        $this->manager = new Manager($this->resolver, $this->java->reveal());
         $this->decompressor->setTargetPath($this->manager->getInstallPath() . '/chromedriver');
     });
 
@@ -47,12 +50,35 @@ describe('Manager', function () {
         });
     });
 
+    describe('->getJavaProcess()', function () {
+        it('should return a JavaProcess by default', function () {
+            $manager = new Manager();
+            expect($manager->getJavaProcess())->to->be->an->instanceof('Peridot\WebDriverManager\Process\JavaProcess');
+        });
+
+        it('should return the JavaProcessInterface if given', function () {
+            $process = new JavaProcess();
+            $manager = new Manager(null, $process);
+            expect($manager->getJavaProcess())->to->equal($process);
+        });
+    });
+
     describe('->getBinaries()', function () {
         it('should return a collection of managed binaries', function () {
             $binaries = $this->manager->getBinaries();
             expect($binaries)->to->have->length(2);
             foreach ($binaries as $binary) {
                 expect($binary)->to->be->an->instanceof('Peridot\WebDriverManager\Binary\BinaryInterface');
+            }
+        });
+    });
+
+    describe('->getDrivers()', function () {
+        it('should return a collection of binaries that qualify as drivers', function () {
+            $drivers = $this->manager->getDrivers();
+            expect($drivers)->to->have->length(1);
+            foreach ($drivers as $driver) {
+                expect($driver)->to->be->an->instanceof('Peridot\WebDriverManager\Binary\DriverInterface');
             }
         });
     });
@@ -91,6 +117,19 @@ describe('Manager', function () {
             });
 
             require 'shared/manager-update.php';
+        });
+    });
+
+    describe('->start()', function () {
+        it('should throw an exception if there is not selenium binary', function () {
+            expect([$this->manager, 'start'])->to->throw('RuntimeException');
+        });
+
+        it('should throw an exception if java is not available on the system', function () {
+            $version = Versions::SELENIUM;
+            file_put_contents($this->manager->getInstallPath() . "/selenium-server-standalone-$version.jar", 'data');
+            $this->java->isAvailable()->willReturn(false);
+            expect([$this->manager, 'start'])->to->throw('RuntimeException', 'java is not available');
         });
     });
 });

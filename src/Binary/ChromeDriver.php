@@ -3,7 +3,7 @@ namespace Peridot\WebDriverManager\Binary;
 
 use Peridot\WebDriverManager\Versions;
 
-class ChromeDriver extends CompressedBinary
+class ChromeDriver extends CompressedBinary implements DriverInterface
 {
     /**
      * {@inheritdoc}
@@ -100,5 +100,23 @@ class ChromeDriver extends CompressedBinary
             $file = 'linux64';
         }
         return $file;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param string $directory
+     * @return string
+     */
+    public function getDriverPath($directory)
+    {
+        $file = "$directory/chromedriver";
+        $system = $this->resolver->getSystem();
+
+        if ($system->isWindows()) {
+            $file .= '.exe';
+        }
+
+        return "webdriver.chrome.driver=$file";
     }
 }
