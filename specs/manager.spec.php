@@ -1,7 +1,7 @@
 <?php
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Manager;
-use Peridot\WebDriverManager\Process\JavaProcess;
+use Peridot\WebDriverManager\Process\SeleniumProcess;
 use Peridot\WebDriverManager\Test\TestDecompressor;
 use Peridot\WebDriverManager\Versions;
 use Prophecy\Argument;
@@ -51,13 +51,13 @@ describe('Manager', function () {
     });
 
     describe('->getJavaProcess()', function () {
-        it('should return a JavaProcess by default', function () {
+        it('should return a SeleniumProcess by default', function () {
             $manager = new Manager();
-            expect($manager->getJavaProcess())->to->be->an->instanceof('Peridot\WebDriverManager\Process\JavaProcess');
+            expect($manager->getJavaProcess())->to->be->an->instanceof('Peridot\WebDriverManager\Process\SeleniumProcess');
         });
 
         it('should return the JavaProcessInterface if given', function () {
-            $process = new JavaProcess();
+            $process = new SeleniumProcess();
             $manager = new Manager(null, $process);
             expect($manager->getJavaProcess())->to->equal($process);
         });

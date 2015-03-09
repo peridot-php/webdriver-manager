@@ -1,7 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager\Process;
 
-class JavaProcess implements JavaProcessInterface
+class SeleniumProcess implements JavaProcessInterface
 {
     /**
      * @var array

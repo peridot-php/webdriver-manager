@@ -6,8 +6,8 @@ use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\DriverInterface;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
-use Peridot\WebDriverManager\Process\JavaProcess;
 use Peridot\WebDriverManager\Process\JavaProcessInterface;
+use Peridot\WebDriverManager\Process\SeleniumProcess;
 use RuntimeException;
 
 
@@ -61,7 +61,7 @@ class Manager
     public function getJavaProcess()
     {
         if ($this->java === null) {
-            return new JavaProcess();
+            return new SeleniumProcess();
         }
 
         return $this->java;
