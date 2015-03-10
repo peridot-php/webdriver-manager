@@ -12,7 +12,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     protected $args = [];
 
     /**
-     * @var null
+     * @var resource
      */
     protected $process = null;
 
