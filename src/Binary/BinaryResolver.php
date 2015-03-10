@@ -48,7 +48,7 @@ class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterf
     public function getBinaryRequest()
     {
         if ($this->request === null) {
-            return new StandardBinaryRequest();
+            $this->request = new StandardBinaryRequest();
         }
         return $this->request;
     }
@@ -61,7 +61,7 @@ class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterf
     public function getBinaryDecompressor()
     {
         if ($this->decompressor === null) {
-            return new ZipDecompressor();
+            $this->decompressor = new ZipDecompressor();
         }
         return $this->decompressor;
     }
@@ -74,7 +74,7 @@ class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterf
     public function getSystem()
     {
         if ($this->system === null) {
-            return new System();
+            $this->system = new System();
         }
 
         return $this->system;

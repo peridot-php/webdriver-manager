@@ -11,6 +11,16 @@ class SeleniumProcess implements SeleniumProcessInterface
      */
     protected $args = [];
 
+    /**
+     * @var null
+     */
+    protected $process = null;
+
+    /**
+     * @var array
+     */
+    protected $pipes = [];
+
     public function __construct()
     {
         $this->addArg('-jar');
@@ -72,7 +82,7 @@ class SeleniumProcess implements SeleniumProcessInterface
         $command = 'java -version';
         $descriptors = $this->getDescriptorSpec();
         $proc = proc_open($command, $descriptors, $pipes);
-        $status = $this->getStatus($proc);
+        $status = $this->getStatus($proc, true);
         return $status['exitcode'] == 0;
     }
 
@@ -83,7 +93,40 @@ class SeleniumProcess implements SeleniumProcessInterface
      */
     public function start()
     {
-        // TODO: Implement start() method.
+        $command = $this->getCommand();
+        $descriptorSpec = $this->getDescriptorSpec();
+        $this->process = proc_open($command, $descriptorSpec, $this->pipes);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function isRunning()
+    {
+        return $this->getStatus($this->process);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function terminate()
+    {
+        return proc_terminate($this->process);
+    }
+
+    /**
+     * {@inheritdocs}
+     *
+     * @return array
+     */
+    public function getPipes()
+    {
+        return $this->pipes;
     }
 
     /**
@@ -103,10 +146,10 @@ class SeleniumProcess implements SeleniumProcessInterface
      * @param resource $proc
      * @return array
      */
-    private function getStatus($proc)
+    private function getStatus($proc, $loop = false)
     {
         $status = proc_get_status($proc);
-        while ($status['running']) {
+        while ($loop && $status['running']) {
             usleep(20000);
             $status = proc_get_status($proc);
         }
@@ -121,9 +164,9 @@ class SeleniumProcess implements SeleniumProcessInterface
     private function getDescriptorSpec()
     {
         return [
-            ['pipe' => 'r'],
-            ['pipe' => 'w'],
-            ['pipe' => 'w']
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w']
         ];
     }
 }

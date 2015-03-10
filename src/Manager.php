@@ -52,7 +52,7 @@ class Manager
     public function getBinaryResolver()
     {
         if ($this->resolver === null) {
-            return new BinaryResolver();
+            $this->resolver = new BinaryResolver();
         }
 
         return $this->resolver;
@@ -67,7 +67,7 @@ class Manager
     public function getSeleniumProcess()
     {
         if ($this->process === null) {
-            return new SeleniumProcess();
+            $this->process = new SeleniumProcess();
         }
 
         return $this->process;
@@ -140,12 +140,14 @@ class Manager
     {
         $selenium = $this->binaries['selenium'];
         $this->assertStartConditions($selenium);
-        $this->process->addBinary($selenium, $this->getInstallPath());
+
+        $process = $this->getSeleniumProcess();
+        $process->addBinary($selenium, $this->getInstallPath());
         if ($port != -1) {
-            $this->process->addArg('-port', $port);
+            $process->addArg('-port', $port);
         }
 
-        return $this->process->start();
+        return $process->start();
     }
 
     /**
@@ -169,7 +171,7 @@ class Manager
             throw new RuntimeException("Selenium Standalone binary not installed");
         }
 
-        if (!$this->process->isAvailable()) {
+        if (!$this->getSeleniumProcess()->isAvailable()) {
             throw new RuntimeException('java is not available');
         }
     }
