@@ -1,6 +1,9 @@
 <?php
 namespace Peridot\WebDriverManager\Process;
 
+use Peridot\WebDriverManager\Binary\BinaryInterface;
+use Peridot\WebDriverManager\Binary\DriverInterface;
+
 class SeleniumProcess implements JavaProcessInterface
 {
     /**
@@ -10,7 +13,47 @@ class SeleniumProcess implements JavaProcessInterface
 
     public function __construct()
     {
-        $this->args[] = '-jar';
+        $this->addArg('-jar');
+    }
+
+    /**
+     * Add a driver to the argument list. Driver files will
+     * be searched for in the given directory.
+     *
+     * @param BinaryInterface $binary
+     * @param string $directory
+     * @return void
+     */
+    public function addDriver(BinaryInterface $binary, $directory)
+    {
+        if (! $binary->exists($directory)) {
+            return;
+        }
+
+        if ($binary instanceof DriverInterface) {
+            $this->addArg('-D' . $binary->getDriverPath($directory));
+        }
+    }
+
+    /**
+     * Return the arguments used to build up this process.
+     *
+     * @return array
+     */
+    public function getArgs()
+    {
+        return $this->args;
+    }
+
+    /**
+     * Add an argument to the argument list.
+     *
+     * @param string $arg
+     * @return void
+     */
+    public function addArg($arg)
+    {
+        $this->args[] = $arg;
     }
 
     /**
