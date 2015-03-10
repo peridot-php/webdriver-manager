@@ -14,9 +14,9 @@ describe('Manager', function () {
 
         $this->resolver = new BinaryResolver($this->request->reveal(), $this->decompressor, $this->system->reveal());
         $this->request->request(Argument::any())->willReturn('string');
-        $this->java = $this->getProphet()->prophesize('Peridot\WebDriverManager\Process\JavaProcessInterface');
+        $this->process = $this->getProphet()->prophesize('Peridot\WebDriverManager\Process\SeleniumProcessInterface');
 
-        $this->manager = new Manager($this->resolver, $this->java->reveal());
+        $this->manager = new Manager($this->resolver, $this->process->reveal());
         $this->decompressor->setTargetPath($this->manager->getInstallPath() . '/chromedriver');
     });
 
@@ -50,16 +50,16 @@ describe('Manager', function () {
         });
     });
 
-    describe('->getJavaProcess()', function () {
+    describe('->getSeleniumProcess()', function () {
         it('should return a SeleniumProcess by default', function () {
             $manager = new Manager();
-            expect($manager->getJavaProcess())->to->be->an->instanceof('Peridot\WebDriverManager\Process\SeleniumProcess');
+            expect($manager->getSeleniumProcess())->to->be->an->instanceof('Peridot\WebDriverManager\Process\SeleniumProcess');
         });
 
-        it('should return the JavaProcessInterface if given', function () {
+        it('should return the SeleniumProcessInterface if given', function () {
             $process = new SeleniumProcess();
             $manager = new Manager(null, $process);
-            expect($manager->getJavaProcess())->to->equal($process);
+            expect($manager->getSeleniumProcess())->to->equal($process);
         });
     });
 
@@ -133,16 +133,16 @@ describe('Manager', function () {
         });
 
         it('should throw an exception if java is not available on the system', function () {
-            $this->java->isAvailable()->willReturn(false);
+            $this->process->isAvailable()->willReturn(false);
             expect([$this->manager, 'start'])->to->throw('RuntimeException', 'java is not available');
         });
 
         it('should add selenium path and port argument if specified', function () {
-            $this->java->isAvailable()->willReturn(true);
+            $this->process->isAvailable()->willReturn(true);
             $binaries = $this->manager->getBinaries();
-            $this->java->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
-            $this->java->addArg('-port', 9000)->shouldBeCalled();
-            $this->java->start()->willReturn($this->java);
+            $this->process->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
+            $this->process->addArg('-port', 9000)->shouldBeCalled();
+            $this->process->start()->willReturn($this->process);
             $process = $this->manager->start(9000);
             $this->getProphet()->checkPredictions();
         });

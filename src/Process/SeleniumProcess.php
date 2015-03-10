@@ -3,9 +3,8 @@ namespace Peridot\WebDriverManager\Process;
 
 use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\DriverInterface;
-use Peridot\WebDriverManager\Binary\SeleniumStandalone;
 
-class SeleniumProcess implements JavaProcessInterface
+class SeleniumProcess implements SeleniumProcessInterface
 {
     /**
      * @var array

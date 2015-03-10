@@ -3,7 +3,7 @@ namespace Peridot\WebDriverManager\Process;
 
 use Peridot\WebDriverManager\Binary\BinaryInterface;
 
-interface JavaProcessInterface
+interface SeleniumProcessInterface
 {
     /**
      * Returns whether or not java is available for use.

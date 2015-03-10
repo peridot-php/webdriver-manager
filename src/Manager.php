@@ -1,15 +1,15 @@
 <?php
 namespace Peridot\WebDriverManager;
 
+use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\DriverInterface;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
-use Peridot\WebDriverManager\Process\JavaProcessInterface;
+use Peridot\WebDriverManager\Process\SeleniumProcessInterface;
 use Peridot\WebDriverManager\Process\SeleniumProcess;
 use RuntimeException;
-
 
 class Manager
 {
@@ -24,16 +24,16 @@ class Manager
     protected $resolver;
 
     /**
-     * @var JavaProcessInterface
+     * @var SeleniumProcessInterface
      */
-    protected $java;
+    protected $process;
 
     /**
      * @param BinaryResolverInterface $resolver
      */
-    public function __construct(BinaryResolverInterface $resolver = null, JavaProcessInterface $java = null) {
+    public function __construct(BinaryResolverInterface $resolver = null, SeleniumProcessInterface $process = null) {
         $this->resolver = $resolver;
-        $this->java = $java;
+        $this->process = $process;
 
         $selenium = new SeleniumStandalone($this->getBinaryResolver());
         $chrome = new ChromeDriver($this->getBinaryResolver());
@@ -58,13 +58,19 @@ class Manager
         return $this->resolver;
     }
 
-    public function getJavaProcess()
+    /**
+     * Return the SeleniumProcessInterface that will execute the
+     * selenium server command.
+     *
+     * @return SeleniumProcess|SeleniumProcessInterface
+     */
+    public function getSeleniumProcess()
     {
-        if ($this->java === null) {
+        if ($this->process === null) {
             return new SeleniumProcess();
         }
 
-        return $this->java;
+        return $this->process;
     }
 
     /**
@@ -128,26 +134,18 @@ class Manager
      * Start the Selenium server.
      *
      * @param int $port
+     * @return SeleniumProcessInterface
      */
     public function start($port = -1)
     {
         $selenium = $this->binaries['selenium'];
-
-        if (! $selenium->exists($this->getInstallPath())) {
-            throw new RuntimeException("Selenium Standalone binary not installed");
-        }
-
-        if (! $this->java->isAvailable()) {
-            throw new RuntimeException('java is not available');
-        }
-
-        $this->java->addBinary($selenium, $this->getInstallPath());
-
+        $this->assertStartConditions($selenium);
+        $this->process->addBinary($selenium, $this->getInstallPath());
         if ($port != -1) {
-            $this->java->addArg('-port', $port);
+            $this->process->addArg('-port', $port);
         }
 
-        return $this->java->start();
+        return $this->process->start();
     }
 
     /**
@@ -158,5 +156,21 @@ class Manager
     public function getInstallPath()
     {
         return realpath(__DIR__ . '/../binaries');
+    }
+
+    /**
+     * Assert that the selenium server can start.
+     *
+     * @param SeleniumStandalone $selenium
+     */
+    protected function assertStartConditions(SeleniumStandalone $selenium)
+    {
+        if (!$selenium->exists($this->getInstallPath())) {
+            throw new RuntimeException("Selenium Standalone binary not installed");
+        }
+
+        if (!$this->process->isAvailable()) {
+            throw new RuntimeException('java is not available');
+        }
     }
 }
