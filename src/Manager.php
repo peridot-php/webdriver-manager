@@ -125,11 +125,11 @@ class Manager
     }
 
     /**
-     * Start the selenium server.
+     * Start the Selenium server.
      *
-     * @return void
+     * @param int $port
      */
-    public function start()
+    public function start($port = -1)
     {
         $selenium = $this->binaries['selenium'];
 
@@ -140,6 +140,14 @@ class Manager
         if (! $this->java->isAvailable()) {
             throw new RuntimeException('java is not available');
         }
+
+        $this->java->addBinary($selenium, $this->getInstallPath());
+
+        if ($port != -1) {
+            $this->java->addArg('-port', $port);
+        }
+
+        return $this->java->start();
     }
 
     /**

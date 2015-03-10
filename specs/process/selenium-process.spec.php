@@ -20,7 +20,23 @@ describe('SeleniumProcess', function () {
         expect($args)->to->contain('-jar');
     });
 
-    describe('adding a driver', function () {
+    describe('->addArg', function () {
+        it('should support variadic arguments', function () {
+            $this->process->addArg('-port', 9000);
+            $args = $this->process->getArgs();
+            expect($args)->to->contain('-port')->and->to->contain(9000);
+        });
+    });
+
+    describe('->getCommand()', function () {
+        it('should return a java command with the arguments joined', function () {
+            $this->process->addArg('-port', 9000);
+            $command = $this->process->getCommand();
+            expect($command)->to->equal('java -jar -port 9000');
+        });
+    });
+
+    describe('adding a binary', function () {
         beforeEach(function () {
             $this->os = $this->getProphet()->prophesize('Peridot\WebDriverManager\OS\SystemInterface');
             $this->driver = new ChromeDriver(new BinaryResolver(null, null, $this->os->reveal()));
@@ -36,22 +52,22 @@ describe('SeleniumProcess', function () {
         });
 
         it('should add the driver to the argument list', function () {
-            $this->process->addDriver($this->driver, $this->fixtures);
+            $this->process->addBinary($this->driver, $this->fixtures);
             $args = $this->process->getArgs();
             expect($args)->to->contain("-D{$this->driver->getDriverPath($this->fixtures)}");
         });
 
         it('should not add the driver if the target does not exist', function () {
             unlink($this->fixtures . '/' . $this->driver->getOutputFileName());
-            $this->process->addDriver($this->driver, $this->fixtures);
+            $this->process->addBinary($this->driver, $this->fixtures);
             $args = $this->process->getArgs();
             expect($args)->to->not->contain("-D{$this->driver->getDriverPath($this->fixtures)}");
         });
 
-        it('should not add any arguments if the binary is not a driver', function () {
-            $this->process->addDriver($this->selenium, $this->fixtures);
+        it('should add the binary path if not a driver', function () {
+            $this->process->addBinary($this->selenium, $this->fixtures);
             $args = $this->process->getArgs();
-            expect($args)->to->have->length(1, 'should only have default -jar argument');
+            expect($args)->to->contain(realpath($this->fixtures . '/' . $this->selenium->getFileName()));
         });
 
         context('when on windows', function () {
@@ -62,7 +78,7 @@ describe('SeleniumProcess', function () {
             });
 
             it('should add an .exe', function () {
-                $this->process->addDriver($this->driver, $this->fixtures);
+                $this->process->addBinary($this->driver, $this->fixtures);
                 $args = $this->process->getArgs();
                 expect($args[1])->to->match('/[.]exe$/');
             });

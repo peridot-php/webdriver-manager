@@ -121,15 +121,30 @@ describe('Manager', function () {
     });
 
     describe('->start()', function () {
+        beforeEach(function () {
+            $version = Versions::SELENIUM;
+            $this->selenium = $this->manager->getInstallPath() . "/selenium-server-standalone-$version.jar";
+            file_put_contents($this->selenium, 'data');
+        });
+
         it('should throw an exception if there is not selenium binary', function () {
+            unlink($this->selenium);
             expect([$this->manager, 'start'])->to->throw('RuntimeException');
         });
 
         it('should throw an exception if java is not available on the system', function () {
-            $version = Versions::SELENIUM;
-            file_put_contents($this->manager->getInstallPath() . "/selenium-server-standalone-$version.jar", 'data');
             $this->java->isAvailable()->willReturn(false);
             expect([$this->manager, 'start'])->to->throw('RuntimeException', 'java is not available');
+        });
+
+        it('should add selenium path and port argument if specified', function () {
+            $this->java->isAvailable()->willReturn(true);
+            $binaries = $this->manager->getBinaries();
+            $this->java->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
+            $this->java->addArg('-port', 9000)->shouldBeCalled();
+            $this->java->start()->willReturn($this->java);
+            $process = $this->manager->start(9000);
+            $this->getProphet()->checkPredictions();
         });
     });
 });

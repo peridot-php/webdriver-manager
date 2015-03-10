@@ -3,6 +3,7 @@ namespace Peridot\WebDriverManager\Process;
 
 use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\DriverInterface;
+use Peridot\WebDriverManager\Binary\SeleniumStandalone;
 
 class SeleniumProcess implements JavaProcessInterface
 {
@@ -17,14 +18,13 @@ class SeleniumProcess implements JavaProcessInterface
     }
 
     /**
-     * Add a driver to the argument list. Driver files will
-     * be searched for in the given directory.
+     * {@inheritdoc}
      *
      * @param BinaryInterface $binary
      * @param string $directory
      * @return void
      */
-    public function addDriver(BinaryInterface $binary, $directory)
+    public function addBinary(BinaryInterface $binary, $directory)
     {
         if (! $binary->exists($directory)) {
             return;
@@ -32,7 +32,10 @@ class SeleniumProcess implements JavaProcessInterface
 
         if ($binary instanceof DriverInterface) {
             $this->addArg('-D' . $binary->getDriverPath($directory));
+            return;
         }
+
+        $this->addArg(realpath($directory . '/' . $binary->getFileName()));
     }
 
     /**
@@ -54,6 +57,10 @@ class SeleniumProcess implements JavaProcessInterface
     public function addArg($arg)
     {
         $this->args[] = $arg;
+        $rest = array_slice(func_get_args(), 1);
+        foreach ($rest as $arg) {
+            $this->args[] = $arg;
+        }
     }
 
     /**
@@ -68,6 +75,26 @@ class SeleniumProcess implements JavaProcessInterface
         $proc = proc_open($command, $descriptors, $pipes);
         $status = $this->getStatus($proc);
         return $status['exitcode'] == 0;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return $this
+     */
+    public function start()
+    {
+        // TODO: Implement start() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getCommand()
+    {
+        return 'java ' . implode(' ', $this->args);
     }
 
     /**
