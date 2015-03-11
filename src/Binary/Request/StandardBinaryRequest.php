@@ -22,10 +22,10 @@ class StandardBinaryRequest implements BinaryRequestInterface
         $context_options = [
             'http' => [
                 'method' => 'GET'
-            ],
-            'notification' => [$this, 'onNotification']
+            ]
         ];
         $context = stream_context_create($context_options);
+        stream_context_set_params($context, ['notification' => [$this, 'onNotification']]);
         return file_get_contents($url, null, $context);
     }
 

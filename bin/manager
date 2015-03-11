@@ -31,6 +31,9 @@ if (!defined('WEBDRIVER_MANAGER_COMPOSER_INSTALL')) {
 require_once WEBDRIVER_MANAGER_COMPOSER_INSTALL;
 
 $manager = new Manager();
+$manager->on('update.progress', function ($percent) {
+    print "$percent\n";
+});
 $manager->update();
 $process = $manager->start(4444);
 usleep(250000);
