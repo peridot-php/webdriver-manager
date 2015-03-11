@@ -44,8 +44,12 @@ class StandardBinaryRequest implements BinaryRequestInterface
         if ($notification_code === STREAM_NOTIFY_FAILURE) {
             throw new \RuntimeException("Failure requesting binary");
         }
+        
+        $percent = 0;
 
-        $percent = ($bytes_transferred / $bytes_max) * 100;
+        if ($bytes_max) {
+            $percent = ($bytes_transferred / $bytes_max) * 100;
+        }
 
         $this->emit('progress', [$percent]);
     }
