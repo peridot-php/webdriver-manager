@@ -30,6 +30,19 @@ describe('Manager', function () {
         }
     });
 
+    it('proxies resolver events', function () {
+        $resolver = new BinaryResolver();
+        $manager = new Manager($resolver);
+
+        $percent = 0;
+        $manager->on('update.progress', function ($p) use (&$percent) {
+            $percent = $p;
+        });
+
+        $resolver->emit('progress', [50]);
+        expect($percent)->to->equal(50);
+    });
+
     describe('->getInstallPath()', function () {
         it('should return a default path', function () {
             $path = realpath(__DIR__ . '/../binaries');
