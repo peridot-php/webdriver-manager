@@ -71,4 +71,11 @@ interface SeleniumProcessInterface
      * @return array
      */
     public function getPipes();
+
+    /**
+     * Get error output.
+     *
+     * @return string
+     */
+    public function getError();
 } 

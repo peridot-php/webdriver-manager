@@ -33,11 +33,9 @@ require_once WEBDRIVER_MANAGER_COMPOSER_INSTALL;
 $manager = new Manager();
 $manager->update();
 $process = $manager->start(4444);
+usleep(250000);
 print "\nselenium is a thing now\n";
-sleep(2);
-print "shutting selenium down\n";
-print $process->terminate() . "\n";
-
-//$errors = $process->getErrorOutput();
-//
-//var_dump($errors);
+if (! $process->isRunning()) {
+    $errors = $process->getError();
+    var_dump($errors);
+}

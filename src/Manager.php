@@ -1,7 +1,6 @@
 <?php
 namespace Peridot\WebDriverManager;
 
-use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;

@@ -106,7 +106,18 @@ class SeleniumProcess implements SeleniumProcessInterface
      */
     public function isRunning()
     {
-        return $this->getStatus($this->process);
+        $status = $this->getStatus($this->process);
+        return $status['running'];
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getError()
+    {
+        return stream_get_contents($this->pipes[2]);
     }
 
     /**
