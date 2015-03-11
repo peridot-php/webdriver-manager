@@ -1,15 +1,18 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
-use Evenement\EventEmitterTrait;
 use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 use Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor;
 use Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface;
 use Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest;
+use Peridot\WebDriverManager\Event\EventEmitterTrait;
 use Peridot\WebDriverManager\OS\System;
 use Peridot\WebDriverManager\OS\SystemInterface;
 
-class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterface, BinaryResolverInterface
+class BinaryResolver implements
+    BinaryRequestInterface,
+    BinaryDecompressorInterface,
+    BinaryResolverInterface
 {
     use EventEmitterTrait;
 
@@ -41,10 +44,8 @@ class BinaryResolver implements BinaryRequestInterface, BinaryDecompressorInterf
         $this->request = $request;
         $this->decompressor = $decompressor;
         $this->system = $system;
-
-        $this->getBinaryRequest()->on('progress', function ($percent) {
-            $this->emit('progress', [$percent]);
-        });
+        
+        $this->inherit(['progress'], $this->getBinaryRequest());
     }
 
     /**

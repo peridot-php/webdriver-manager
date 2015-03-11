@@ -1,7 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager\Binary\Request;
 
-use Evenement\EventEmitterTrait;
+use Peridot\WebDriverManager\Event\EventEmitterTrait;
 
 /**
  * StandardBinaryRequest uses file_get_contents with a stream context.

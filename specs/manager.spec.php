@@ -35,7 +35,7 @@ describe('Manager', function () {
         $manager = new Manager($resolver);
 
         $percent = 0;
-        $manager->on('update.progress', function ($p) use (&$percent) {
+        $manager->on('progress', function ($p) use (&$percent) {
             $percent = $p;
         });
 

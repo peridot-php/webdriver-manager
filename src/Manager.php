@@ -1,17 +1,18 @@
 <?php
 namespace Peridot\WebDriverManager;
 
-use Evenement\EventEmitterTrait;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\DriverInterface;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
+use Peridot\WebDriverManager\Event\EventEmitterInterface;
+use Peridot\WebDriverManager\Event\EventEmitterTrait;
 use Peridot\WebDriverManager\Process\SeleniumProcessInterface;
 use Peridot\WebDriverManager\Process\SeleniumProcess;
 use RuntimeException;
 
-class Manager
+class Manager implements EventEmitterInterface
 {
     use EventEmitterTrait;
 
@@ -45,9 +46,7 @@ class Manager
             $chrome->getName() => $chrome
         ];
 
-        $this->getBinaryResolver()->on('progress', function ($percent) {
-            $this->emit('update.progress', [$percent]);
-        });
+        $this->inherit(['progress'], $this->getBinaryResolver());
     }
 
     /**

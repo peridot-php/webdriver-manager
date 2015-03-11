@@ -1,8 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager\Binary\Request;
 
-
-use Evenement\EventEmitterInterface;
+use Peridot\WebDriverManager\Event\EventEmitterInterface;
 
 interface BinaryRequestInterface extends EventEmitterInterface
 {
