@@ -2,7 +2,9 @@
 namespace Peridot\WebDriverManager\Binary\Request;
 
 
-interface BinaryRequestInterface
+use Evenement\EventEmitterInterface;
+
+interface BinaryRequestInterface extends EventEmitterInterface
 {
     /**
      * Request the binary at the specified url, and return

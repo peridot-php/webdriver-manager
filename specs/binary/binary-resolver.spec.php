@@ -21,6 +21,19 @@ describe('BinaryResolver', function () {
         $this->request->request(Argument::any())->willReturn('string');
     });
 
+    it('proxies request events', function () {
+        $request = new StandardBinaryRequest();
+        $resolver = new BinaryResolver($request);
+
+        $percent = 0;
+        $resolver->on('progress', function ($p) use (&$percent) {
+            $percent = $p;
+        });
+
+        $request->emit('progress', [50]);
+        expect($percent)->to->equal(50);
+    });
+
     describe('->getBinaryRequest()', function () {
         it('should return a StandardBinaryRequest by default', function () {
             $resolver = new BinaryResolver();

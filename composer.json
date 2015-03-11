@@ -17,5 +17,8 @@
     "require-dev": {
         "peridot-php/peridot-jumpstart": "~1.2",
         "peridot-php/peridot-prophecy-plugin": "~1.1"
+    },
+    "require": {
+        "evenement/evenement": "~2.0"
     }
 }
