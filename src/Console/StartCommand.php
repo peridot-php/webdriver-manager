@@ -28,19 +28,11 @@ class StartCommand extends AbstractManagerCommand
     {
         $port = $input->getArgument('port');
         if (! $port) {
-            $port = -1;
+            $port = 4444;
         }
 
         $output->writeln('<info>Starting Selenium Server...</info>');
-        $process = $this->manager->start($port);
-
-        usleep(250000);
-
-        if (! $process->isRunning()) {
-            $output->writeln('<error>' . $process->getError() . '</error>');
-            return 1;
-        }
-
+        $this->manager->start($port);
         return 0;
     }
 } 

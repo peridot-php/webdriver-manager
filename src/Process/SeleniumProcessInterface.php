@@ -50,32 +50,4 @@ interface SeleniumProcessInterface
      * @return string
      */
     public function getCommand();
-
-    /**
-     * Determine if the process is running.
-     *
-     * @return bool
-     */
-    public function isRunning();
-
-    /**
-     * Terminate the process and get the exit code.
-     *
-     * @return int
-     */
-    public function terminate();
-
-    /**
-     * Return an array of pipes to read, write, and error streams.
-     *
-     * @return array
-     */
-    public function getPipes();
-
-    /**
-     * Get error output.
-     *
-     * @return string
-     */
-    public function getError();
 } 

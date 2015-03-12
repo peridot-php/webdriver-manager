@@ -94,50 +94,8 @@ class SeleniumProcess implements SeleniumProcessInterface
     public function start()
     {
         $command = $this->getCommand();
-        $descriptorSpec = $this->getDescriptorSpec();
-        $this->process = proc_open($command, $descriptorSpec, $this->pipes);
+        exec($command);
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return bool
-     */
-    public function isRunning()
-    {
-        $status = $this->getStatus($this->process);
-        return $status['running'];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
-    public function getError()
-    {
-        return stream_get_contents($this->pipes[2]);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return bool
-     */
-    public function terminate()
-    {
-        return proc_terminate($this->process);
-    }
-
-    /**
-     * {@inheritdocs}
-     *
-     * @return array
-     */
-    public function getPipes()
-    {
-        return $this->pipes;
     }
 
     /**

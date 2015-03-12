@@ -141,14 +141,14 @@ class Manager implements EventEmitterInterface
      * @param int $port
      * @return SeleniumProcessInterface
      */
-    public function start($port = -1)
+    public function start($port = 4444)
     {
         $selenium = $this->binaries['selenium'];
         $this->assertStartConditions($selenium);
 
         $process = $this->getSeleniumProcess();
         $process->addBinary($selenium, $this->getInstallPath());
-        if ($port != -1) {
+        if ($port != 4444) {
             $process->addArg('-port', $port);
         }
 
