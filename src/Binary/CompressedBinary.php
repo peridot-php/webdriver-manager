@@ -19,7 +19,13 @@ abstract class CompressedBinary extends AbstractBinary
         $compressedPath = $directory . DIRECTORY_SEPARATOR . $this->getOutputFileName();
         $this->removeOldVersions($directory);
         file_put_contents($compressedPath, $this->contents);
-        return $this->resolver->extract($compressedPath, $directory);
+        $extracted = $this->resolver->extract($compressedPath, $directory);
+
+        if ($extracted) {
+            chmod("$directory/{$this->getExtractedName()}", 0777);
+        }
+
+        return $extracted;
     }
 
     /**
@@ -39,4 +45,11 @@ abstract class CompressedBinary extends AbstractBinary
      * @return string
      */
     abstract public function getOutputFileName();
+
+    /**
+     * Get the name of the extracted binary.
+     *
+     * @return string
+     */
+    abstract public function getExtractedName();
 }

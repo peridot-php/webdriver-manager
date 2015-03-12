@@ -119,4 +119,14 @@ class ChromeDriver extends CompressedBinary implements DriverInterface
 
         return "webdriver.chrome.driver=$file";
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getExtractedName()
+    {
+        return $this->getName();
+    }
 }

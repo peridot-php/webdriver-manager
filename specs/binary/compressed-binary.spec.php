@@ -102,4 +102,14 @@ class TestCompressedBinary extends CompressedBinary
     {
         // TODO: Implement getOldFilePattern() method.
     }
+
+    /**
+     * Get the name of the extracted binary.
+     *
+     * @return string
+     */
+    public function getExtractedName()
+    {
+
+    }
 }
