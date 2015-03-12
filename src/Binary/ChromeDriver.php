@@ -63,6 +63,21 @@ class ChromeDriver extends CompressedBinary implements DriverInterface
     }
 
     /**
+     * Get the linux filename.
+     *
+     * @return string
+     */
+    public function getLinuxFileName()
+    {
+        $file = "linux32";
+        $system = $this->resolver->getSystem();
+        if ($system->is64Bit()) {
+            $file = 'linux64';
+        }
+        return $file;
+    }
+
+    /**
      * Remove old versions of the binary.
      *
      * @param $directory
@@ -85,21 +100,6 @@ class ChromeDriver extends CompressedBinary implements DriverInterface
     protected function getOldFilePattern($directory)
     {
         return $directory . '/' . str_replace(Versions::CHROMEDRIVER, '*', $this->getOutputFileName());
-    }
-
-    /**
-     * Get the linux filename.
-     *
-     * @return string
-     */
-    private function getLinuxFileName()
-    {
-        $file = "linux32";
-        $system = $this->resolver->getSystem();
-        if ($system->is64Bit()) {
-            $file = 'linux64';
-        }
-        return $file;
     }
 
     /**
