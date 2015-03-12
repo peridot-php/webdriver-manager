@@ -3,6 +3,7 @@ use Evenement\EventEmitterInterface;
 use Peridot\Console\Environment;
 use Peridot\Plugin\Prophecy\ProphecyPlugin;
 use Peridot\Plugin\Watcher\WatcherPlugin;
+use Peridot\Reporter\CodeCoverage\AbstractCodeCoverageReporter;
 use Peridot\Reporter\CodeCoverageReporters;
 use Peridot\Reporter\Dot\DotReporterPlugin;
 use Peridot\Reporter\ListReporter\ListReporterPlugin;
@@ -31,4 +32,8 @@ return function(EventEmitterInterface $emitter) {
 
     $coverage = new CodeCoverageReporters($emitter);
     $coverage->register();
+
+    $emitter->on('code-coverage.start', function (AbstractCodeCoverageReporter $reporter) {
+        $reporter->addDirectoryToWhitelist(__DIR__ . '/src');
+    });
 };

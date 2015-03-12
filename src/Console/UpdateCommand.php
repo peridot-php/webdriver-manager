@@ -30,7 +30,7 @@ class UpdateCommand extends AbstractManagerCommand
         $name = $input->getArgument('name') ?: '';
         $binaries = $this->manager->getBinaries();
 
-        $message = 'Updating Selenium Server and drivers';
+        $message = 'Ensuring binaries are up to date';
         if ($name && array_key_exists($name, $binaries)) {
             $message = "Updating " . $binaries[$name]->getName();
         }

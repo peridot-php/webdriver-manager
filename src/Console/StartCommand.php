@@ -31,6 +31,9 @@ class StartCommand extends AbstractManagerCommand
             $port = 4444;
         }
 
+        $update = $this->getApplication()->find('update');
+        $update->run($input, $output);
+        
         $output->writeln('<info>Starting Selenium Server...</info>');
         $this->manager->start($port);
         return 0;
