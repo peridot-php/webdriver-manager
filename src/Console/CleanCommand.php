@@ -22,7 +22,7 @@ class CleanCommand extends AbstractManagerCommand
     {
         $output->writeln('<info>Deleting installed binaries...</info>');
         $this->manager->clean();
-        $output->writeln('<info>Installtion directory clean</info>');
+        $output->writeln('<info>Installation directory cleaned</info>');
         return 0;
     }
 } 

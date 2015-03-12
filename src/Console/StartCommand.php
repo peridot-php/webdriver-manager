@@ -1,6 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager\Console;
 
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -32,8 +33,8 @@ class StartCommand extends AbstractManagerCommand
         }
 
         $update = $this->getApplication()->find('update');
-        $update->run($input, $output);
-        
+        $update->run(new ArrayInput(['command' => 'update']), $output);
+
         $output->writeln('<info>Starting Selenium Server...</info>');
         $this->manager->start($port);
         return 0;

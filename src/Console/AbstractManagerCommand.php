@@ -19,4 +19,4 @@ abstract class AbstractManagerCommand extends Command
         parent::__construct(null);
         $this->manager = $manager;
     }
-} 
+}
