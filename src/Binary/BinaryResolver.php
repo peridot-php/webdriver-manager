@@ -44,8 +44,8 @@ class BinaryResolver implements
         $this->request = $request;
         $this->decompressor = $decompressor;
         $this->system = $system;
-        
-        $this->inherit(['progress'], $this->getBinaryRequest());
+
+        $this->inherit(['progress', 'request.start', 'complete'], $this->getBinaryRequest());
     }
 
     /**

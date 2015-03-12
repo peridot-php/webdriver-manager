@@ -133,12 +133,14 @@ describe('Manager', function () {
         });
     });
 
-    describe('->start()', function () {
-        beforeEach(function () {
-            $version = Versions::SELENIUM;
-            $this->selenium = $this->manager->getInstallPath() . "/selenium-server-standalone-$version.jar";
-            file_put_contents($this->selenium, 'data');
-        });
+    $stubSelenium = function () {
+        $version = Versions::SELENIUM;
+        $this->selenium = $this->manager->getInstallPath() . "/selenium-server-standalone-$version.jar";
+        file_put_contents($this->selenium, 'data');
+    };
+
+    describe('->start()', function () use ($stubSelenium) {
+        beforeEach($stubSelenium);
 
         it('should throw an exception if there is not selenium binary', function () {
             unlink($this->selenium);
@@ -158,6 +160,16 @@ describe('Manager', function () {
             $this->process->start()->willReturn($this->process);
             $process = $this->manager->start(9000);
             $this->getProphet()->checkPredictions();
+        });
+    });
+
+    describe('->clean()', function () use ($stubSelenium) {
+        beforeEach($stubSelenium);
+
+        it('should remove contents of install dir', function () {
+            $this->manager->clean();
+            $files = glob($this->manager->getInstallPath() . '/*');
+            expect($files)->to->have->length(0);
         });
     });
 });

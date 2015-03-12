@@ -46,7 +46,7 @@ class Manager implements EventEmitterInterface
             $chrome->getName() => $chrome
         ];
 
-        $this->inherit(['progress'], $this->getBinaryResolver());
+        $this->inherit(['progress', 'request.start', 'complete'], $this->getBinaryResolver());
     }
 
     /**
@@ -153,6 +153,19 @@ class Manager implements EventEmitterInterface
         }
 
         return $process->start();
+    }
+
+    /**
+     * Remove all binaries from the install path.
+     *
+     * @return void
+     */
+    public function clean()
+    {
+        $files = glob($this->getInstallPath() . '/*');
+        foreach ($files as $file) {
+            unlink($file);
+        }
     }
 
     /**

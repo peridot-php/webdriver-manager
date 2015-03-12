@@ -1,7 +1,11 @@
 #!/usr/bin/env php
 <?php
 
+use Peridot\WebDriverManager\Console\CleanCommand;
+use Peridot\WebDriverManager\Console\StartCommand;
+use Peridot\WebDriverManager\Console\UpdateCommand;
 use Peridot\WebDriverManager\Manager;
+use Symfony\Component\Console\Application;
 
 $autoloaders = [
     __DIR__ . '/../../../autoload.php',
@@ -31,14 +35,10 @@ if (!defined('WEBDRIVER_MANAGER_COMPOSER_INSTALL')) {
 require_once WEBDRIVER_MANAGER_COMPOSER_INSTALL;
 
 $manager = new Manager();
-$manager->on('update.progress', function ($percent) {
-    print "$percent\n";
-});
-$manager->update();
-$process = $manager->start(4444);
-usleep(250000);
-print "\nselenium is a thing now\n";
-if (! $process->isRunning()) {
-    $errors = $process->getError();
-    var_dump($errors);
-}
+$application = new Application('webdriver manager', '0.0.0');
+
+$application->add(new StartCommand($manager));
+$application->add(new CleanCommand($manager));
+$application->add(new UpdateCommand($manager));
+
+$application->run();

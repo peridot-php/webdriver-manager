@@ -19,6 +19,7 @@
         "peridot-php/peridot-prophecy-plugin": "~1.1"
     },
     "require": {
-        "evenement/evenement": "~2.0"
+        "evenement/evenement": "~2.0",
+        "symfony/console": "~2.6"
     }
 }

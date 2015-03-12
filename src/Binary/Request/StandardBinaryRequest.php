@@ -21,12 +21,16 @@ class StandardBinaryRequest implements BinaryRequestInterface
     {
         $context_options = [
             'http' => [
-                'method' => 'GET'
+                'method' => 'GET',
+                'user_agent' => 'Peridot WebDriver Manager'
             ]
         ];
-        $context = stream_context_create($context_options);
-        stream_context_set_params($context, ['notification' => [$this, 'onNotification']]);
-        return file_get_contents($url, null, $context);
+        $context = stream_context_create($context_options, [
+            'notification' => [$this, 'onNotification']
+        ]);
+        $contents = file_get_contents($url, false, $context);
+        $this->emit('complete', [$url]);
+        return $contents;
     }
 
     /**
@@ -38,19 +42,17 @@ class StandardBinaryRequest implements BinaryRequestInterface
      * @param $message_code
      * @param $bytes_transferred
      * @param $bytes_max
+     * @return void
      */
     public function onNotification($notification_code, $severity, $message, $message_code, $bytes_transferred, $bytes_max)
     {
-        if ($notification_code === STREAM_NOTIFY_FAILURE) {
-            throw new \RuntimeException("Failure requesting binary");
+        switch($notification_code) {
+            case STREAM_NOTIFY_PROGRESS:
+                $this->emit('progress', [$bytes_transferred]);
+                break;
+            case STREAM_NOTIFY_FILE_SIZE_IS:
+                $this->emit('request.start', [$bytes_max]);
+                break;
         }
-        
-        $percent = 0;
-
-        if ($bytes_max) {
-            $percent = ($bytes_transferred / $bytes_max) * 100;
-        }
-
-        $this->emit('progress', [$percent]);
     }
 }
