@@ -147,7 +147,7 @@ class Manager implements EventEmitterInterface
         $this->assertStartConditions($selenium);
 
         $process = $this->getSeleniumProcess();
-        $process->addBinary($selenium, $this->getInstallPath());
+        $this->registerBinaries($process, $selenium);
         if ($port != 4444) {
             $process->addArg('-port', $port);
         }
@@ -191,6 +191,21 @@ class Manager implements EventEmitterInterface
 
         if (!$this->getSeleniumProcess()->isAvailable()) {
             throw new RuntimeException('java is not available');
+        }
+    }
+
+    /**
+     * Register selenium binary and drivers with the process.
+     *
+     * @param SeleniumProcessInterface $process
+     * @param SeleniumStandalone $selenium
+     */
+    protected function registerBinaries(SeleniumProcessInterface $process, SeleniumStandalone $selenium)
+    {
+        $process->addBinary($selenium, $this->getInstallPath());
+        $drivers = $this->getDrivers();
+        foreach ($drivers as $driver) {
+            $process->addBinary($driver, $this->getInstallPath());
         }
     }
 }

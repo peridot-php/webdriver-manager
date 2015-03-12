@@ -152,10 +152,11 @@ describe('Manager', function () {
             expect([$this->manager, 'start'])->to->throw('RuntimeException', 'java is not available');
         });
 
-        it('should add selenium path and port argument if specified', function () {
+        it('should add binary paths and port argument if specified', function () {
             $this->process->isAvailable()->willReturn(true);
             $binaries = $this->manager->getBinaries();
             $this->process->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
+            $this->process->addBinary($binaries['chromedriver'], $this->manager->getInstallPath())->shouldBeCalled();
             $this->process->addArg('-port', 9000)->shouldBeCalled();
             $this->process->start()->willReturn($this->process);
             $this->manager->start(9000);
