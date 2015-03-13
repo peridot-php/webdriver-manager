@@ -50,4 +50,14 @@ interface SeleniumProcessInterface
      * @return string
      */
     public function getCommand();
+
+    /**
+     * Get process status. If loop is true it will loop
+     * until the process has finished before returning a final
+     * status.
+     *
+     * @param bool $loop
+     * @return array
+     */
+    public function getStatus($loop);
 } 
