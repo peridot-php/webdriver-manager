@@ -17,8 +17,8 @@ return function(EventEmitterInterface $emitter) {
     $concurrency = new ConcurrencyPlugin($emitter);
     $prophecy = new ProphecyPlugin($emitter);
 
-    if (getenv('COVERAGE')) {
-        //integration tests with coverage eat computers
+    if (getenv('FULLSUITE')) {
+        //running the entire suite with integration tests eats computers
         ini_set('memory_limit', '512M');
     }
 
