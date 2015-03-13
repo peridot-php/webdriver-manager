@@ -38,7 +38,7 @@ describe('UpdateCommand', function () {
             $tester = new CommandTester($command);
             $tester->execute(['command' => $command->getName()]);
             expect($tester->getDisplay())->to->match('/100%/');
-            expect($tester->getDisplay())->to->match('/Finished downloading/');
+            expect($tester->getDisplay())->to->match('/Downloading/');
         });
     });
 });
@@ -47,9 +47,9 @@ class CannedManager extends Manager
 {
     public function update($binaryName = '')
     {
-        $this->emit('request.start', [100]);
+        $this->emit('request.start', ['http://a.b', 100]);
         $this->emit('progress', [1]);
-        $this->emit('complete', ['http://a.b']);
+        $this->emit('complete');
     }
 
 }

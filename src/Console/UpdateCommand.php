@@ -51,17 +51,17 @@ class UpdateCommand extends AbstractManagerCommand
     protected function update(OutputInterface $output, $name)
     {
         $progress = new ProgressBar($output);
-        $progress->setFormat('Fetching %bar% (%percent%%)');
-        $this->manager->on('request.start', function ($bytes) use ($progress) {
+        $progress->setFormat('%bar% (%percent%%)');
+        $this->manager->on('request.start', function ($url, $bytes) use ($progress, $output) {
+            $output->writeln('<comment>Downloading ' . basename($url) . '</comment>');
             $progress->start($bytes);
         });
         $this->manager->on('progress', function ($transferred) use ($progress) {
             $progress->setProgress($transferred);
         });
-        $this->manager->on('complete', function ($url) use ($progress, $output) {
+        $this->manager->on('complete', function () use ($progress, $output) {
             $progress->finish();
             $output->writeln('');
-            $output->writeln('<info>Finished downloading ' . basename($url) . '</info>');
         });
         $this->manager->update($name);
     }

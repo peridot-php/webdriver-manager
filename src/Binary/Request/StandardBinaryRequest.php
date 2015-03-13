@@ -12,6 +12,11 @@ class StandardBinaryRequest implements BinaryRequestInterface
     use EventEmitterTrait;
 
     /**
+     * @var string
+     */
+    private $url;
+
+    /**
      * {@inheritdoc}
      *
      * @param $url
@@ -19,6 +24,7 @@ class StandardBinaryRequest implements BinaryRequestInterface
      */
     public function request($url)
     {
+        $this->url = $url;
         $context_options = [
             'http' => [
                 'method' => 'GET',
@@ -29,7 +35,7 @@ class StandardBinaryRequest implements BinaryRequestInterface
             'notification' => [$this, 'onNotification']
         ]);
         $contents = file_get_contents($url, false, $context);
-        $this->emit('complete', [$url]);
+        $this->emit('complete');
         return $contents;
     }
 
@@ -51,7 +57,7 @@ class StandardBinaryRequest implements BinaryRequestInterface
                 $this->emit('progress', [$bytes_transferred]);
                 break;
             case STREAM_NOTIFY_FILE_SIZE_IS:
-                $this->emit('request.start', [$bytes_max]);
+                $this->emit('request.start', [$this->url, $bytes_max]);
                 break;
         }
     }
