@@ -40,9 +40,10 @@ interface SeleniumProcessInterface
     /**
      * Start the process and return it.
      *
+     * @param bool $background
      * @return $this
      */
-    public function start();
+    public function start($background);
 
     /**
      * Return the java command being opened by the process.
@@ -60,4 +61,25 @@ interface SeleniumProcessInterface
      * @return array
      */
     public function getStatus($loop);
+
+    /**
+     * Returns whether or not the process is running.
+     *
+     * @return bool
+     */
+    public function isRunning();
+
+    /**
+     * Get contents of error stream.
+     *
+     * @return string
+     */
+    public function getError();
+
+    /**
+     * Close the process.
+     *
+     * @return int
+     */
+    public function close();
 } 

@@ -81,7 +81,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     {
         $command = 'java -version';
         $descriptors = $this->getDescriptorSpec();
-        $this->process = proc_open($command, $descriptors, $pipes);
+        $this->process = proc_open($command, $descriptors, $this->pipes);
         $status = $this->getStatus(true);
         $available = $status['exitcode'] == 0;
         proc_close($this->process);
@@ -93,10 +93,16 @@ class SeleniumProcess implements SeleniumProcessInterface
      *
      * @return $this
      */
-    public function start()
+    public function start($background = false)
     {
         $command = $this->getCommand();
-        exec($command);
+        if (! $background) {
+            exec($command);
+            return $this;
+        }
+
+        $descriptors = $this->getDescriptorSpec();
+        $this->process = proc_open($command, $descriptors, $this->pipes);
         return $this;
     }
 
@@ -125,6 +131,38 @@ class SeleniumProcess implements SeleniumProcessInterface
             $status = proc_get_status($this->process);
         }
         return $status;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function isRunning()
+    {
+        $status = $this->getStatus();
+        return $status['running'];
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getError()
+    {
+        return stream_get_contents($this->pipes[2]);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return int
+     */
+    public function close()
+    {
+        proc_terminate($this->process);
+        return proc_close($this->process);
     }
 
     /**

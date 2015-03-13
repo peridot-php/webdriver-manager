@@ -138,10 +138,11 @@ class Manager implements EventEmitterInterface
     /**
      * Start the Selenium server.
      *
+     * @param bool $background
      * @param int $port
      * @return SeleniumProcessInterface
      */
-    public function start($port = 4444)
+    public function start($background = false, $port = 4444)
     {
         $selenium = $this->binaries['selenium'];
         $this->assertStartConditions($selenium);
@@ -152,7 +153,7 @@ class Manager implements EventEmitterInterface
             $process->addArg('-port', $port);
         }
 
-        return $process->start();
+        return $process->start($background);
     }
 
     /**

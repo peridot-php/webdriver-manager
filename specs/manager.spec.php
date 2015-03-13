@@ -158,8 +158,8 @@ describe('Manager', function () {
             $this->process->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
             $this->process->addBinary($binaries['chromedriver'], $this->manager->getInstallPath())->shouldBeCalled();
             $this->process->addArg('-port', 9000)->shouldBeCalled();
-            $this->process->start()->willReturn($this->process);
-            $this->manager->start(9000);
+            $this->process->start(false)->willReturn($this->process);
+            $this->manager->start(false, 9000);
             $this->getProphet()->checkPredictions();
         });
     });

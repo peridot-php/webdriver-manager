@@ -24,7 +24,7 @@ describe('StartCommand', function () {
             $tester->execute(['command' => $command->getName()]);
             expect($tester->getDisplay())->to->match('/Starting Selenium Server/');
             $this->manager->update(Argument::any())->shouldBeCalled();
-            $this->manager->start(4444)->shouldBeCalled();
+            $this->manager->start(false, 4444)->shouldBeCalled();
         });
 
         context('when port is supplied', function () {
@@ -33,7 +33,7 @@ describe('StartCommand', function () {
                 $tester = new CommandTester($command);
                 $tester->execute(['command' => $command->getName(), 'port' => 9000]);
                 $this->manager->update(Argument::any())->shouldBeCalled();
-                $this->manager->start(9000)->shouldBeCalled();
+                $this->manager->start(false, 9000)->shouldBeCalled();
             });
         });
     });
