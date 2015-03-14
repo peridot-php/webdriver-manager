@@ -3,6 +3,11 @@ namespace Peridot\WebDriverManager\Binary\Decompression;
 
 use splitbrain\PHPArchive\Zip;
 
+/**
+ * ZipDecompressor extracts binaries contained in zip files.
+ *
+ * @package Peridot\WebDriverManager\Binary\Decompression
+ */
 class ZipDecompressor implements BinaryDecompressorInterface
 {
     /**

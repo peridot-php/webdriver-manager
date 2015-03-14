@@ -4,7 +4,9 @@ namespace Peridot\WebDriverManager\Binary\Request;
 use Peridot\WebDriverManager\Event\EventEmitterTrait;
 
 /**
- * StandardBinaryRequest uses file_get_contents with a stream context.
+ * StandardBinaryRequest uses file_get_contents with a stream context. It is capable of emitting
+ * download progress events containing bytes transferred, and bytes total.
+ *
  * @package Peridot\WebDriverManager\Binary
  */
 class StandardBinaryRequest implements BinaryRequestInterface

@@ -3,6 +3,11 @@ namespace Peridot\WebDriverManager\Process;
 
 use Peridot\WebDriverManager\Binary\BinaryInterface;
 
+/**
+ * SeleniumProcessInterface describes how to control a Selenium process.
+ *
+ * @package Peridot\WebDriverManager\Process
+ */
 interface SeleniumProcessInterface
 {
     /**

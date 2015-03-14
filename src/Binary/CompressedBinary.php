@@ -1,6 +1,12 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+/**
+ * CompressedBinary extends the AbstractBinary to include behavior
+ * for handling compressed binaries.
+ *
+ * @package Peridot\WebDriverManager\Binary
+ */
 abstract class CompressedBinary extends AbstractBinary
 {
     /**

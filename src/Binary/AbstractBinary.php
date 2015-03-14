@@ -1,6 +1,11 @@
 <?php
 namespace Peridot\WebDriverManager\Binary;
 
+/**
+ * AbstractBinary is a base class for all binaries and drivers.
+ *
+ * @package Peridot\WebDriverManager\Binary
+ */
 abstract class AbstractBinary implements BinaryInterface
 {
     /**

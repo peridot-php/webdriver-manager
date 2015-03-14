@@ -3,6 +3,11 @@ namespace Peridot\WebDriverManager\Binary;
 
 use Peridot\WebDriverManager\Versions;
 
+/**
+ * SeleniumStandalone is responsible for resolving Selenium Server itself.
+ *
+ * @package Peridot\WebDriverManager\Binary
+ */
 class SeleniumStandalone extends AbstractBinary
 {
     /**

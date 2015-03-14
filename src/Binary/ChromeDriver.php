@@ -3,6 +3,12 @@ namespace Peridot\WebDriverManager\Binary;
 
 use Peridot\WebDriverManager\Versions;
 
+/**
+ * ChromeDriver is used to resolve the Selenium Server driver for using the Chrome
+ * web browser.
+ *
+ * @package Peridot\WebDriverManager\Binary
+ */
 class ChromeDriver extends CompressedBinary implements DriverInterface
 {
     /**

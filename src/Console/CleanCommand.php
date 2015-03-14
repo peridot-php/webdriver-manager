@@ -4,6 +4,11 @@ namespace Peridot\WebDriverManager\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * CleanCommand is used to remove everything from the manager install path.
+ *
+ * @package Peridot\WebDriverManager\Console
+ */
 class CleanCommand extends AbstractManagerCommand
 {
     protected function configure()

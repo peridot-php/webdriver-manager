@@ -4,6 +4,11 @@ namespace Peridot\WebDriverManager\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * StatusCommand shows what drivers and binaries are up to date, out of date, or not present.
+ *
+ * @package Peridot\WebDriverManager\Console
+ */
 class StatusCommand extends AbstractManagerCommand
 {
     protected function configure()

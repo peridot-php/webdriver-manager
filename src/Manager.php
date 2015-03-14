@@ -12,6 +12,12 @@ use Peridot\WebDriverManager\Process\SeleniumProcessInterface;
 use Peridot\WebDriverManager\Process\SeleniumProcess;
 use RuntimeException;
 
+/**
+ * The Manager provides an api for controlling Selenium Server. It can be used
+ * to keep binaries and drivers up to date, as well as start Selenium Server.
+ *
+ * @package Peridot\WebDriverManager
+ */
 class Manager implements EventEmitterInterface
 {
     use EventEmitterTrait;
@@ -33,6 +39,7 @@ class Manager implements EventEmitterInterface
 
     /**
      * @param BinaryResolverInterface $resolver
+     * @param SeleniumProcessInterface $process
      */
     public function __construct(BinaryResolverInterface $resolver = null, SeleniumProcessInterface $process = null) {
         $this->resolver = $resolver;
@@ -183,6 +190,8 @@ class Manager implements EventEmitterInterface
      * Assert that the selenium server can start.
      *
      * @param SeleniumStandalone $selenium
+     * @throws \RuntimeException
+     * @return void
      */
     protected function assertStartConditions(SeleniumStandalone $selenium)
     {
@@ -200,6 +209,7 @@ class Manager implements EventEmitterInterface
      *
      * @param SeleniumProcessInterface $process
      * @param SeleniumStandalone $selenium
+     * @return void
      */
     protected function registerBinaries(SeleniumProcessInterface $process, SeleniumStandalone $selenium)
     {

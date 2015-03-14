@@ -3,6 +3,11 @@ namespace Peridot\WebDriverManager\Binary\Request;
 
 use Peridot\WebDriverManager\Event\EventEmitterInterface;
 
+/**
+ * BinaryRequestInterface describes how to fetch a remote binary.
+ *
+ * @package Peridot\WebDriverManager\Binary\Request
+ */
 interface BinaryRequestInterface extends EventEmitterInterface
 {
     /**

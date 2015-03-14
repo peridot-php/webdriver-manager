@@ -4,6 +4,11 @@ namespace Peridot\WebDriverManager\Process;
 use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\DriverInterface;
 
+/**
+ * SeleniumProcess is responsible for controlling Selenium Server processes.
+ *
+ * @package Peridot\WebDriverManager\Process
+ */
 class SeleniumProcess implements SeleniumProcessInterface
 {
     /**
@@ -48,7 +53,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     }
 
     /**
-     * Return the arguments used to build up this process.
+     * {@inheritdoc}
      *
      * @return array
      */
@@ -58,7 +63,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     }
 
     /**
-     * Add an argument to the argument list.
+     * {@inheritdoc}
      *
      * @param string $arg
      * @return void
@@ -117,8 +122,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     }
 
     /**
-     * Run a process until it is finished, returning the
-     * final status of the operation.
+     * {@inheritdoc}
      *
      * @param resource $proc
      * @return array

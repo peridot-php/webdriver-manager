@@ -9,6 +9,12 @@ use Peridot\WebDriverManager\Event\EventEmitterTrait;
 use Peridot\WebDriverManager\OS\System;
 use Peridot\WebDriverManager\OS\SystemInterface;
 
+/**
+ * BinaryResolver is responsible for all steps of resoling a binary - that is fetching, decompressing, and
+ * determining OS requirements.
+ *
+ * @package Peridot\WebDriverManager\Binary
+ */
 class BinaryResolver implements
     BinaryRequestInterface,
     BinaryDecompressorInterface,

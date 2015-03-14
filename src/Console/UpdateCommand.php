@@ -6,6 +6,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * UpdateCommand is used to update all binaries or a specific binary.
+ *
+ * @package Peridot\WebDriverManager\Console
+ */
 class UpdateCommand extends AbstractManagerCommand
 {
     protected function configure()

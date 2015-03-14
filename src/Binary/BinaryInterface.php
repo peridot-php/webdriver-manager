@@ -2,7 +2,7 @@
 namespace Peridot\WebDriverManager\Binary;
 
 /**
- * BinaryInterface describes an interface for getting
+ * BinaryInterface describes an interface for getting binary
  * information and fetching binaries.
  *
  * @package Peridot\WebDriverManager\Binary

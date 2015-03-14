@@ -4,6 +4,11 @@ namespace Peridot\WebDriverManager\Event;
 use Evenement\EventEmitterTrait as BaseEmitterTrait;
 use Evenement\EventEmitterInterface as BaseEmitterInterface;
 
+/**
+ * EventEmitterTrait is used to implement EventEmitterInterface->inherit()
+ *
+ * @package Peridot\WebDriverManager\Event
+ */
 trait EventEmitterTrait
 {
     use BaseEmitterTrait;

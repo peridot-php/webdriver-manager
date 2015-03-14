@@ -2,6 +2,12 @@
 namespace Peridot\WebDriverManager\Event;
 use Evenement\EventEmitterInterface as BaseEmitterInterface;
 
+/**
+ * EventEmitterInterface provides a means to inherit events
+ * from existing event emitters.
+ *
+ * @package Peridot\WebDriverManager\Event
+ */
 interface EventEmitterInterface extends BaseEmitterInterface
 {
     /**

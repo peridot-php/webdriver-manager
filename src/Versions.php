@@ -2,7 +2,8 @@
 namespace Peridot\WebDriverManager;
 
 /**
- * Versions contains current version numbers for web driver binaries.
+ * Versions contains current version numbers for web driver binaries, as well
+ * as the WebDriverManager itself.
  *
  * @package Peridot\WebDriverManager
  */

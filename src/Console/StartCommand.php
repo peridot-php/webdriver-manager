@@ -6,6 +6,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * StartCommand is used to start Selenium Server in the foreground. If drivers and binaries
+ * are not up to date, the start command will update before starting.
+ *
+ * @package Peridot\WebDriverManager\Console
+ */
 class StartCommand extends AbstractManagerCommand
 {
     protected function configure()

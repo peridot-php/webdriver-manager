@@ -3,6 +3,11 @@ namespace Peridot\WebDriverManager\Test;
 
 use Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface;
 
+/**
+ * TestDecompressor is used as a stub for testing decompression.
+ *
+ * @package Peridot\WebDriverManager\Test
+ */
 class TestDecompressor implements BinaryDecompressorInterface
 {
     public $decompressedPath;
