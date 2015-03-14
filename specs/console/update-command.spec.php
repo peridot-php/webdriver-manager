@@ -25,10 +25,23 @@ describe('UpdateCommand', function () {
             $tester = new CommandTester($command);
             $binary = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryInterface');
             $binary->getName()->willReturn('binary');
+            $binary->isSupported()->willReturn(true);
 
             $this->manager->getBinaries()->willReturn(['binary' => $binary->reveal()]);
             $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
             expect($tester->getDisplay())->to->match('/Updating binary/');
+        });
+
+        it('should notify the user if the binary is not supported', function () {
+            $command = $this->application->find('update');
+            $tester = new CommandTester($command);
+            $binary = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryInterface');
+            $binary->isSupported()->willReturn(false);
+            $binary->getName()->willReturn('binary');
+
+            $this->manager->getBinaries()->willReturn(['binary' => $binary->reveal()]);
+            $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
+            expect($tester->getDisplay())->to->match('/binary is not supported by your system/');
         });
 
         it('should include progress', function () {

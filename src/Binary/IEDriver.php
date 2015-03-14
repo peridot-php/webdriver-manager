@@ -28,11 +28,10 @@ class IEDriver extends CompressedBinary implements DriverInterface
      */
     public function getFileName()
     {
-        $system = $this->resolver->getSystem();
-        if ($system->isWindows()) {
+        if ($this->isSupported()) {
             $file = "IEDriverServer_Win32_";
 
-            if ($system->is64Bit()) {
+            if ($this->resolver->getSystem()->is64Bit()) {
                 $file = 'IEDriverServer_x64_';
             }
 
@@ -68,6 +67,17 @@ class IEDriver extends CompressedBinary implements DriverInterface
     {
         $version = Versions::IEDRIVER;
         return "IEDriver_$version.zip";
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function isSupported()
+    {
+        $system = $this->resolver->getSystem();
+        return $system->isWindows();
     }
 
     /**

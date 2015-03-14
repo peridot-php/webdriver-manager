@@ -113,6 +113,16 @@ abstract class AbstractBinary implements BinaryInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function isSupported()
+    {
+        return true;
+    }
+
+    /**
      * Get the destination file for the binary.
      *
      * @param $directory

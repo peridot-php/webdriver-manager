@@ -33,17 +33,9 @@ class UpdateCommand extends AbstractManagerCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name') ?: '';
-        $binaries = $this->manager->getBinaries();
-
-        $message = 'Ensuring binaries are up to date';
-        if ($name && array_key_exists($name, $binaries)) {
-            $message = "Updating " . $binaries[$name]->getName();
-        }
-
+        $message = $this->getUpdateMessage($name);
         $output->writeln("<info>$message</info>");
-
         $this->update($output, $name);
-
         return 0;
     }
 
@@ -70,4 +62,23 @@ class UpdateCommand extends AbstractManagerCommand
         });
         $this->manager->update($name);
     }
-} 
+
+    /**
+     * @param $name
+     * @param $binaries
+     * @return string
+     */
+    protected function getUpdateMessage($name)
+    {
+        $binaries = $this->manager->getBinaries();
+        $message = 'Ensuring binaries are up to date';
+        $isSingleUpdate = $name && array_key_exists($name, $binaries);
+
+        if (! $isSingleUpdate) {
+            return $message;
+        }
+
+        $binary = $binaries[$name];
+        return $binary->isSupported() ? "Updating {$binary->getName()}" : "{$binary->getName()} is not supported by your system";
+    }
+}

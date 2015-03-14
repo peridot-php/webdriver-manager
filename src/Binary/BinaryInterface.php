@@ -76,4 +76,11 @@ interface BinaryInterface
      * @return bool
      */
     public function isOutOfDate($directory);
+
+    /**
+     * Is the binary supported by the target system?
+     *
+     * @return bool
+     */
+    public function isSupported();
 } 
