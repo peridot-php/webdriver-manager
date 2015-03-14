@@ -124,7 +124,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     /**
      * {@inheritdoc}
      *
-     * @param resource $proc
+     * @param bool $loop
      * @return array
      */
     public function getStatus($loop = false)
