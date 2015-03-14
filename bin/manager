@@ -6,6 +6,7 @@ use Peridot\WebDriverManager\Console\StartCommand;
 use Peridot\WebDriverManager\Console\StatusCommand;
 use Peridot\WebDriverManager\Console\UpdateCommand;
 use Peridot\WebDriverManager\Manager;
+use Peridot\WebDriverManager\Versions;
 use Symfony\Component\Console\Application;
 
 $autoloaders = [
@@ -36,7 +37,7 @@ if (!defined('WEBDRIVER_MANAGER_COMPOSER_INSTALL')) {
 require_once WEBDRIVER_MANAGER_COMPOSER_INSTALL;
 
 $manager = new Manager();
-$application = new Application('webdriver manager', '0.0.0');
+$application = new Application('webdriver manager', Versions::MANAGER);
 
 $application->add(new StartCommand($manager));
 $application->add(new CleanCommand($manager));
