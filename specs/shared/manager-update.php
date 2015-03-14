@@ -5,6 +5,7 @@ beforeEach(function () {
     $path = $this->manager->getInstallPath();
     file_put_contents("$path/selenium-server-standalone-2.44.0.jar", 'jarjar');
     file_put_contents("$path/chromedriver_2.13.zip", 'zipzip');
+    file_put_contents("$path/IEDriver_2.44.0.zip", 'zipzip');
 });
 
 it('should download the latest selenium standalone and chrome driver', function () {
