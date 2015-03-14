@@ -1,14 +1,17 @@
 <?php
+use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Manager;
 
 describe('Manager', function () {
     beforeEach(function () {
         $this->system = $this->getProphet()->prophesize('Peridot\WebDriverManager\OS\SystemInterface');
-        $this->manager = new Manager(null, null, $this->system->reveal());
+        $resolver = new BinaryResolver(null, null, $this->system->reveal());
+        $this->manager = new Manager($resolver);
 
         $selenium = glob($this->manager->getInstallPath() . '/selenium*');
         $chrome = glob($this->manager->getInstallPath() . '/chrome*');
-        $fixtures = array_merge($selenium, $chrome);
+        $ie = glob($this->manager->getInstallPath() . '/IE*');
+        $fixtures = array_merge($selenium, $chrome, $ie);
 
         foreach ($fixtures as $fixture) {
             unlink($fixture);
@@ -42,7 +45,35 @@ describe('Manager', function () {
                 $this->system->isLinux()->willReturn(false);
             });
 
-            require 'shared/manager-update.php';
+            context('and it is 32 bit windows', function () {
+                beforeEach(function () {
+                    $this->system->is64Bit()->willReturn(false);
+                });
+
+                it('should include windows binaries', function () {
+                    $this->manager->updateSingle('IEDriver');
+                    $path = $this->manager->getInstallPath();
+                    $ie = glob("$path/IE*");
+                    expect($ie)->have->length->of->at->least(1);
+                });
+
+                require 'shared/manager-update.php';
+            });
+
+            context('and it is 64 bit windows', function () {
+                beforeEach(function () {
+                    $this->system->is64Bit()->willReturn(true);
+                });
+
+                it('should include windows binaries', function () {
+                    $this->manager->updateSingle('IEDriver');
+                    $path = $this->manager->getInstallPath();
+                    $ie = glob("$path/IE*");
+                    expect($ie)->have->length->of->at->least(1);
+                });
+
+                require 'shared/manager-update.php';
+            });
         });
 
         context('when on a linux operating system', function () {

@@ -18,6 +18,10 @@ abstract class CompressedBinary extends AbstractBinary
      */
     public function save($directory)
     {
+        if (empty($this->contents)) {
+            return false;
+        }
+
         if ($this->exists($directory)) {
             return true;
         }

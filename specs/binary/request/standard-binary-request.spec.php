@@ -13,6 +13,12 @@ describe('StandardBinaryRequest', function () {
         $url->setValue($this->request, 'http://a.b');
     });
 
+    describe('->request()', function () {
+        it('should return an empty string if there is no url', function () {
+            expect($this->request->request(''))->to->be->empty;
+        });
+    });
+
     describe('->onNotification()', function () {
         it('should emit progress event with bytes', function () {
             $bytes = -1;

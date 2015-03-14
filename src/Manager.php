@@ -5,6 +5,7 @@ use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
 use Peridot\WebDriverManager\Binary\DriverInterface;
+use Peridot\WebDriverManager\Binary\IEDriver;
 use Peridot\WebDriverManager\Binary\SeleniumStandalone;
 use Peridot\WebDriverManager\Event\EventEmitterInterface;
 use Peridot\WebDriverManager\Event\EventEmitterTrait;
@@ -47,10 +48,12 @@ class Manager implements EventEmitterInterface
 
         $selenium = new SeleniumStandalone($this->getBinaryResolver());
         $chrome = new ChromeDriver($this->getBinaryResolver());
+        $ie = new IEDriver($this->getBinaryResolver());
 
         $this->binaries = [
             $selenium->getName() => $selenium,
-            $chrome->getName() => $chrome
+            $chrome->getName() => $chrome,
+            $ie->getName() => $ie
         ];
 
         $this->inherit(['progress', 'request.start', 'complete'], $this->getBinaryResolver());

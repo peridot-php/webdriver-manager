@@ -79,7 +79,7 @@ describe('Manager', function () {
     describe('->getBinaries()', function () {
         it('should return a collection of managed binaries', function () {
             $binaries = $this->manager->getBinaries();
-            expect($binaries)->to->have->length(2);
+            expect($binaries)->to->have->length(3);
             foreach ($binaries as $binary) {
                 expect($binary)->to->be->an->instanceof('Peridot\WebDriverManager\Binary\BinaryInterface');
             }
@@ -89,7 +89,7 @@ describe('Manager', function () {
     describe('->getDrivers()', function () {
         it('should return a collection of binaries that qualify as drivers', function () {
             $drivers = $this->manager->getDrivers();
-            expect($drivers)->to->have->length(1);
+            expect($drivers)->to->have->length(2);
             foreach ($drivers as $driver) {
                 expect($driver)->to->be->an->instanceof('Peridot\WebDriverManager\Binary\DriverInterface');
             }
@@ -157,6 +157,7 @@ describe('Manager', function () {
             $binaries = $this->manager->getBinaries();
             $this->process->addBinary($binaries['selenium'], $this->manager->getInstallPath())->shouldBeCalled();
             $this->process->addBinary($binaries['chromedriver'], $this->manager->getInstallPath())->shouldBeCalled();
+            $this->process->addBinary($binaries['IEDriver'], $this->manager->getInstallPath())->shouldBeCalled();
             $this->process->addArg('-port', 9000)->shouldBeCalled();
             $this->process->start(false)->willReturn($this->process);
             $this->manager->start(false, 9000);

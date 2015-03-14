@@ -26,16 +26,12 @@ class StandardBinaryRequest implements BinaryRequestInterface
      */
     public function request($url)
     {
+        if (empty($url)) {
+            return '';
+        }
+
         $this->url = $url;
-        $context_options = [
-            'http' => [
-                'method' => 'GET',
-                'user_agent' => 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-            ]
-        ];
-        $context = stream_context_create($context_options, [
-            'notification' => [$this, 'onNotification']
-        ]);
+        $context = $this->getContext();
         $contents = file_get_contents($url, false, $context);
         $this->emit('complete');
         return $contents;
@@ -62,5 +58,24 @@ class StandardBinaryRequest implements BinaryRequestInterface
                 $this->emit('request.start', [$this->url, $bytes_max]);
                 break;
         }
+    }
+
+    /**
+     * Create a context for file_get_contents.
+     *
+     * @return resource
+     */
+    protected function getContext()
+    {
+        $context_options = [
+            'http' => [
+                'method' => 'GET',
+                'user_agent' => 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+            ]
+        ];
+        $context = stream_context_create($context_options, [
+            'notification' => [$this, 'onNotification']
+        ]);
+        return $context;
     }
 }

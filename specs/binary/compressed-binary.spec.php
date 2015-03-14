@@ -19,36 +19,50 @@ describe('CompressedBinary', function () {
     });
 
     describe('->save()', function () {
-        beforeEach(function () {
-            $this->binary->fetch();
-        });
-
-        it('should write the zip contents to an output file', function () {
-            $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->shouldBeCalled();
-            $this->binary->save(__DIR__);
-        });
-
-        it('should return true if decompression succeeds', function () {
-            $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(true);
-            $result = $this->binary->save(__DIR__);
-            expect($result)->to->be->true;
-        });
-
-        it('should return false if decompression fails', function () {
-            $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(false);
-            $result = $this->binary->save(__DIR__);
-            expect($result)->to->be->false;
-        });
-
-        context('when the current version is already installed', function () {
+        context('when fetch returns nothing', function () {
             beforeEach(function () {
-                file_put_contents(__DIR__ . '/' . $this->binary->getOutputFileName(), 'zipzipzip');
+                $this->resolver->request($this->binary->getUrl())->willReturn('');
+                $this->binary->fetch();
             });
 
-            it('should return true without unzipping', function () {
-                $this->resolver->extract()->shouldNotBeCalled();
+            it('should return false if there is no content', function () {
+                $result = $this->binary->save(__DIR__);
+                expect($result)->to->be->false;
+            });
+        });
+
+        context('when fetch successfully returns content', function () {
+            beforeEach(function () {
+                $this->binary->fetch();
+            });
+
+            it('should write the zip contents to an output file', function () {
+                $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->shouldBeCalled();
+                $this->binary->save(__DIR__);
+            });
+
+            it('should return true if decompression succeeds', function () {
+                $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(true);
                 $result = $this->binary->save(__DIR__);
                 expect($result)->to->be->true;
+            });
+
+            it('should return false if decompression fails', function () {
+                $this->resolver->extract(Argument::containingString($this->binary->getOutputFileName()), __DIR__)->willReturn(false);
+                $result = $this->binary->save(__DIR__);
+                expect($result)->to->be->false;
+            });
+
+            context('and the current version is already installed', function () {
+                beforeEach(function () {
+                    file_put_contents(__DIR__ . '/' . $this->binary->getOutputFileName(), 'zipzipzip');
+                });
+
+                it('should return true without unzipping', function () {
+                    $this->resolver->extract()->shouldNotBeCalled();
+                    $result = $this->binary->save(__DIR__);
+                    expect($result)->to->be->true;
+                });
             });
         });
     });
