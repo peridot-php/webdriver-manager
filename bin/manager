@@ -3,6 +3,7 @@
 
 use Peridot\WebDriverManager\Console\CleanCommand;
 use Peridot\WebDriverManager\Console\StartCommand;
+use Peridot\WebDriverManager\Console\StatusCommand;
 use Peridot\WebDriverManager\Console\UpdateCommand;
 use Peridot\WebDriverManager\Manager;
 use Symfony\Component\Console\Application;
@@ -40,5 +41,6 @@ $application = new Application('webdriver manager', '0.0.0');
 $application->add(new StartCommand($manager));
 $application->add(new CleanCommand($manager));
 $application->add(new UpdateCommand($manager));
+$application->add(new StatusCommand($manager));
 
 $application->run();
