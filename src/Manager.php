@@ -1,6 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager;
 
+use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Binary\BinaryResolverInterface;
 use Peridot\WebDriverManager\Binary\ChromeDriver;
@@ -113,6 +114,20 @@ class Manager implements EventEmitterInterface
     {
         return $this->getBinaries(function ($binary) {
             return $binary instanceof DriverInterface;
+        });
+    }
+
+    /**
+     * Pending binaries are binaries that are supported but have not been installed.
+     *
+     * @return array
+     */
+    public function getPendingBinaries()
+    {
+        return $this->getBinaries(function (BinaryInterface $binary) {
+            $exists = $binary->exists($this->getInstallPath());
+            $supported = $binary->isSupported();
+            return $supported && !$exists;
         });
     }
 

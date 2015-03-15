@@ -25,6 +25,12 @@ describe('AbstractBinary', function () {
         });
     });
 
+    describe('->isSupported()', function () {
+        it('returns true by default', function () {
+            expect($this->binary->isSupported())->to->be->true;
+        });
+    });
+
     describe('->save()', function () {
         beforeEach(function () {
             $this->binary->fetch();

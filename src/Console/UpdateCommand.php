@@ -49,7 +49,7 @@ class UpdateCommand extends AbstractManagerCommand
     {
         $output->writeln("<info>{$this->getPreMessage($name)}</info>");
         $this->watchProgress($output, $name);
-        $pending = $this->manager->getBinaries([$this, 'isPending']);
+        $pending = $this->manager->getPendingBinaries();
 
         $this->manager->update($name);
 
@@ -121,26 +121,23 @@ class UpdateCommand extends AbstractManagerCommand
             return $r;
         }, 0);
 
-        $message = 'Nothing to update';
-
-        if ($count > 0) {
-            $message = "$count binaries updated";
-        }
-
-        return $message;
+        return $this->getResultString($count);
     }
 
     /**
-     * Helper for determining if a binary is supported and has not
-     * yet been updated.
+     * Given a count, return an appropriate label.
      *
-     * @param BinaryInterface $binary
-     * @return bool
+     * @param $count
+     * @return string
      */
-    protected function isPending(BinaryInterface $binary)
+    protected function getResultString($count)
     {
-        $exists = $binary->exists($this->manager->getInstallPath());
-        $supported = $binary->isSupported();
-        return $supported && !$exists;
+        if ($count == 0) {
+            return 'Nothing to update';
+        }
+
+        $label = $count > 1 ? 'binaries' : 'binary';
+
+        return "$count $label updated";
     }
 }

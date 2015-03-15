@@ -29,6 +29,7 @@ describe('UpdateCommand', function () {
             $this->manager->on('progress', Argument::any())->shouldBeCalled();
             $this->manager->on('complete', Argument::any())->shouldBeCalled();
             $this->manager->update(Argument::any())->shouldBeCalled();
+            $this->manager->getPendingBinaries()->shouldBeCalled();
         });
 
         it('should update a single binary if the name is given', function () {
@@ -64,17 +65,84 @@ describe('UpdateCommand', function () {
             expect($tester->getDisplay())->to->match('/Downloading/');
         });
 
-        //it('should include a ')
+        context('after update is complete', function () {
+            it('should say nothing to update if nothing was updated', function () {
+                $command = $this->application->find('update');
+                $tester = new CommandTester($command);
+                $binary = $this->createBinary('binary', true, true);
+                $this->manager->getBinaries(Argument::any())->willReturn('binary', $binary->reveal());
+
+                $tester->execute(['command' => $command->getName()]);
+
+                expect($tester->getDisplay())->to->match('/Nothing to update/');
+            });
+
+            it('should have an updated count if 1 binary is updated', function () {
+                $application = new Application();
+                $manager = new CannedManager();
+                $binary = $this->createBinary('binary', true, false);
+                $manager->addBinary($binary);
+                $application->add(new UpdateCommand($manager));
+                $command = $application->find('update');
+
+                $tester = new CommandTester($command);
+                $tester->execute(['command' => $command->getName()]);
+
+                expect($tester->getDisplay())->to->match('/1 binary updated/');
+            });
+
+            it('should have an updated count if multiple binaries were updated', function () {
+                $application = new Application();
+                $manager = new CannedManager();
+                $binary = $this->createBinary('binary', true, false);
+                $binary2 = $this->createBinary('binary2', true, false);
+                $manager->addBinary($binary);
+                $manager->addBinary($binary2);
+                $application->add(new UpdateCommand($manager));
+                $command = $application->find('update');
+
+                $tester = new CommandTester($command);
+                $tester->execute(['command' => $command->getName()]);
+
+                expect($tester->getDisplay())->to->match('/2 binaries updated/');
+            });
+        });
     });
 });
 
 class CannedManager extends Manager
 {
+    protected $binaries;
+
+    public function __construct()
+    {
+        $this->binaries = [];
+    }
+
     public function update($binaryName = '')
     {
         $this->emit('request.start', ['http://a.b', 100]);
         $this->emit('progress', [1]);
         $this->emit('complete');
+
+        if ($this->binaries) {
+            foreach ($this->binaries as $binary) {
+                $binary->exists(Argument::any())->willReturn(true);
+            }
+        }
     }
 
+    public function addBinary($binaryMock)
+    {
+        $this->binaries[$binaryMock->reveal()->getName()] = $binaryMock;
+    }
+
+    public function getBinaries(callable $predicate = null)
+    {
+        $stubs = [];
+        foreach ($this->binaries as $name => $binary) {
+            $stubs[$name] = $binary->reveal();
+        }
+        return $stubs;
+    }
 }
