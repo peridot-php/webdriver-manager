@@ -1,6 +1,7 @@
 <?php
 namespace Peridot\WebDriverManager\Console;
 
+use Peridot\WebDriverManager\Binary\BinaryInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,18 +47,19 @@ class UpdateCommand extends AbstractManagerCommand
      */
     protected function update(OutputInterface $output, $name)
     {
-        $pre = $this->getPreMessage($name);
-        $output->writeln("<info>$pre</info>");
+        $output->writeln("<info>{$this->getPreMessage($name)}</info>");
         $this->watchProgress($output, $name);
+        $pending = $this->manager->getBinaries([$this, 'isPending']);
 
         $this->manager->update($name);
+
+        $output->writeln("<info>{$this->getPostMessage($pending, $name)}</info>");
     }
 
     /**
      * Watch for update progress and advance a progress bar.
      *
      * @param OutputInterface $output
-     * @param $name
      * @return void
      */
     protected function watchProgress(OutputInterface $output)
@@ -78,8 +80,9 @@ class UpdateCommand extends AbstractManagerCommand
     }
 
     /**
-     * @param $name
-     * @param $binaries
+     * Get the message to initially display to the user.
+     *
+     * @param string $name
      * @return string
      */
     protected function getPreMessage($name)
@@ -94,5 +97,50 @@ class UpdateCommand extends AbstractManagerCommand
 
         $binary = $binaries[$name];
         return $binary->isSupported() ? "Updating {$binary->getName()}" : "{$binary->getName()} is not supported by your system";
+    }
+
+    /**
+     * Get the result message.
+     *
+     * @param array $pending
+     * @param string $name
+     * @return string
+     */
+    protected function getPostMessage(array $pending, $name)
+    {
+        if ($name) {
+            $pending = array_filter($pending, function (BinaryInterface $binary) use ($name) {
+                return $binary->getName() === $name;
+            });
+        }
+
+        $count = array_reduce($pending, function ($r, BinaryInterface $binary) {
+            if ($binary->exists($this->manager->getInstallPath())) {
+                $r++;
+            }
+            return $r;
+        }, 0);
+
+        $message = 'Nothing to update';
+
+        if ($count > 0) {
+            $message = "$count binaries updated";
+        }
+
+        return $message;
+    }
+
+    /**
+     * Helper for determining if a binary is supported and has not
+     * yet been updated.
+     *
+     * @param BinaryInterface $binary
+     * @return bool
+     */
+    protected function isPending(BinaryInterface $binary)
+    {
+        $exists = $binary->exists($this->manager->getInstallPath());
+        $supported = $binary->isSupported();
+        return $supported && !$exists;
     }
 }

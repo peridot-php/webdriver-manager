@@ -5,11 +5,22 @@ use Prophecy\Argument;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
+require 'BinaryHelper.php';
+
 describe('UpdateCommand', function () {
-    beforeEach(function () {
+
+    $helper = null;
+
+    beforeEach(function () use (&$helper) {
         $this->application = new Application();
         $this->manager = $this->getProphet()->prophesize('Peridot\WebDriverManager\Manager');
+        $this->manager->getInstallPath()->willReturn(__DIR__);
         $this->application->add(new UpdateCommand($this->manager->reveal()));
+
+        if ($helper === null) {
+            $helper = new BinaryHelper($this->getProphet());
+            $this->peridotAddChildScope(new BinaryHelper($this->getProphet()));
+        }
     });
 
     describe('->execute()', function () {
@@ -23,11 +34,11 @@ describe('UpdateCommand', function () {
         it('should update a single binary if the name is given', function () {
             $command = $this->application->find('update');
             $tester = new CommandTester($command);
-            $binary = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryInterface');
-            $binary->getName()->willReturn('binary');
-            $binary->isSupported()->willReturn(true);
 
-            $this->manager->getBinaries()->willReturn(['binary' => $binary->reveal()]);
+
+            $binary = $this->createBinary('binary', true, false);
+
+            $this->manager->getBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
             $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
             expect($tester->getDisplay())->to->match('/Updating binary/');
         });
@@ -35,11 +46,10 @@ describe('UpdateCommand', function () {
         it('should notify the user if the binary is not supported', function () {
             $command = $this->application->find('update');
             $tester = new CommandTester($command);
-            $binary = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryInterface');
-            $binary->isSupported()->willReturn(false);
-            $binary->getName()->willReturn('binary');
 
-            $this->manager->getBinaries()->willReturn(['binary' => $binary->reveal()]);
+            $binary = $this->createBinary('binary', false, false);
+
+            $this->manager->getBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
             $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
             expect($tester->getDisplay())->to->match('/binary is not supported by your system/');
         });
@@ -53,6 +63,8 @@ describe('UpdateCommand', function () {
             expect($tester->getDisplay())->to->match('/100%/');
             expect($tester->getDisplay())->to->match('/Downloading/');
         });
+
+        //it('should include a ')
     });
 });
 
