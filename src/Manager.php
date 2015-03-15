@@ -91,11 +91,17 @@ class Manager implements EventEmitterInterface
     /**
      * Return all managed binaries.
      *
+     * @param callable $predicate
      * @return array
      */
-    public function getBinaries()
+    public function getBinaries(callable $predicate = null)
     {
-        return $this->binaries;
+        $binaries = $this->binaries;
+        if ($predicate !== null) {
+            $filtered = array_filter($binaries, $predicate);
+            $binaries = array_values($filtered);
+        }
+        return $binaries;
     }
 
     /**
@@ -105,11 +111,9 @@ class Manager implements EventEmitterInterface
      */
     public function getDrivers()
     {
-        $drivers = array_filter($this->binaries, function ($binary) {
+        return $this->getBinaries(function ($binary) {
             return $binary instanceof DriverInterface;
         });
-
-        return array_values($drivers);
     }
 
     /**
