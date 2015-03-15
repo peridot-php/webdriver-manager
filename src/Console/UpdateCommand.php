@@ -48,7 +48,7 @@ class UpdateCommand extends AbstractManagerCommand
     protected function update(OutputInterface $output, $name)
     {
         $output->writeln("<info>{$this->getPreMessage($name)}</info>");
-        $this->watchProgress($output, $name);
+        $this->watchProgress($output);
         $pending = $this->manager->getPendingBinaries();
 
         $this->manager->update($name);
