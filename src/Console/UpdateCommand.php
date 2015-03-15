@@ -33,19 +33,34 @@ class UpdateCommand extends AbstractManagerCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name') ?: '';
-        $message = $this->getUpdateMessage($name);
-        $output->writeln("<info>$message</info>");
         $this->update($output, $name);
         return 0;
     }
 
     /**
-     * Track update progress.
+     *
      *
      * @param OutputInterface $output
      * @param $name
+     * @return void
      */
     protected function update(OutputInterface $output, $name)
+    {
+        $pre = $this->getPreMessage($name);
+        $output->writeln("<info>$pre</info>");
+        $this->watchProgress($output, $name);
+
+        $this->manager->update($name);
+    }
+
+    /**
+     * Watch for update progress and advance a progress bar.
+     *
+     * @param OutputInterface $output
+     * @param $name
+     * @return void
+     */
+    protected function watchProgress(OutputInterface $output)
     {
         $progress = new ProgressBar($output);
         $progress->setFormat('%bar% (%percent%%)');
@@ -60,7 +75,6 @@ class UpdateCommand extends AbstractManagerCommand
             $progress->finish();
             $output->writeln('');
         });
-        $this->manager->update($name);
     }
 
     /**
@@ -68,7 +82,7 @@ class UpdateCommand extends AbstractManagerCommand
      * @param $binaries
      * @return string
      */
-    protected function getUpdateMessage($name)
+    protected function getPreMessage($name)
     {
         $binaries = $this->manager->getBinaries();
         $message = 'Ensuring binaries are up to date';
