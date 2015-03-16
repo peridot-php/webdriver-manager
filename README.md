@@ -7,6 +7,20 @@ The perfect companion for projects with functional tests. Heavily inspired by th
 
 In addition to an easy to use command line application, WebDriver Manager provides a library for managing Selenium binaries in your own apps and tools.
 
+##Installation
+
+WebDriver Manager is meant to be a drop in for any project using Selenium WebDriver for functional tests.
+
+```
+$ composer require --dev peridot-php/webdriver-manager
+```
+
+Once installed, you can operate Selenium from the comfort of your project:
+
+```
+$ vendor/bin/manager start
+```
+
 ##Usage
 
 ![WebDriver Manager Usage](https://raw.github.com/peridot-php/webdriver-manager/master/img/usage.png "WebDriver Manager Usage")
