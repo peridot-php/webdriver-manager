@@ -66,9 +66,9 @@ describe('AbstractBinary', function () {
         it('should return true if already installed and up to date', function () {
             $this->binary->fetchAndSave(__DIR__);
 
-            $request = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface');
-            $binary = new TestBinary($request->reveal());
-            $request->request()->shouldNotBeCalled();
+            $resolver = $this->getProphet()->prophesize('Peridot\WebDriverManager\Binary\BinaryResolverInterface');
+            $binary = new TestBinary($resolver->reveal());
+            $resolver->request()->shouldNotBeCalled();
             expect($binary->fetchAndSave(__DIR__))->to->be->true;
         });
     });
