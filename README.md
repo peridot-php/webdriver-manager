@@ -57,8 +57,27 @@ $manager->start(true, 9999); //start in the background on port 9999
 $path = $manager->getInstallPath(); //where binaries are installed
 $manager->setInstallPath(__DIR__); //set the path to install binaries
 
-$manager->addBinary(new MyCustomDriver()); //add a binary
+$manager->addBinary(new MyCustomDriver()); //add a binary to manage
 $binaries = $manager->getBinaries(); //get a collection of managed binaries
 ```
 
 For more information, see the [API docs](http://peridot-php.github.io/webdriver-manager/docs/);
+
+##Running tests
+
+WebDriver Manager's tests were written using the [Peridot](http://peridot-php.github.io/) test framework.
+
+Unit tests can be run like so:
+
+```
+$ vendor/bin/peridot
+```
+
+And integration tests can be run like this:
+
+```
+$ vendor/bin/peridot --grep *.it.php
+```
+
+##Contributing
+Please feel free to open issues or pull requests.
