@@ -80,6 +80,16 @@ class Manager implements EventEmitterInterface
     }
 
     /**
+     * Set the BinaryResolver used to resolve binary files.
+     *
+     * @param BinaryResolverInterface $resolver
+     */
+    public function setBinaryResolver(BinaryResolverInterface $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+
+    /**
      * Return the SeleniumProcessInterface that will execute the
      * selenium server command.
      *

@@ -67,6 +67,12 @@ describe('Manager', function () {
             $manager = new Manager($resolver);
             expect($manager->getBinaryResolver())->to->equal($resolver);
         });
+
+        it('should return a set a binary resolver', function () {
+            $resolver = new BinaryResolver();
+            $this->manager->setBinaryResolver($resolver);
+            expect($this->manager->getBinaryResolver())->to->equal($resolver);
+        });
     });
 
     describe('->getSeleniumProcess()', function () {
