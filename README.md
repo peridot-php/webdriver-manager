@@ -9,4 +9,16 @@ In addition to an easy to use command line application, WebDriver Manager provid
 
 ##Usage
 
-![WebDriver Manager Usage](https://raw.github.com/peridot-php/webdriver-manager/master/usage.png "WebDriver Manager Usage")
+![WebDriver Manager Usage](https://raw.github.com/peridot-php/webdriver-manager/master/img/usage.png "WebDriver Manager Usage")
+
+###clean
+
+Remove all installed binaries.
+
+![WebDriver clean command](https://raw.github.com/peridot-php/webdriver-manager/master/img/clean.png "WebDriver clean command")
+
+###status
+
+List all available binaries and the status. Status shows if the binary is installed, out of date, or missing.
+
+ ![WebDriver status command](https://raw.github.com/peridot-php/webdriver-manager/master/img/status.png "WebDriver status command")
