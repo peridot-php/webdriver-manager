@@ -75,6 +75,22 @@ $manager->addBinary(new MyCustomDriver()); //add a binary to manage
 $binaries = $manager->getBinaries(); //get a collection of managed binaries
 ```
 
+###A note on starting Selenium in the background
+
+WebDriver Manager does nothing to validate the background process started ok, but it provides the means to do so. If Selenium or a driver becomes corrupted, you can try something like this:
+
+```php
+$process = $manager->start(true); //start in background
+usleep(250000); //give Selenium a second to validate input
+if (! $process->isRunning()) {
+	//Selenium encountered an error
+	print $process->getError();
+	$process->close();
+}
+
+//do rad Selenium things
+```
+
 For more information, see the [API docs](http://peridot-php.github.io/webdriver-manager/docs/);
 
 ##Running tests
