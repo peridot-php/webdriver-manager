@@ -81,7 +81,7 @@ WebDriver Manager does nothing to validate the background process started ok, bu
 
 ```php
 $process = $manager->start(true); //start in background
-usleep(250000); //give Selenium a second to validate input
+usleep(250000); //give Selenium a quarter of a second to validate input
 if (! $process->isRunning()) {
 	//Selenium encountered an error
 	print $process->getError();
