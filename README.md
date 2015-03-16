@@ -72,6 +72,7 @@ $path = $manager->getInstallPath(); //where binaries are installed
 $manager->setInstallPath(__DIR__); //set the path to install binaries
 
 $manager->addBinary(new MyCustomDriver()); //add a binary to manage
+$manager->removeBinary('chromdedriver'); //remove a managed binary
 $binaries = $manager->getBinaries(); //get a collection of managed binaries
 ```
 
