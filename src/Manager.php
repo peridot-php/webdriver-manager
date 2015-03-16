@@ -131,8 +131,7 @@ class Manager implements EventEmitterInterface
     {
         $binaries = $this->binaries;
         if ($predicate !== null) {
-            $filtered = array_filter($binaries, $predicate);
-            $binaries = array_values($filtered);
+            return array_filter($binaries, $predicate);
         }
         return $binaries;
     }
