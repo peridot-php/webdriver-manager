@@ -22,3 +22,15 @@ Remove all installed binaries.
 List all available binaries and the status. Status shows if the binary is installed, out of date, or missing.
 
  ![WebDriver status command](https://raw.github.com/peridot-php/webdriver-manager/master/img/status.png "WebDriver status command")
+
+###update
+
+The update command downloads current binaries and deletes old ones.
+
+![WebDriver update command](https://raw.github.com/peridot-php/webdriver-manager/master/img/update.png "WebDriver update command")
+
+###start
+
+Starts Selnium Server with all drivers managed by WebDriver Manager. The start command will run an update at start to make sure drivers are available and up to date.
+
+![WebDriver start command](https://raw.github.com/peridot-php/webdriver-manager/master/img/start.png "WebDriver start command")
