@@ -77,7 +77,7 @@ $binaries = $manager->getBinaries(); //get a collection of managed binaries
 
 ###A note on starting Selenium in the background
 
-WebDriver Manager does nothing to validate the background process started ok, but it provides the means to do so. If Selenium or a driver becomes corrupted, you can try something like this:
+WebDriver Manager does nothing to validate the background process started ok, but it provides the means to do so. If you want to check that Selenium started in the background ok, you might try something like this:
 
 ```php
 $process = $manager->start(true); //start in background
