@@ -75,6 +75,14 @@ describe('Manager', function () {
         });
     });
 
+    describe('->removeBinary()', function () {
+        it('should remove a binary from the collection of managed binaries', function () {
+            $this->manager->removeBinary('selenium');
+            $binaries = $this->manager->getBinaries();
+            expect($binaries)->to->not->have->property('selenium');
+        });
+    });
+
     describe('->getSeleniumProcess()', function () {
         it('should return a SeleniumProcess by default', function () {
             $manager = new Manager();

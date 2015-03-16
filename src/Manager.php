@@ -71,6 +71,18 @@ class Manager implements EventEmitterInterface
     }
 
     /**
+     * Remove a binary from the collection of managed binaries.
+     *
+     * @param string $binaryName
+     */
+    public function removeBinary($binaryName)
+    {
+        if (isset($this->binaries[$binaryName])) {
+            unset($this->binaries[$binaryName]);
+        }
+    }
+
+    /**
      * Return the BinaryResolver used to resolve binary files.
      *
      * @return BinaryResolver|BinaryResolverInterface
