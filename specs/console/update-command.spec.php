@@ -81,7 +81,7 @@ describe('UpdateCommand', function () {
                 $application = new Application();
                 $manager = new CannedManager();
                 $binary = $this->createBinary('binary', true, false);
-                $manager->addBinary($binary);
+                $manager->addBinaryMock($binary);
                 $application->add(new UpdateCommand($manager));
                 $command = $application->find('update');
 
@@ -96,8 +96,8 @@ describe('UpdateCommand', function () {
                 $manager = new CannedManager();
                 $binary = $this->createBinary('binary', true, false);
                 $binary2 = $this->createBinary('binary2', true, false);
-                $manager->addBinary($binary);
-                $manager->addBinary($binary2);
+                $manager->addBinaryMock($binary);
+                $manager->addBinaryMock($binary2);
                 $application->add(new UpdateCommand($manager));
                 $command = $application->find('update');
 
@@ -132,7 +132,7 @@ class CannedManager extends Manager
         }
     }
 
-    public function addBinary($binaryMock)
+    public function addBinaryMock($binaryMock)
     {
         $this->binaries[$binaryMock->reveal()->getName()] = $binaryMock;
     }

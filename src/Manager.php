@@ -51,18 +51,23 @@ class Manager implements EventEmitterInterface
     public function __construct(BinaryResolverInterface $resolver = null, SeleniumProcessInterface $process = null) {
         $this->resolver = $resolver;
         $this->process = $process;
+        $this->binaries = [];
 
-        $selenium = new SeleniumStandalone($this->getBinaryResolver());
-        $chrome = new ChromeDriver($this->getBinaryResolver());
-        $ie = new IEDriver($this->getBinaryResolver());
-
-        $this->binaries = [
-            $selenium->getName() => $selenium,
-            $chrome->getName() => $chrome,
-            $ie->getName() => $ie
-        ];
+        $this->addBinary(new SeleniumStandalone($this->getBinaryResolver()));
+        $this->addBinary(new ChromeDriver($this->getBinaryResolver()));
+        $this->addBinary(new IEDriver($this->getBinaryResolver()));
 
         $this->inherit(['progress', 'request.start', 'complete'], $this->getBinaryResolver());
+    }
+
+    /**
+     * Add a binary to the collection of managed binaries.
+     *
+     * @param BinaryInterface $binary
+     */
+    public function addBinary(BinaryInterface $binary)
+    {
+        $this->binaries[$binary->getName()] = $binary;
     }
 
     /**
