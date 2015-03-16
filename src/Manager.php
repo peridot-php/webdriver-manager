@@ -40,6 +40,11 @@ class Manager implements EventEmitterInterface
     protected $process;
 
     /**
+     * @var string
+     */
+    protected $installPath = '';
+
+    /**
      * @param BinaryResolverInterface $resolver
      * @param SeleniumProcessInterface $process
      */
@@ -205,7 +210,21 @@ class Manager implements EventEmitterInterface
      */
     public function getInstallPath()
     {
-        return realpath(__DIR__ . '/../binaries');
+        if ($this->installPath === '') {
+            $this->installPath = realpath(__DIR__ . '/../binaries');
+        }
+
+        return $this->installPath;
+    }
+
+    /**
+     * Set the installation path for binaries.
+     *
+     * @param string $path
+     */
+    public function setInstallPath($path)
+    {
+        $this->installPath = $path;
     }
 
     /**

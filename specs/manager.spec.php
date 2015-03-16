@@ -48,6 +48,12 @@ describe('Manager', function () {
             $path = realpath(__DIR__ . '/../binaries');
             expect($this->manager->getInstallPath())->to->equal($path);
         });
+
+        it('should return a configured path', function () {
+            $path = __DIR__;
+            $this->manager->setInstallPath($path);
+            expect($this->manager->getInstallPath())->to->equal($path);
+        });
     });
 
     describe('->getBinaryResolver()', function () {
