@@ -40,6 +40,8 @@ describe('UpdateCommand', function () {
             $binary = $this->createBinary('binary', true, false);
 
             $this->manager->getBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
+            $this->manager->getPendingBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
+
             $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
             expect($tester->getDisplay())->to->match('/Updating binary/');
         });
@@ -51,6 +53,8 @@ describe('UpdateCommand', function () {
             $binary = $this->createBinary('binary', false, false);
 
             $this->manager->getBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
+            $this->manager->getPendingBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
+
             $tester->execute(['command' => $command->getName(), 'name' => 'binary']);
             expect($tester->getDisplay())->to->match('/binary is not supported by your system/');
         });
@@ -70,7 +74,8 @@ describe('UpdateCommand', function () {
                 $command = $this->application->find('update');
                 $tester = new CommandTester($command);
                 $binary = $this->createBinary('binary', true, true);
-                $this->manager->getBinaries(Argument::any())->willReturn('binary', $binary->reveal());
+                $this->manager->getBinaries(Argument::any())->willReturn(['binary' => $binary->reveal()]);
+                $this->manager->getPendingBinaries(Argument::any())->willReturn([]);
 
                 $tester->execute(['command' => $command->getName()]);
 
