@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Peridot\WebDriverManager\Process\SeleniumProcessInterface | WebDriver Manager</title>
+
+	<link rel="stylesheet" href="resources/style.css?1648332946">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Peridot.html">Peridot<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Peridot.WebDriverManager.html">WebDriverManager<span></span></a>
+						<ul>
+				<li><a href="namespace-Peridot.WebDriverManager.Binary.html">Binary<span></span></a>
+						<ul>
+				<li><a href="namespace-Peridot.WebDriverManager.Binary.Decompression.html">Decompression</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Binary.Request.html">Request</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Peridot.WebDriverManager.Console.html">Console</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Event.html">Event</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.OS.html">OS</a>
+						</li>
+				<li class="active"><a href="namespace-Peridot.WebDriverManager.Process.html">Process</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Test.html">Test</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Peridot.WebDriverManager.Process.SeleniumProcess.html">SeleniumProcess</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html">SeleniumProcessInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Peridot.WebDriverManager.Process.html" title="Summary of Peridot\WebDriverManager\Process"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface SeleniumProcessInterface</h1>
+
+
+	<div class="description">
+	<p>SeleniumProcessInterface describes how to control a Selenium process.</p>
+
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Peridot.WebDriverManager.Process.SeleniumProcess.html">Peridot\WebDriverManager\Process\SeleniumProcess</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> Peridot\WebDriverManager\Process<br>
+		<b>Package:</b> Peridot\WebDriverManager\Process<br>
+
+		<b>Located at</b> <a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#6-90" title="Go to source code">Process/SeleniumProcessInterface.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="isAvailable" id="_isAvailable">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isAvailable">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#13-18" title="Go to source code">isAvailable</a>( )</code>
+
+		<div class="description short">
+			<p>Returns whether or not java is available for use.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns whether or not java is available for use.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addBinary" id="_addBinary">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addBinary">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#20-28" title="Go to source code">addBinary</a>( <span><code><a href="class-Peridot.WebDriverManager.Binary.BinaryInterface.html">Peridot\WebDriverManager\Binary\BinaryInterface</a></code> <var>$binary</var></span>, <span>mixed <var>$directory</var></span> )</code>
+
+		<div class="description short">
+			<p>Add a driver or binary to the argument list. Binary files will
+be searched for in the given directory.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add a driver or binary to the argument list. Binary files will
+be searched for in the given directory.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$binary</var></dt>
+					<dd>
+</dd>
+					<dt><var>$directory</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addArg" id="_addArg">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addArg">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#30-36" title="Go to source code">addArg</a>( <span>string <var>$arg</var></span> )</code>
+
+		<div class="description short">
+			<p>Add arguments to be used by the process.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add arguments to be used by the process.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$arg</var></dt>
+					<dd>&lt;ul&gt;
+&lt;li&gt;should support variadic arguments&lt;/li&gt;
+&lt;/ul&gt;
+</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getArgs" id="_getArgs">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getArgs">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#38-43" title="Go to source code">getArgs</a>( )</code>
+
+		<div class="description short">
+			<p>Return the arguments being used by the process.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the arguments being used by the process.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="start" id="_start">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_start">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#45-51" title="Go to source code">start</a>( <span>boolean <var>$background</var></span> )</code>
+
+		<div class="description short">
+			<p>Start the process and return it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Start the process and return it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$background</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>$this
+
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCommand" id="_getCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCommand">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#53-58" title="Go to source code">getCommand</a>( )</code>
+
+		<div class="description short">
+			<p>Return the java command being opened by the process.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the java command being opened by the process.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStatus" id="_getStatus">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStatus">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#60-68" title="Go to source code">getStatus</a>( <span>boolean <var>$loop</var></span> )</code>
+
+		<div class="description short">
+			<p>Get process status. If loop is true it will loop
+until the process has finished before returning a final
+status.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get process status. If loop is true it will loop
+until the process has finished before returning a final
+status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$loop</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isRunning" id="_isRunning">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isRunning">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#70-75" title="Go to source code">isRunning</a>( )</code>
+
+		<div class="description short">
+			<p>Returns whether or not the process is running.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns whether or not the process is running.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getError" id="_getError">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getError">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#77-82" title="Go to source code">getError</a>( )</code>
+
+		<div class="description short">
+			<p>Get contents of error stream.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get contents of error stream.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="close" id="_close">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_close">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html#84-89" title="Go to source code">close</a>( )</code>
+
+		<div class="description short">
+			<p>Close the process.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Close the process.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		WebDriver Manager API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?721046668"></script>
+<script src="elementlist.js?2197007767"></script>
+</body>
+</html>

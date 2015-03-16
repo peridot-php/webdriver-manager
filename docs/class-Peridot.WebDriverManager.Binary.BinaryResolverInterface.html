@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Peridot\WebDriverManager\Binary\BinaryResolverInterface | WebDriver Manager</title>
+
+	<link rel="stylesheet" href="resources/style.css?1648332946">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Peridot.html">Peridot<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Peridot.WebDriverManager.html">WebDriverManager<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Peridot.WebDriverManager.Binary.html">Binary<span></span></a>
+						<ul>
+				<li><a href="namespace-Peridot.WebDriverManager.Binary.Decompression.html">Decompression</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Binary.Request.html">Request</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Peridot.WebDriverManager.Console.html">Console</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Event.html">Event</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.OS.html">OS</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Process.html">Process</a>
+						</li>
+				<li><a href="namespace-Peridot.WebDriverManager.Test.html">Test</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Peridot.WebDriverManager.Binary.AbstractBinary.html">AbstractBinary</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.BinaryResolver.html">BinaryResolver</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.ChromeDriver.html">ChromeDriver</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.CompressedBinary.html">CompressedBinary</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.IEDriver.html">IEDriver</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.SeleniumStandalone.html">SeleniumStandalone</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Peridot.WebDriverManager.Binary.BinaryInterface.html">BinaryInterface</a></li>
+				<li class="active"><a href="class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html">BinaryResolverInterface</a></li>
+				<li><a href="class-Peridot.WebDriverManager.Binary.DriverInterface.html">DriverInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Peridot.WebDriverManager.Binary.html" title="Summary of Peridot\WebDriverManager\Binary"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface BinaryResolverInterface</h1>
+
+
+	<div class="description">
+	<p>BinaryResolverInterface is responsible for fetching and decompressing binaries. It is used
+to get a usable result given a URI.</p>
+
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Peridot.WebDriverManager.Binary.BinaryResolver.html">Peridot\WebDriverManager\Binary\BinaryResolver</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> Peridot\WebDriverManager\Binary<br>
+		<b>Package:</b> Peridot\WebDriverManager\Binary<br>
+
+		<b>Located at</b> <a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#12-60" title="Go to source code">Binary/BinaryResolverInterface.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getBinaryRequest" id="_getBinaryRequest">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Peridot.WebDriverManager.Binary.Request.BinaryRequestInterface.html">Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface</a></code>|<code><a href="class-Peridot.WebDriverManager.Binary.Request.StandardBinaryRequest.html">Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBinaryRequest">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#20-25" title="Go to source code">getBinaryRequest</a>( )</code>
+
+		<div class="description short">
+			<p>Get the BinaryRequestInterface responsible for fetching remote binaries.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the BinaryRequestInterface responsible for fetching remote binaries.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Peridot.WebDriverManager.Binary.Request.BinaryRequestInterface.html">Peridot\WebDriverManager\Binary\Request\BinaryRequestInterface</a></code>|<code><a href="class-Peridot.WebDriverManager.Binary.Request.StandardBinaryRequest.html">Peridot\WebDriverManager\Binary\Request\StandardBinaryRequest</a></code></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBinaryDecompressor" id="_getBinaryDecompressor">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Peridot.WebDriverManager.Binary.Decompression.BinaryDecompressorInterface.html">Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface</a></code>|<code><a href="class-Peridot.WebDriverManager.Binary.Decompression.ZipDecompressor.html">Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBinaryDecompressor">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#27-33" title="Go to source code">getBinaryDecompressor</a>( )</code>
+
+		<div class="description short">
+			<p>Get the BinaryDecompressorInterface responsible for decompressing
+compressed binaries.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the BinaryDecompressorInterface responsible for decompressing
+compressed binaries.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Peridot.WebDriverManager.Binary.Decompression.BinaryDecompressorInterface.html">Peridot\WebDriverManager\Binary\Decompression\BinaryDecompressorInterface</a></code>|<code><a href="class-Peridot.WebDriverManager.Binary.Decompression.ZipDecompressor.html">Peridot\WebDriverManager\Binary\Decompression\ZipDecompressor</a></code></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSystem" id="_getSystem">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Peridot.WebDriverManager.OS.System.html">Peridot\WebDriverManager\OS\System</a></code>|<code><a href="class-Peridot.WebDriverManager.OS.SystemInterface.html">Peridot\WebDriverManager\OS\SystemInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSystem">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#35-41" title="Go to source code">getSystem</a>( )</code>
+
+		<div class="description short">
+			<p>Get the System object responsible for determining operating system
+information.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the System object responsible for determining operating system
+information.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Peridot.WebDriverManager.OS.System.html">Peridot\WebDriverManager\OS\System</a></code>|<code><a href="class-Peridot.WebDriverManager.OS.SystemInterface.html">Peridot\WebDriverManager\OS\SystemInterface</a></code></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="extract" id="_extract">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_extract">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#43-50" title="Go to source code">extract</a>( <span>string <var>$compressedFilePath</var></span>, <span>string <var>$directory</var></span> )</code>
+
+		<div class="description short">
+			<p>Extract a compressed file to the given directory.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Extract a compressed file to the given directory.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$compressedFilePath</var></dt>
+					<dd>
+</dd>
+					<dt><var>$directory</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="request" id="_request">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_request">#</a>
+		<code><a href="source-class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html#52-59" title="Go to source code">request</a>( <span>string <var>$url</var></span> )</code>
+
+		<div class="description short">
+			<p>Request the binary at the specified url, and return
+the contents.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Request the binary at the specified url, and return
+the contents.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		WebDriver Manager API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?721046668"></script>
+<script src="elementlist.js?2197007767"></script>
+</body>
+</html>
