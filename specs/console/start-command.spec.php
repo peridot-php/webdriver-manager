@@ -27,7 +27,7 @@ describe('StartCommand', function () {
     describe('->execute()', function () {
         it('should update and start', function () {
             $this->update->run(Argument::any(), Argument::any())->shouldBeCalled();
-            $this->manager->start(false, 4444)->shouldBeCalled();
+            $this->manager->startInForeground(4444)->shouldBeCalled();
 
             $command = $this->application->find('start');
             $tester = new CommandTester($command);
@@ -38,7 +38,7 @@ describe('StartCommand', function () {
         context('when port is supplied', function () {
             it('should use the specified port if available', function () {
                 $this->update->run(Argument::any(), Argument::any())->shouldBeCalled();
-                $this->manager->start(false, 9000)->shouldBeCalled();
+                $this->manager->startInForeground(9000)->shouldBeCalled();
 
                 $command = $this->application->find('start');
                 $tester = new CommandTester($command);

@@ -217,6 +217,28 @@ class Manager implements EventEmitterInterface
     }
 
     /**
+     * Start Selenium in the foreground.
+     *
+     * @param int $port
+     * @return SeleniumProcessInterface
+     */
+    public function startInForeground($port = 4444)
+    {
+        return $this->start(false, $port);
+    }
+
+    /**
+     * Start Selenium in a background process.
+     *
+     * @param int $port
+     * @return SeleniumProcessInterface
+     */
+    public function startInBackground($port = 4444)
+    {
+        return $this->start(true, $port);
+    }
+
+    /**
      * Remove all binaries from the install path.
      *
      * @return void
