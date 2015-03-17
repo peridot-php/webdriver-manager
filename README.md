@@ -3,19 +3,19 @@
 [![Build Status](https://travis-ci.org/peridot-php/webdriver-manager.png)](https://travis-ci.org/peridot-php/webdriver-manager)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/peridot-php/webdriver-manager/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/peridot-php/webdriver-manager/?branch=master)
 
-The perfect companion for projects with functional tests. Heavily inspired by the webdriver manager that ships with [protractor](https://github.com/angular/protractor). WebDriver Manager allows you to keep Selenium Server binaries up to date. It also provides a packaged solution for easily starting Selenium Server.
+The perfect companion for projects with functional tests. Heavily inspired by the `webdriver-manager` that ships with [protractor](https://github.com/angular/protractor). WebDriver Manager allows you to keep Selenium Server binaries up to date. It also provides a packaged solution for easily starting Selenium Server.
 
 In addition to an easy to use command line application, WebDriver Manager provides a library for managing Selenium binaries in your own apps and tools.
 
 ##Installation
 
-WebDriver Manager is meant to be a drop in for any project using Selenium WebDriver for functional tests.
+WebDriver Manager is meant to be a drop in installation for any project using Selenium WebDriver for functional tests.
 
 ```
 $ composer require --dev peridot-php/webdriver-manager
 ```
 
-Once installed, you can operate Selenium from the comfort of your project:
+Once installed, you can operate Selenium Server from the comfort of your project:
 
 ```
 $ vendor/bin/manager start
@@ -33,7 +33,7 @@ Remove all installed binaries.
 
 ###status
 
-List all available binaries and the status. Status shows if the binary is installed, out of date, or missing.
+List all available binaries and their installed status. Status shows if the binary is installed, out of date, or missing.
 
  ![WebDriver status command](https://raw.github.com/peridot-php/webdriver-manager/master/img/status.png "WebDriver status command")
 
@@ -78,7 +78,7 @@ $binaries = $manager->getBinaries(); //get a collection of managed binaries
 
 ###A note on starting Selenium in the background
 
-WebDriver Manager does not block when starting a background process. This makes it difficult to see if Selenium encountered any errors (perhaps a corrupt binary?). The `SeleniumProcess` class provides method for checking the status of the process. If you want to check that Selenium Server started in the background ok, you might try something like this:
+WebDriver Manager does not block when starting a background process. This makes it difficult to see if Selenium encountered any errors (perhaps a corrupt binary?). The `SeleniumProcess` class provides a method for checking the status of the process. If you want to check that Selenium Server started in the background ok, you might try something like this:
 
 ```php
 $process = $manager->start(true); //start in background
