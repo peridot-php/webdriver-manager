@@ -75,6 +75,23 @@ describe('Manager', function () {
         });
     });
 
+    describe('->setBinaryResolver()', function () {
+        it('should inherit events from the new binary resolver', function () {
+            $resolver = new BinaryResolver();
+            $manager = new Manager();
+            $manager->setBinaryResolver($resolver);
+            $progress = 0;
+
+            $manager->on('progress', function ($p) use (&$progress) {
+                $progress = $p;
+            });
+
+            $resolver->emit('progress', [50]);
+
+            expect($progress)->to->equal(50);
+        });
+    });
+
     describe('->removeBinary()', function () {
         it('should remove a binary from the collection of managed binaries', function () {
             $this->manager->removeBinary('selenium');

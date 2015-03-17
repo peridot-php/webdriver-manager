@@ -53,11 +53,11 @@ class Manager implements EventEmitterInterface
         $this->process = $process;
         $this->binaries = [];
 
-        $this->addBinary(new SeleniumStandalone($this->getBinaryResolver()));
-        $this->addBinary(new ChromeDriver($this->getBinaryResolver()));
-        $this->addBinary(new IEDriver($this->getBinaryResolver()));
-
-        $this->inherit(['progress', 'request.start', 'complete'], $this->getBinaryResolver());
+        $resolver = $this->getBinaryResolver();
+        $this->addBinary(new SeleniumStandalone($resolver));
+        $this->addBinary(new ChromeDriver($resolver));
+        $this->addBinary(new IEDriver($resolver));
+        $this->setBinaryResolver($resolver);
     }
 
     /**
@@ -104,6 +104,7 @@ class Manager implements EventEmitterInterface
     public function setBinaryResolver(BinaryResolverInterface $resolver)
     {
         $this->resolver = $resolver;
+        $this->inherit(['progress', 'request.start', 'complete'], $resolver);
     }
 
     /**
