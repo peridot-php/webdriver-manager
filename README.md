@@ -81,7 +81,7 @@ $binaries = $manager->getBinaries(); //get a collection of managed binaries
 WebDriver Manager does not block when starting a background process. This makes it difficult to see if Selenium encountered any errors (perhaps a corrupt binary?). The `SeleniumProcess` class provides a method for checking the status of the process. If you want to check that Selenium Server started in the background ok, you might try something like this:
 
 ```php
-$process = $manager->start(true); //start in background
+$process = $manager->startInBackground();
 usleep(250000); //give Selenium a quarter of a second to validate input
 if (! $process->isRunning()) {
 	//Selenium encountered an error
