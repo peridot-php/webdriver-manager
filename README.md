@@ -63,10 +63,10 @@ $manager->update('selenium'); //only update selenium
 
 $manager->clean(); //remove installed binaries
 
-$manager->start(); //start selenium in the foreground on port 4444
-$manager->start(false, 9999); //start selenium in the foreground on port 9999
-$manager->start(true); //start selenium in the background on port 4444
-$manager->start(true, 9999); //start in the background on port 9999 
+$manager->startInForeground(); //start selenium in the foreground on port 4444
+$manager->startInForeground(9999); //start selenium in the foreground on port 9999
+$manager->startInBackground(); //start selenium in the background on port 4444
+$manager->startInBackground(9999); //start in the background on port 9999 
 
 $path = $manager->getInstallPath(); //where binaries are installed
 $manager->setInstallPath(__DIR__); //set the path to install binaries
