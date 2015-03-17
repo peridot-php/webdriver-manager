@@ -87,6 +87,7 @@ if (! $process->isRunning()) {
 	//Selenium encountered an error
 	print $process->getError();
 	$process->close();
+    return;
 }
 
 //do rad Selenium things
