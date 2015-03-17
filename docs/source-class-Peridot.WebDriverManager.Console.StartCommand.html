@@ -142,7 +142,7 @@
 </span><span id="42" class="l"><a class="l" href="#42">42: </a>        <span class="php-var">$update</span>-&gt;run(<span class="php-keyword1">new</span> ArrayInput([<span class="php-quote">'command'</span> =&gt; <span class="php-quote">'update'</span>]), <span class="php-var">$output</span>);
 </span><span id="43" class="l"><a class="l" href="#43">43: </a>
 </span><span id="44" class="l"><a class="l" href="#44">44: </a>        <span class="php-var">$output</span>-&gt;writeln(<span class="php-quote">'&lt;info&gt;Starting Selenium Server...&lt;/info&gt;'</span>);
-</span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-var">$this</span>-&gt;manager-&gt;start(<span class="php-keyword1">false</span>, <span class="php-var">$port</span>);
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-var">$this</span>-&gt;manager-&gt;startInForeground(<span class="php-var">$port</span>);
 </span><span id="46" class="l"><a class="l" href="#46">46: </a>        <span class="php-keyword1">return</span> <span class="php-num">0</span>;
 </span><span id="47" class="l"><a class="l" href="#47">47: </a>    }
 </span><span id="48" class="l"><a class="l" href="#48">48: </a>} 
