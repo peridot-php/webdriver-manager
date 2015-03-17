@@ -21,5 +21,6 @@
         "evenement/evenement": "~2.0",
         "symfony/console": "~2.6",
         "splitbrain/php-archive": "~1.0"
-    }
+    },
+    "bin": ["bin/manager"]
 }
