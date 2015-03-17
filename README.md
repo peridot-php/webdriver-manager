@@ -95,7 +95,7 @@ if (! $process->isRunning()) {
 
 For more information, see the [API docs](http://peridot-php.github.io/webdriver-manager/docs/);
 
-##Running tests
+##Running Tests
 
 WebDriver Manager's tests were written using the [Peridot](http://peridot-php.github.io/) test framework.
 
