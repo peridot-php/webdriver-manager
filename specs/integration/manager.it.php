@@ -18,6 +18,20 @@ describe('Manager', function () {
         }
     });
 
+    describe('->start()', function () {
+        it('should support arbitrary arguments', function () {
+            $manager = new Manager();
+            $manager->updateSingle('selenium');
+            $log = tempnam(sys_get_temp_dir(), 'SEL_');
+            $proc = $manager->start(true, 4444, ['-log', $log]);
+            usleep(500000);
+            $proc->close();
+
+            $contents = file_get_contents($log);
+            expect($contents)->to->not->be->empty;
+        });
+    });
+
     describe('->update()', function () {
         it('should update a single binary', function () {
             $this->manager->update('selenium');
