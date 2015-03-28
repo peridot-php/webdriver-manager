@@ -128,7 +128,7 @@ to keep binaries and drivers up to date, as well as start Selenium Server.</p>
 		<b>Namespace:</b> Peridot\WebDriverManager<br>
 		<b>Package:</b> Peridot\WebDriverManager<br>
 
-		<b>Located at</b> <a href="source-class-Peridot.WebDriverManager.Manager.html#17-311" title="Go to source code">Manager.php</a><br>
+		<b>Located at</b> <a href="source-class-Peridot.WebDriverManager.Manager.html#17-318" title="Go to source code">Manager.php</a><br>
 	</div>
 
 
@@ -300,7 +300,7 @@ to keep binaries and drivers up to date, as well as start Selenium Server.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setBinaryResolver">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#99-107" title="Go to source code">setBinaryResolver</a>( <span><code><a href="class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html">Peridot\WebDriverManager\Binary\BinaryResolverInterface</a></code> <var>$resolver</var></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#99-108" title="Go to source code">setBinaryResolver</a>( <span><code><a href="class-Peridot.WebDriverManager.Binary.BinaryResolverInterface.html">Peridot\WebDriverManager\Binary\BinaryResolverInterface</a></code> <var>$resolver</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the BinaryResolver used to resolve binary files.</p>
@@ -338,7 +338,7 @@ to keep binaries and drivers up to date, as well as start Selenium Server.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSeleniumProcess">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#109-122" title="Go to source code">getSeleniumProcess</a>( )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#110-123" title="Go to source code">getSeleniumProcess</a>( )</code>
 
 		<div class="description short">
 			<p>Return the SeleniumProcessInterface that will execute the
@@ -376,7 +376,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBinaries">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#124-137" title="Go to source code">getBinaries</a>( <span>callable <var>$predicate</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#125-138" title="Go to source code">getBinaries</a>( <span>callable <var>$predicate</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Return all managed binaries.</p>
@@ -418,7 +418,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDrivers">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#139-149" title="Go to source code">getDrivers</a>( )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#140-150" title="Go to source code">getDrivers</a>( )</code>
 
 		<div class="description short">
 			<p>Return all binaries that are considered drivers.</p>
@@ -454,7 +454,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPendingBinaries">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#151-163" title="Go to source code">getPendingBinaries</a>( )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#152-164" title="Go to source code">getPendingBinaries</a>( )</code>
 
 		<div class="description short">
 			<p>Pending binaries are binaries that are supported but have not been installed.</p>
@@ -490,7 +490,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#165-180" title="Go to source code">update</a>( <span>mixed <var>$binaryName</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#166-181" title="Go to source code">update</a>( <span>mixed <var>$binaryName</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			<p>Fetch and save binaries.</p>
@@ -526,7 +526,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateSingle">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#182-196" title="Go to source code">updateSingle</a>( <span>mixed <var>$binaryName</var></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#183-197" title="Go to source code">updateSingle</a>( <span>mixed <var>$binaryName</var></span> )</code>
 
 		<div class="description short">
 			<p>Update a single binary.</p>
@@ -564,7 +564,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_start">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#198-217" title="Go to source code">start</a>( <span>boolean <var>$background</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$port</var> = <span class="php-num">4444</span></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#199-224" title="Go to source code">start</a>( <span>boolean <var>$background</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$port</var> = <span class="php-num">4444</span></span>, <span>array <var>$args</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Start the Selenium server.</p>
@@ -582,6 +582,9 @@ selenium server command.</p>
 					<dd>
 </dd>
 					<dt><var>$port</var></dt>
+					<dd>
+</dd>
+					<dt><var>$args</var></dt>
 					<dd>
 </dd>
 				</dl></div>
@@ -609,7 +612,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_startInForeground">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#219-228" title="Go to source code">startInForeground</a>( <span>integer <var>$port</var> = <span class="php-num">4444</span></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#226-235" title="Go to source code">startInForeground</a>( <span>integer <var>$port</var> = <span class="php-num">4444</span></span>, <span>array <var>$args</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Start Selenium in the foreground.</p>
@@ -624,6 +627,9 @@ selenium server command.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$port</var></dt>
+					<dd>
+</dd>
+					<dt><var>$args</var></dt>
 					<dd>
 </dd>
 				</dl></div>
@@ -651,7 +657,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_startInBackground">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#230-239" title="Go to source code">startInBackground</a>( <span>integer <var>$port</var> = <span class="php-num">4444</span></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#237-246" title="Go to source code">startInBackground</a>( <span>integer <var>$port</var> = <span class="php-num">4444</span></span>, <span>array <var>$args</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Start Selenium in a background process.</p>
@@ -666,6 +672,9 @@ selenium server command.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$port</var></dt>
+					<dd>
+</dd>
+					<dt><var>$args</var></dt>
 					<dd>
 </dd>
 				</dl></div>
@@ -693,7 +702,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clean">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#241-252" title="Go to source code">clean</a>( )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#248-259" title="Go to source code">clean</a>( )</code>
 
 		<div class="description short">
 			<p>Remove all binaries from the install path.</p>
@@ -725,7 +734,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getInstallPath">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#254-266" title="Go to source code">getInstallPath</a>( )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#261-273" title="Go to source code">getInstallPath</a>( )</code>
 
 		<div class="description short">
 			<p>Get the installation path of binaries.</p>
@@ -761,7 +770,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setInstallPath">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#268-276" title="Go to source code">setInstallPath</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#275-283" title="Go to source code">setInstallPath</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the installation path for binaries.</p>
@@ -799,7 +808,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_assertStartConditions">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#278-294" title="Go to source code">assertStartConditions</a>( <span><code><a href="class-Peridot.WebDriverManager.Binary.SeleniumStandalone.html">Peridot\WebDriverManager\Binary\SeleniumStandalone</a></code> <var>$selenium</var></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#285-301" title="Go to source code">assertStartConditions</a>( <span><code><a href="class-Peridot.WebDriverManager.Binary.SeleniumStandalone.html">Peridot\WebDriverManager\Binary\SeleniumStandalone</a></code> <var>$selenium</var></span> )</code>
 
 		<div class="description short">
 			<p>Assert that the selenium server can start.</p>
@@ -841,7 +850,7 @@ selenium server command.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_registerBinaries">#</a>
-		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#296-310" title="Go to source code">registerBinaries</a>( <span><code><a href="class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html">Peridot\WebDriverManager\Process\SeleniumProcessInterface</a></code> <var>$process</var></span>, <span><code><a href="class-Peridot.WebDriverManager.Binary.SeleniumStandalone.html">Peridot\WebDriverManager\Binary\SeleniumStandalone</a></code> <var>$selenium</var></span> )</code>
+		<code><a href="source-class-Peridot.WebDriverManager.Manager.html#303-317" title="Go to source code">registerBinaries</a>( <span><code><a href="class-Peridot.WebDriverManager.Process.SeleniumProcessInterface.html">Peridot\WebDriverManager\Process\SeleniumProcessInterface</a></code> <var>$process</var></span>, <span><code><a href="class-Peridot.WebDriverManager.Binary.SeleniumStandalone.html">Peridot\WebDriverManager\Binary\SeleniumStandalone</a></code> <var>$selenium</var></span> )</code>
 
 		<div class="description short">
 			<p>Register selenium binary and drivers with the process.</p>
