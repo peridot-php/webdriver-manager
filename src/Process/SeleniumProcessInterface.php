@@ -36,6 +36,14 @@ interface SeleniumProcessInterface
     public function addArg($arg);
 
     /**
+     * Add multiple arguments at once.
+     *
+     * @param array $args
+     * @return void
+     */
+    public function addArgs(array $args);
+
+    /**
      * Return the arguments being used by the process.
      *
      * @return array
@@ -87,4 +95,4 @@ interface SeleniumProcessInterface
      * @return int
      */
     public function close();
-} 
+}

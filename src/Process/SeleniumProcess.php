@@ -80,6 +80,19 @@ class SeleniumProcess implements SeleniumProcessInterface
     /**
      * {@inheritdoc}
      *
+     * @param array $args
+     * @return void
+     */
+    public function addArgs(array $args)
+    {
+        foreach ($args as $arg) {
+            $this->args[] = $arg;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @return bool
      */
     public function isAvailable()
