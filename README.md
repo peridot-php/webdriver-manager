@@ -95,6 +95,10 @@ if (! $process->isRunning()) {
 
 For more information, see the [API docs](http://peridot-php.github.io/webdriver-manager/docs/);
 
+##Examples
+
+The API has been used to create a [custom Behat listener](https://github.com/brianium/behavior-driven-todos/blob/master/src/Test/WebDriverListener.php) capable of starting the server before Mink tests are run. This tool is included as part of a demo project known as [behavior driven todos](https://github.com/brianium/behavior-driven-todos).
+
 ##Running Tests
 
 WebDriver Manager's tests were written using the [Peridot](http://peridot-php.github.io/) test framework.
