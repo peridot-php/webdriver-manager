@@ -9,11 +9,11 @@ namespace Peridot\WebDriverManager;
  */
 class Versions 
 {
-    const SELENIUM = '2.45.0';
+    const SELENIUM = '2.46.0';
 
-    const CHROMEDRIVER = '2.14';
+    const CHROMEDRIVER = '2.15';
 
-    const IEDRIVER = '2.45.0';
+    const IEDRIVER = '2.46.0';
 
-    const MANAGER = '0.0.0';
+    const MANAGER = '1.3.0';
 } 
