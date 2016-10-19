@@ -133,6 +133,12 @@ class ChromeDriver extends CompressedBinary implements DriverInterface
      */
     public function getExtractedName()
     {
-        return $this->getName();
+        $name = $this->getName();
+        $system = $this->resolver->getSystem();
+
+        if ($system->isWindows()) {
+            $name .= '.exe';
+        }
+        return $name;
     }
 }

@@ -99,7 +99,7 @@ class SeleniumProcess implements SeleniumProcessInterface
     {
         $command = 'java -version';
         $descriptors = $this->getDescriptorSpec();
-        $this->process = proc_open($command, $descriptors, $this->pipes);
+        $this->process = proc_open($this->formatCommand($command), $descriptors, $this->pipes);
         $status = $this->getStatus(true);
         $available = $status['exitcode'] == 0;
         proc_close($this->process);
@@ -131,7 +131,7 @@ class SeleniumProcess implements SeleniumProcessInterface
      */
     public function getCommand()
     {
-        return 'java ' . implode(' ', $this->args);
+        return $this->formatCommand('java ' . implode(' ', $this->args));
     }
 
     /**
@@ -180,6 +180,20 @@ class SeleniumProcess implements SeleniumProcessInterface
     {
         proc_terminate($this->process);
         return proc_close($this->process);
+    }
+
+    /**
+     * Format a shell command according to the running Operating System to avoid zombie processes.
+     *
+     * @param string $command A shell command.
+     * @return string
+     */
+    private function formatCommand($command)
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return $command;
+        }
+        return 'exec ' . $command;
     }
 
     /**

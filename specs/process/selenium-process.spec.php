@@ -32,7 +32,8 @@ describe('SeleniumProcess', function () {
         it('should return a java command with the arguments joined', function () {
             $this->process->addArg('-port', 9000);
             $command = $this->process->getCommand();
-            expect($command)->to->equal('java -jar -port 9000');
+            $prefix = strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' ? 'exec ' : '';
+            expect($command)->to->equal($prefix . 'java -jar -port 9000');
         });
     });
 
