@@ -32,7 +32,7 @@ class ChromeDriver extends CompressedBinary implements DriverInterface
         $system = $this->resolver->getSystem();
 
         if ($system->isMac()) {
-            $file .= 'mac32';
+            $file .= 'mac64';
         }
 
         if ($system->isWindows()) {

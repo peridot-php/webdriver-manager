@@ -18,5 +18,10 @@ install:
   - composer install --prefer-source
 
 script:
-  - vendor/bin/peridot 
+  - vendor/bin/peridot
   - vendor/bin/peridot --grep *.it.php
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
