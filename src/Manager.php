@@ -309,10 +309,10 @@ class Manager implements EventEmitterInterface
      */
     protected function registerBinaries(SeleniumProcessInterface $process, SeleniumStandalone $selenium)
     {
-        $process->addBinary($selenium, $this->getInstallPath());
         $drivers = $this->getDrivers();
         foreach ($drivers as $driver) {
             $process->addBinary($driver, $this->getInstallPath());
         }
+        $process->addBinary($selenium, $this->getInstallPath());
     }
 }

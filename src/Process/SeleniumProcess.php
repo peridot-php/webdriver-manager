@@ -28,7 +28,6 @@ class SeleniumProcess implements SeleniumProcessInterface
 
     public function __construct()
     {
-        $this->addArg('-jar');
     }
 
     /**
@@ -47,6 +46,10 @@ class SeleniumProcess implements SeleniumProcessInterface
         if ($binary instanceof DriverInterface) {
             $this->addArg('-D' . $binary->getDriverPath($directory));
             return;
+        }
+
+        if(strpos($binary->getFileName(), "selenium-server-standalone") !== false){
+            $this->addArg('-jar');
         }
 
         $this->addArg(realpath($directory . '/' . $binary->getFileName()));
