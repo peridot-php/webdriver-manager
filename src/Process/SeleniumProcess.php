@@ -48,12 +48,18 @@ class SeleniumProcess implements SeleniumProcessInterface
             return;
         }
 
-        if(strpos($binary->getFileName(), "selenium-server-standalone") !== false){
+        if($this->pathContains($binary->getFileName(), ".jar")){
             $this->addArg('-jar');
         }
 
         $this->addArg(realpath($directory . '/' . $binary->getFileName()));
     }
+
+    private function pathContains($path, $match)
+    {
+        return strpos($path, $match) !== false;
+    }
+
 
     /**
      * {@inheritdoc}
