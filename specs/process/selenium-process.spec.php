@@ -90,7 +90,7 @@ describe('SeleniumProcess', function () {
             it('should add an .exe', function () {
                 $this->process->addBinary($this->driver, $this->fixtures);
                 $args = $this->process->getArgs();
-                expect($args[1])->to->match('/[.]exe$/');
+                expect($args[0])->to->match('/[.]exe$/');
             });
         });
     });
