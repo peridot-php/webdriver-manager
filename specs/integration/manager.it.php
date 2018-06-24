@@ -47,6 +47,7 @@ describe('Manager', function () {
                 $this->system->isMac()->willReturn(true);
                 $this->system->isWindows()->willReturn(false);
                 $this->system->isLinux()->willReturn(false);
+                $this->system->is64Bit()->willReturn(true);
             });
 
             require 'shared/manager-update.php';
@@ -102,7 +103,13 @@ describe('Manager', function () {
                     $this->system->is64Bit()->willReturn(false);
                 });
 
-                require 'shared/manager-update.php';
+                //require 'shared/manager-update.php';
+                it('should not find linux 32 bit for version 2.38', function () {
+                    $this->manager->update();
+                    $path = $this->manager->getInstallPath();
+                    $chrome = glob("$path/chromedriver*");
+                    expect($chrome)->to->be->empty;
+                });
             });
 
             context('and it is 64 bit linux', function () {
