@@ -1,6 +1,7 @@
 <?php
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Manager;
+use Peridot\WebDriverManager\Binary\ChromeDriver;
 
 describe('Manager', function () {
     beforeEach(function () {
@@ -103,13 +104,19 @@ describe('Manager', function () {
                     $this->system->is64Bit()->willReturn(false);
                 });
 
-                //require 'shared/manager-update.php';
-                it('should not find linux 32 bit for version 2.38', function () {
-                    $this->manager->update();
-                    $path = $this->manager->getInstallPath();
-                    $chrome = glob("$path/chromedriver*");
-                    expect($chrome)->to->be->empty;
+                it('should update if chrome driver exists for this version', function () {
+                    $binary = new ChromeDriver(new BinaryResolver(null, null, $this->system->reveal()));
+                    $context = stream_context_create(array(
+                        'http' => array('ignore_errors' => true),
+                    ));
+                    if($result = file_get_contents($binary->getUrl(), false, $context)){
+                        require 'shared/manager-update.php';
+                    }else{
+                        print("File not found for this version.".$binary->getUrl());
+                    }
                 });
+
+
             });
 
             context('and it is 64 bit linux', function () {
