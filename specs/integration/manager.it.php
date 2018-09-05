@@ -1,6 +1,7 @@
 <?php
 use Peridot\WebDriverManager\Binary\BinaryResolver;
 use Peridot\WebDriverManager\Manager;
+use Peridot\WebDriverManager\Binary\ChromeDriver;
 
 describe('Manager', function () {
     beforeEach(function () {
@@ -18,19 +19,6 @@ describe('Manager', function () {
         }
     });
 
-    describe('->start()', function () {
-        it('should support arbitrary arguments', function () {
-            $manager = new Manager();
-            $manager->updateSingle('selenium');
-            $log = tempnam(sys_get_temp_dir(), 'SEL_');
-            $proc = $manager->start(true, 4444, ['-log', $log]);
-            usleep(500000);
-            $proc->close();
-
-            $contents = file_get_contents($log);
-            expect($contents)->to->not->be->empty;
-        });
-    });
 
     describe('->update()', function () {
         it('should update a single binary', function () {
@@ -47,6 +35,7 @@ describe('Manager', function () {
                 $this->system->isMac()->willReturn(true);
                 $this->system->isWindows()->willReturn(false);
                 $this->system->isLinux()->willReturn(false);
+                $this->system->is64Bit()->willReturn(true);
             });
 
             require 'shared/manager-update.php';
@@ -102,7 +91,19 @@ describe('Manager', function () {
                     $this->system->is64Bit()->willReturn(false);
                 });
 
-                require 'shared/manager-update.php';
+                it('should update if chrome driver exists for this version', function () {
+                    $binary = new ChromeDriver(new BinaryResolver(null, null, $this->system->reveal()));
+                    $context = stream_context_create(array(
+                        'http' => array('ignore_errors' => true),
+                    ));
+                    if($result = file_get_contents($binary->getUrl(), false, $context)){
+                        require 'shared/manager-update.php';
+                    }else{
+                        print("File not found for this version.".$binary->getUrl());
+                    }
+                });
+
+
             });
 
             context('and it is 64 bit linux', function () {

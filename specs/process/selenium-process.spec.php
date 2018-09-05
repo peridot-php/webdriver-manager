@@ -15,9 +15,9 @@ describe('SeleniumProcess', function () {
         }
     });
 
-    it('should initialize with a -jar argument', function () {
+    it('should not initialize with a -jar argument', function () {
         $args = $this->process->getArgs();
-        expect($args)->to->contain('-jar');
+        expect($args)->to->not->contain('-jar');
     });
 
     describe('->addArg', function () {
@@ -33,7 +33,7 @@ describe('SeleniumProcess', function () {
             $this->process->addArg('-port', 9000);
             $command = $this->process->getCommand();
             $prefix = strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' ? 'exec ' : '';
-            expect($command)->to->equal($prefix . 'java -jar -port 9000');
+            expect($command)->to->equal($prefix . 'java -port 9000');
         });
     });
 
@@ -43,7 +43,7 @@ describe('SeleniumProcess', function () {
             $this->driver = new ChromeDriver(new BinaryResolver(null, null, $this->os->reveal()));
             $this->selenium = new SeleniumStandalone(new BinaryResolver());
             file_put_contents($this->fixtures . '/' . $this->driver->getOutputFileName(), 'zipzipzip');
-            file_put_contents($this->fixtures . '/' . $this->selenium->getFileName(), 'seleniumiscooool');
+            file_put_contents($this->fixtures . '/' . $this->selenium->getFileName(), 'seleniumiscooool.jar');
         });
 
         beforeEach(function () {
@@ -69,6 +69,15 @@ describe('SeleniumProcess', function () {
             $this->process->addBinary($this->selenium, $this->fixtures);
             $args = $this->process->getArgs();
             expect($args)->to->contain(realpath($this->fixtures . '/' . $this->selenium->getFileName()));
+
+        });
+
+        it('should add the -jar if is java program', function () {
+            $this->process->addBinary($this->selenium, $this->fixtures);
+            $args = $this->process->getArgs();
+            expect($args)->to->contain('-jar');
+            expect($args)->to->contain(realpath($this->fixtures . '/' . $this->selenium->getFileName()));
+
         });
 
         context('when on windows', function () {
@@ -81,7 +90,7 @@ describe('SeleniumProcess', function () {
             it('should add an .exe', function () {
                 $this->process->addBinary($this->driver, $this->fixtures);
                 $args = $this->process->getArgs();
-                expect($args[1])->to->match('/[.]exe$/');
+                expect($args[0])->to->match('/[.]exe$/');
             });
         });
     });

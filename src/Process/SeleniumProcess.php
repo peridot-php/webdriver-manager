@@ -28,7 +28,6 @@ class SeleniumProcess implements SeleniumProcessInterface
 
     public function __construct()
     {
-        $this->addArg('-jar');
     }
 
     /**
@@ -49,8 +48,18 @@ class SeleniumProcess implements SeleniumProcessInterface
             return;
         }
 
+        if($this->pathContains($binary->getFileName(), ".jar")){
+            $this->addArg('-jar');
+        }
+
         $this->addArg(realpath($directory . '/' . $binary->getFileName()));
     }
+
+    private function pathContains($path, $match)
+    {
+        return strpos($path, $match) !== false;
+    }
+
 
     /**
      * {@inheritdoc}
